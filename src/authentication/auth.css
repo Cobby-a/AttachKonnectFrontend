@@ -1,0 +1,172 @@
+body {
+    background-image: url("../assets/bg.svg");
+    /* background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;*/
+    background-size: 100%;
+}
+
+.logo{
+    position: absolute; 
+    top: 1rem; 
+    left: 1rem;
+}
+
+@media screen and (max-width: 800px){
+    .logo{
+        top: 0.8rem; 
+        left: 0.8rem;
+    }
+}
+.logo img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+}
+.container {
+    min-height: 100vh;
+  /* using flex because of better browser support */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.maincontainer {
+    width: 90vw;
+    margin: 7rem auto;
+    background: #ffffff;
+    border-radius: 0.25rem;
+    padding: 0rem;
+    max-width: 1142px;
+    display: grid;
+    /* gap: 1rem 2rem; */
+    max-height: 100vh;
+  }
+  .container1{
+    background: #242D4E;
+    width: 100%;
+    border-radius: 0.25rem 0 0 0.25rem;
+  }
+  .container2{
+    background: #ffffff;
+    width: 100%;
+    border-radius: 0 0.25rem 0.25rem 0;
+    /* height: 100vh; */
+    margin: auto auto;
+    /* max-width: 500px;
+    min-width: 300px; */
+  }
+  .container2 h2 {
+    text-align: center;
+  }
+  .container1 img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  @media screen and (min-width: 900px) {
+    .maincontainer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    #welcome p{
+      font-size: 1.5rem;
+    }
+    .underline{
+      width: 4.5rem;
+      height: 2px;
+      background: #868282;
+      margin-left: 0.4rem;
+      margin-right: 0.4rem;
+      margin-top: 1.3rem;
+    }
+  }
+  @media screen and (max-width: 900px){
+    .container1{
+      display: none;
+    }
+    .container2{
+      border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      /* height: 100vh; */
+    }
+    .underline{
+      width: 3.125rem;
+      height: 2px;
+      background: #868282;
+      margin-left: 0.4rem;
+      margin-right: 0.4rem;
+      margin-top: 1.3rem;
+      /* align-self: center; */
+    }
+    form{
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+  .container2 h2{
+    font-family: Tahoma;
+    font-weight: 400;
+    color: #4D4D4D;
+    line-height: 43px;
+  }
+  #welcome{
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+  #welcome p{
+    font-size: 1.25rem;
+    line-height: 28.8px;
+    color: #313030;
+    opacity: 30%;
+  }
+  .userTypes{
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: -1rem;
+    padding-right: 20px;
+  }
+  form{
+    width: 100%;
+    max-width: 350px;
+    min-width: 100px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+    /* justify-content: center; */
+    
+  }
+  fieldset{
+    border: none;
+  }
+  input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    min-height: 3rem;
+    font-size: 1.2rem;
+    padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+    border: 2px solid #efefef;
+    border-radius: 0.5rem;
+    color: #444444;
+  }
+  input:focus{
+    outline: none;
+  }
+  button{
+    width: 100%;
+    margin-top: 10px;
+    min-height: 3rem;
+    font-size: 1.3rem;
+    padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    background-color: #1A1AFF;
+    border: none;
+    font-weight: bold;
+    /* line-height: 21.78px; */
+    /* font-family: Tahoma; */
+    cursor: pointer;
+  }
