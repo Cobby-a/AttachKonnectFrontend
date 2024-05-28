@@ -105,10 +105,11 @@ body {
     }
   }
   .container2 h2{
-    font-family: Tahoma;
+    /* font-family: Tahoma; */
     font-weight: 400;
     color: #4D4D4D;
     line-height: 43px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   #welcome{
     display: inline-flex;
