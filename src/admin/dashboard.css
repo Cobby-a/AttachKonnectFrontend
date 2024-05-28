@@ -1,0 +1,191 @@
+@media screen and (min-width: 0px){
+    .adminBody{
+        margin: 1rem;
+    }
+    .profile img{
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile h2{
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 18px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .welcome{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 600px){
+    .adminBody{
+        margin: 1.5rem;
+    }
+    .profile img{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile h2{
+        font-weight: 400;
+        line-height: 28px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.5rem;
+        
+    }
+    .welcome{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 900px){
+    .adminBody{
+        margin: 2rem 3rem 2rem 3rem;
+    }
+    .profile img{
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile h2{
+        font-weight: 400;
+        /* color: #4D4D4D; */
+        line-height: 60px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 2rem;
+        
+    }
+    .welcome{
+        display: none;
+    }
+}
+
+.profile{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.75rem;
+    /* margin-bottom: 1.5rem; */
+    align-items: center;
+}
+
+@media screen and (min-width: 1000px){
+    .welcome{
+        display: flex;
+        flex-direction: row;
+        /* flex-wrap: wrap; */
+        justify-content: center;
+        /* align-content: flex-end; */
+        /* gap: 28px; */
+        max-width: 700px;
+        max-height: 160px;
+        margin: 0 auto;
+        background-image: linear-gradient(to right, #925FE2, #DFCFF7);
+        /* justify-items: flex-end; */
+    
+        padding: 0.65rem 3rem;
+        border-radius: 1rem;
+        /* margin-right: 0.5rem; */
+    }
+    .welcome p{
+        font-size: 0.7rem;
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .welcome h3{
+        font-size: 1.4rem;
+        color: #ffffff;
+        line-height: 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+    }
+    .welcome div{
+        width: 100%;
+        max-width: 350px;
+        /* height: 224px; */
+        /* object-fit: cover; */
+        /* color: #1D2254; */
+        /* text-align: center; */
+        align-self: center;
+    }
+    .welcome img{
+        width: 100%;
+        max-width: 300px;
+        
+        /* height: 50%; */
+        object-fit: cover;
+    }
+    .adminBody section{
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-around;
+        align-content: space-around;
+    }
+    .welcome1{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .welcome1{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        /* justify-content: center; */
+        /* align-content: flex-end; */
+        /* gap: 28px; */
+        max-width: 900px;
+        /* max-height: 160px; */
+        /* margin: 0 auto; */
+        background-image: linear-gradient(to right, #925FE2, #DFCFF7);
+        /* justify-items: flex-end; */
+    
+        padding: 1rem 0.5rem 0.65em 1.5rem;
+        border-radius: 1rem;
+        /* margin-right: 0.5rem; */
+        margin-top: 1.5rem;
+    }
+    .welcome1 p{
+        font-size: 0.7rem;
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* font-family: Arial; */
+    }
+    .welcome1 h3{
+        font-size: 1.4rem;
+        color: #ffffff;
+        line-height: 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+    }
+    .welcome1 div{
+        width: 100%;
+        max-width: 350px;
+        /* height: 224px; */
+        /* object-fit: cover; */
+        /* color: #1D2254; */
+        /* text-align: center; */
+        align-self: center;
+    }
+    .welcome1 img{
+        width: 100%;
+        max-width: 300px;
+        
+        /* height: 50%; */
+        object-fit: cover;
+    }
+    /* .adminBody section{
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-around;
+        align-content: space-around;
+    } */
+}

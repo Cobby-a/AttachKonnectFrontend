@@ -1,10 +1,10 @@
-import Auth from "./authentication/auth";
-
+import AdminDashboard from "./admin/dashboard";
 
 function App() {
   return (
     <div className="App">
-      <Auth/>
+      {/* <Auth/> */}
+      <AdminDashboard/>
     </div>
   );
 }

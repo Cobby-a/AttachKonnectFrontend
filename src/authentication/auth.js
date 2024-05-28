@@ -2,7 +2,7 @@ import ManagerSignIn from "./manager";
 import './auth.css'
 const Auth = () => {
     return(
-        <main>
+        <main className="body">
             <ManagerSignIn/>
         </main>
     )
