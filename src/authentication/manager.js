@@ -74,7 +74,7 @@ const ManagerSignIn = () => {
                         <FormControlLabel
                         value="admin"
                         control={<Checkbox />}
-                        label={<span style={{fontSize: '1rem', color: "#8C91AA", fontFamily: 'Poppins'}}>Admin</span>}
+                        label={<span style={{fontSize: '0.8rem', color: "#8C91AA", fontFamily: 'Poppins'}}>Admin</span>}
                         labelPlacement="bottom"
                         sx={{ '& .MuiSvgIcon-root': { fontSize: 24 }, }}
                         onChange={Admin}
@@ -83,7 +83,7 @@ const ManagerSignIn = () => {
                         <FormControlLabel
                         value="supervisor"
                         control={<Checkbox />}
-                        label={<span style={{fontSize: '1rem', color: "#8C91AA", fontFamily: 'Poppins'}}>Supervisor</span>}
+                        label={<span style={{fontSize: '0.8rem', color: "#8C91AA", fontFamily: 'Poppins'}}>Supervisor</span>}
                         labelPlacement="bottom"
                         sx={{ '& .MuiSvgIcon-root': { fontSize: 24 }, marginLeft: '-0.3rem'}}
                         onChange={Supervisor}
@@ -92,7 +92,7 @@ const ManagerSignIn = () => {
                         <FormControlLabel
                         value="student"
                         control={<Checkbox />}
-                        label={<span style={{fontSize: '1rem', color: "#8C91AA", fontFamily: 'Poppins'}}>Student</span>}
+                        label={<span style={{fontSize: '0.8rem', color: "#8C91AA", fontFamily: 'Poppins'}}>Student</span>}
                         labelPlacement="bottom"
                         sx={{ '& .MuiSvgIcon-root': { fontSize: 24 }, marginLeft: '-0.3rem' }}
                         onChange={Student}
@@ -101,7 +101,7 @@ const ManagerSignIn = () => {
                         <FormControlLabel
                         value="manager"
                         control={<Checkbox />}
-                        label={<span style={{fontSize: '1rem', color: "#8C91AA", paddingTop: '4rem', fontFamily: 'Poppins'}}>Manager</span>}
+                        label={<span style={{fontSize: '0.8rem', color: "#8C91AA", paddingTop: '4rem', fontFamily: 'Poppins'}}>Manager</span>}
                         labelPlacement="bottom"
                         sx={{ '& .MuiSvgIcon-root': { fontSize: 24 }, marginLeft: '-0.3rem', marginRight: '-0.3rem' }}
                         onChange={Manager}
@@ -116,7 +116,7 @@ const ManagerSignIn = () => {
                             <FormControlLabel
                             value="showpassword"
                             control={<Checkbox />}
-                            label={<span style={{fontSize: '0.875rem', color: "#8C91AA", marginLeft: '-0.5rem', fontFamily: 'Poppins' }}>Show Password</span>}
+                            label={<span style={{fontSize: '0.8rem', color: "#8C91AA", marginLeft: '-0.5rem', fontFamily: 'Poppins' }}>Show Password</span>}
                             labelPlacement="end"
                             sx={{ '& .MuiSvgIcon-root': { fontSize: 17 },marginTop: '-1rem'}}
                             onChange={()=>setForPassword(!forPassword)}
