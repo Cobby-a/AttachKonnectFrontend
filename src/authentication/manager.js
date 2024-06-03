@@ -117,7 +117,7 @@ const ManagerSignIn = () => {
                             value="showpassword"
                             control={<Checkbox />}
                             label={<span style={{fontSize: '0.875rem', color: "#8C91AA", marginLeft: '-0.5rem', fontFamily: 'Poppins' }}>Show Password</span>}
-                            labelPlacement="right"
+                            labelPlacement="end"
                             sx={{ '& .MuiSvgIcon-root': { fontSize: 17 },marginTop: '-1rem'}}
                             onChange={()=>setForPassword(!forPassword)}
                             checked={forPassword}
