@@ -25,7 +25,6 @@
 }
 .container {
     min-height: 100vh;
-  /* using flex because of better browser support */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +37,6 @@
     padding: 0rem;
     max-width: 1142px;
     display: grid;
-    /* gap: 1rem 2rem; */
     max-height: 100vh;
   }
   .container1{
@@ -50,10 +48,7 @@
     background: #ffffff;
     width: 100%;
     border-radius: 0 0.25rem 0.25rem 0;
-    /* height: 100vh; */
     margin: auto auto;
-    /* max-width: 500px;
-    min-width: 300px; */
   }
   .container2 h2 {
     text-align: center;
@@ -88,7 +83,6 @@
       border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
       margin-top: 3rem;
       margin-bottom: 3rem;
-      /* height: 100vh; */
     }
     .underline{
       width: 3.125rem;
@@ -97,7 +91,6 @@
       margin-left: 0.4rem;
       margin-right: 0.4rem;
       margin-top: 1.3rem;
-      /* align-self: center; */
     }
     form{
       margin-left: 1rem;
@@ -105,7 +98,6 @@
     }
   }
   .container2 h2{
-    /* font-family: Tahoma; */
     font-weight: 400;
     color: #4D4D4D;
     line-height: 43px;
@@ -136,7 +128,6 @@
     min-width: 100px;
     margin: 1rem auto;
     padding: 0 1rem;
-    /* justify-content: center; */
     
   }
   fieldset{
@@ -152,6 +143,7 @@
     border: 2px solid #efefef;
     border-radius: 0.5rem;
     color: #444444;
+    font-family: 'Poppins';
   }
   input:focus{
     outline: none;
@@ -167,7 +159,6 @@
     background-color: #1A1AFF;
     border: none;
     font-weight: bold;
-    /* line-height: 21.78px; */
-    /* font-family: Tahoma; */
     cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
