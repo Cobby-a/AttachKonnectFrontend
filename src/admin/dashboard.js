@@ -16,10 +16,13 @@ const AdminDashboard = () => {
                     <img src={profile} alt="profile" />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <h2 style={{alignSelf: 'center'}}>Solomon</h2>
-                        <div className='hamMenu' onClick={()=>setMenu(!menu)}>
-                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '2.2rem', cursor: 'pointer'}}/>
+                        <div className='hamMenu'>
+                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
-                            <p style={{fontFamily: 'Segoe UI',  marginBottom: '2rem', marginLeft: '-1rem', fontWeight:'600',}}>Welcome to dashboard</p>
+                            {/* <div style={{display: 'flex', justifyContent: 'space-between', justifyItems: 'center'}}> */}
+                                <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer', position: 'relative', left: '87%', marginBottom: '0.75rem'}} onClick={()=>setMenu(!menu)}/>
+                                <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p>
+                            {/* </div> */}
                             <div className='SidebarIcons'>
                                 <div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%'}}/>Dashboard</div>
                                 <div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div>
@@ -80,13 +83,13 @@ const AdminDashboard = () => {
                     </div>
                     
                     <div className='supervisors'>
-                        <h3 style={{textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 600, paddingBottom: '3rem', marginTop: '-3rem' }}>Supervisors</h3>
+                        <h3 style={{textAlign: 'center', fontWeight: 600, paddingBottom: '3rem', marginTop: '-3rem' }}>Supervisors</h3>
                         <div>
                         <img src={profile} alt="profile" />
                         <img src={profile} alt="profile" />
                         <img src={profile} alt="profile" />
                         </div>
-                        <h3 style={{textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 600, marginTop: '1rem', cursor: 'pointer', color: '#925FE2', paddingLeft: '12rem', fontSize: '1.4rem' }}>See all</h3>
+                        <h3 style={{textAlign: 'center', fontWeight: 600, marginTop: '0.7rem', cursor: 'pointer', color: '#925FE2', paddingLeft: '13.9rem', fontSize: '1.2rem' }}>See all</h3>
 
                     </div>
                 </article>
@@ -112,13 +115,13 @@ const AdminDashboard = () => {
                     </div>
                     
                     <div className='Supervisors'>
-                        <h3 style={{textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 600, paddingBottom: '2rem', }}>Supervisors</h3>
+                        <h3 style={{textAlign: 'center', fontWeight: 600, paddingBottom: '2rem', }}>Supervisors</h3>
                         <div>
                         <img src={profile} alt="profile" />
                         <img src={profile} alt="profile" />
                         <img src={profile} alt="profile" />
                         </div>
-                        <h3 style={{textAlign: 'center', fontFamily: 'Segoe UI', fontWeight: 600, marginTop: '1rem', cursor: 'pointer', color: '#925FE2', paddingLeft: '12rem', fontSize: '1.4rem' }}>See all</h3>
+                        <p style={{textAlign: 'center', marginTop: '0.5rem', cursor: 'pointer', color: '#925FE2', paddingLeft: '13.9rem', fontSize: '1.1rem' }}>See all</p>
 
                     </div>
                 </article>
