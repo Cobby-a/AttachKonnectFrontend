@@ -1,0 +1,55 @@
+@media screen and (min-width: 1000px){
+    .hamMenu{
+        display: none;
+    }
+    .sidebar{
+        max-width: 350px;
+        font-family: 'Poppins';
+        flex: 1;
+    }
+    .sidebarIcons div{
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    .sidebarIcons{
+        width: 180px;
+    }
+    .Sidebar{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .hamMenu{
+        align-self: flex-end;
+    }
+    .SidebarIcons div{
+        font-size: 1rem;
+        padding-bottom: 1.2rem;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    .SidebarIcons{
+        margin-top: 2rem;
+    }
+    .Sidebar{
+        position: fixed;
+        top: 0;
+        right: 0px;
+        margin-right: 0.5rem;
+        width: 320px;
+        height: 100vh;
+        background-color: #ffffff;
+        padding-left: 2rem;
+        transition: 0.3s ease-in-out;
+        padding-top: 1rem;
+        padding-bottom: 4rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .NonSidebar{
+        display: none;
+    }
+}
