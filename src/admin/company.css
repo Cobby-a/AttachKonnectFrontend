@@ -113,13 +113,6 @@
     .mainContainer{
         display: none;
     }
-    .MainContainer{
-        /* padding: 20px 10px; */
-        /* margin-top: 3rem; */
-        /* display: flex; */
-        /* flex-flow: row wrap; */
-        /* width: 100%; */
-    }
     .mainCompanyBody{
         display: flex;
         flex-flow: row wrap;
