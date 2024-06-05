@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 *,
 ::after,
@@ -25,6 +26,7 @@ h3,
 h4 {
   line-height: 1.25;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: 'Montserrat'; */
 }
 h1 {
   font-size: 3rem;
