@@ -44,7 +44,7 @@
     }
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 1001px){
     .adminBody{
         margin: 2rem 3rem 2rem 3rem;
     }
@@ -73,7 +73,7 @@
     align-items: center;
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 1001px){
     .welcome{
         display: flex;
         flex-direction: row;
@@ -209,7 +209,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        max-width: 900px;
+        width: 100%;
         background-image: linear-gradient(to right, #925FE2, #DFCFF7);
         padding: 1rem 0.5rem 0.65em 1.5rem;
         border-radius: 1rem;
