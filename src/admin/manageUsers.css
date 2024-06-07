@@ -59,7 +59,7 @@
     align-items: center;
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 1001px){
     .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
@@ -76,4 +76,55 @@
     .mainContainer{
         display: none;
     }
+}
+
+.manageUserContainer{
+    margin: 0 auto;
+}
+.manageUserContainer form{
+    display: grid;
+    justify-content: center;
+    margin-top: 4rem;
+    width: 100%;
+}
+form label{
+    font-size: 12px;
+    color: #4C4C4C;
+}
+form input{
+    font-size: 13px;
+    font-family: "Poppins";
+}
+.input{
+    background-color: #FAFAFA;
+    width: 180px;
+    max-width: 300px;
+}
+input{
+    border: none;
+    font-family: 'Poppins';
+    background-color: #FAFAFA;
+    width: 100%;
+    padding: 6px 8px 6px 8px;
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+}
+input:focus{
+    outline: none;
+}
+button{
+    margin: 4rem auto;
+    display: flex;
+    border: none;
+    width: 140px;
+    text-align: center;
+    justify-content: center;
+    padding: 8px 0;
+    font-family: "Poppins";
+    color: #ffffff;
+    background-color: #1A7AE0;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px #7c8388;
+
 }

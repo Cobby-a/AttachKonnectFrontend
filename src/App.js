@@ -2,8 +2,9 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 // import Auth from "./authentication/auth"
 // import AdminCompany from "./admin/company";
-import AdminVacancy from './admin/vacancy';
+// import AdminVacancy from './admin/vacancy';
 // import AdminApplicants from './admin/applicants';
+import AdminManageUsers from './admin/manageUsers';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       {/* <AdminDashboard/> */}
 
       {/* <AdminCompany/> */}
-      <AdminVacancy/>
+      {/* <AdminVacancy/> */}
       {/* <AdminApplicants/> */}
+      <AdminManageUsers/>
     </div>
   );
 }
