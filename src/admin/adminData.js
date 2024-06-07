@@ -55,3 +55,54 @@ export const data = [
         company: "Company D",
     },
 ]
+
+export const data1 = [
+    {
+        id: 1,
+        intern: "Sefah",
+        contactStatus: "Verified",
+        reportStatus: "Verified",
+        vacancy: "Software Engineer",
+        company: "Company A",
+    },
+    {
+        id: 2,
+        intern: "Eva",
+        contactStatus: "Pending",
+        reportStatus: "Pending",
+        vacancy: "QA Tester",
+        company: "Company B",
+    },
+    {
+        id: 3,
+        intern: "Beneson Restoration",
+        contactStatus: "Verified",
+        reportStatus: "Verified",
+        vacancy: "Software Engineer",
+        company: "Company C",
+    },
+    {
+        id: 4,
+        intern: "Hammond Goria",
+        contactStatus: "Pending",
+        reportStatus: "Pending",
+        vacancy: "QA Tester",
+        company: "Company D",
+    },
+    {
+        id: 5,
+        intern: "Cobbina",
+        contactStatus: "Verified",
+        reportStatus: "Verified",
+        vacancy: "Software Engineer",
+        company: "Company E",
+    },
+    {
+        id: 6,
+        intern: "Hakeem",
+        contactStatus: "Pending",
+        reportStatus: "Pending",
+        vacancy: "QA Tester",
+        company: "Company D",
+    },
+]

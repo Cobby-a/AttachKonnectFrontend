@@ -118,11 +118,6 @@
     .mainCompanyBody{
         display: flex;
         flex-flow: row ;
-        /* column-gap: 20px; */
-        /* flex: 4; */
-        /* row-gap: 10rem; */
-        /* margin-left: 2rem; */
-        /* margin: 0 0 auto 2rem; */
         margin-top: 2.1rem;
     }
     .companySearch{
@@ -158,6 +153,7 @@
         outline: none;
     }
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -186,15 +182,8 @@ table {
     font-weight: 600;
   }
   .table{
-    /* min-width: 1000px;
-    width: 1200px; */
     width: 100%;
-    /* white-space: nowrap; */
     overflow-x: auto;
-    /* padding: 5px; */
-    /* margin-left: 1rem;
-    margin-right: 1rem; */
-    /* position: fixed; */
   }
   .verified{
     padding: 4px;

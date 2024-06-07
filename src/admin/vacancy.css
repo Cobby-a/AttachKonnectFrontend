@@ -1,6 +1,7 @@
 @media screen and (min-width: 0px){
     .adminVacancyBody{
         margin: 1rem;
+        margin-bottom: 3rem;
     }
     .profile img{
         width: 40px;
@@ -19,6 +20,7 @@
 @media screen and (min-width: 600px){
     .adminVacancyBody{
         margin: 1.5rem;
+        margin-bottom: 4rem;
     }
     .profile img{
         width: 60px;
@@ -34,7 +36,7 @@
     }
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 1001px){
     .adminVacancyBody{
         margin: 2rem 3rem 2rem 3rem;
     }
@@ -59,7 +61,7 @@
     align-items: center;
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 1001px){
     .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
@@ -70,10 +72,128 @@
     .MainContainer{
         display: none;
     }
+    .mainVacancyBody{
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 20px;
+        flex: 4;
+        row-gap: 0.5rem;
+        margin-left: 2rem;
+        margin: -2rem 0 auto 2rem;
+    }
+    .vacancySearch{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        flex: 1;
+        width: 100%;
+        align-content: center;
+    }
+    .vacancySearch form{
+        justify-items: center;
+        background-color: #E6E6E6;
+        height: 0;
+    }
+    .vacancySearch span{
+        position: absolute;
+    }
+    input{
+        border: none;
+        font-family: 'Poppins';
+        background-color: #FAFAFA;
+        width: 100%;
+        padding: 8px 5px 8px 2.7rem;
+        border: 1px solid #E6E6E6;
+        border-radius: 4px;
+    }
+    input:focus{
+        outline: none;
+    }
 }
 
 @media screen and (max-width: 1000px){
     .mainContainer{
         display: none;
     }
+    .mainVacancyBody{
+        display: flex;
+        flex-flow: row ;
+        margin-top: 2.1rem;
+    }
+    .vacancySearch{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        /* flex: 1; */
+        width: 100%;
+        column-gap: 3rem;
+        row-gap: 6px;
+        /* align-content: center; */
+    }
+    .vacancySearch form{
+        /* justify-items: center; */
+        background-color: #E6E6E6;
+        height: 0px;
+        /* position: absolute; */
+        margin-bottom: 3.5rem;
+    }
+    .vacancySearch span{
+        position: absolute;
+    }
+    input{
+        border: none;
+        font-family: 'Poppins';
+        background-color: #FAFAFA;
+        width: 100%;
+        padding: 8px 5px 8px 2.7rem;
+        border: 1px solid #E6E6E6;
+        border-radius: 4px;
+    }
+    input:focus{
+        outline: none;
+    }
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+  }
+  
+  .vacancydeets td, .vacancydeets th {
+    border-bottom: 1px solid #F2F2F2;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    padding: 12px 8px 12px 8px;
+    white-space: nowrap;
+  }
+  .vacancydeets td{
+    color: #808080;
+  }
+  
+  .vacancydeets th {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    text-align: left;
+    background-color: #F2F2F2;
+    color: #4C4C4C;
+    font-family: 'Montserrat';
+    font-weight: 600;
+  }
+  .table{
+    width: 100%;
+    overflow-x: auto;
+  }
+  .verified{
+    padding: 4px;
+    background-color: #DEEDE5;
+    border-radius: 4px;
+    color: #427A5B;
+  }
+  .pending{
+    padding: 4px;
+    background-color: #FDF8CE;
+    border-radius: 4px;
+    color: #938406;
+  }

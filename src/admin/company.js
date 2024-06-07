@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import './company.css'
 import './sidebar.css'
-import { data } from './companyData'
+import { data } from './adminData'
 
 const AdminCompany = () => {
     const [menu, setMenu] = useState(false);
@@ -18,7 +18,7 @@ const AdminCompany = () => {
         {id : 6},
         {id : 7},
     ]
-    // const[data, setData] = useState(companyData);
+
     return(
         <main className="adminCompanyBody">
             <header>
