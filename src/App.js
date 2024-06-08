@@ -4,18 +4,19 @@ import '@fortawesome/fontawesome-free/css/all.css';
 // import AdminCompany from "./admin/company";
 // import AdminVacancy from './admin/vacancy';
 // import AdminApplicants from './admin/applicants';
-import AdminManageUsers from './admin/manageUsers';
+// import AdminManageUsers from './admin/manageUsers';
+import ManagerDashboard from './manager/dashboard';
 
 function App() {
   return (
     <div className="App">
       {/* <Auth/> */}
       {/* <AdminDashboard/> */}
-
       {/* <AdminCompany/> */}
       {/* <AdminVacancy/> */}
       {/* <AdminApplicants/> */}
-      <AdminManageUsers/>
+      {/* <AdminManageUsers/> */}
+      <ManagerDashboard/>
     </div>
   );
 }
