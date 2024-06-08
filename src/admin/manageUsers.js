@@ -72,7 +72,7 @@ const AdminManageUsers = () => {
                             </div>
                             <div style={{flex: 1}}>
                                 <label>Phone</label>
-                                <div className='input'><input type='phone' required/></div>
+                                <div className='input'><input type='tel' required/></div>
                             </div>
                         </div>
                         <button type='submit'>Save</button>
@@ -100,7 +100,7 @@ const AdminManageUsers = () => {
                             </div>
                             <div style={{margin: 'auto'}}>
                                 <label>Phone</label>
-                                <div className='input'><input type='phone' required/></div>
+                                <div className='input'><input type='tel' required/></div>
                             </div>
                         </div>
                         <button type='submit'>Save</button>
