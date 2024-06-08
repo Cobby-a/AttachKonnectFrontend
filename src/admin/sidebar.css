@@ -48,6 +48,7 @@
         padding-bottom: 4rem;
         overflow-x: hidden;
         overflow-y: auto;
+        z-index: 1;
     }
     .NonSidebar{
         display: none;
