@@ -95,11 +95,7 @@ form input{
     font-size: 13px;
     font-family: "Poppins";
 }
-.input{
-    background-color: #FAFAFA;
-    width: 180px;
-    max-width: 300px;
-}
+
 input{
     border: none;
     font-family: 'Poppins';
@@ -126,5 +122,45 @@ button{
     cursor: pointer;
     border-radius: 4px;
     box-shadow: 0 4px 6px #7c8388;
+}
 
+@media screen and (min-width: 552px){
+    .formContainer{
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 10rem;
+    }
+    .formContainer1{
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 10rem;
+        margin-top: 5rem;
+    }
+    .input{
+        background-color: #FAFAFA;
+        width: 180px;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 551px){
+    .formContainer{
+        display: block;
+        width: 100%;
+    }
+    .formContainer1{
+        display: block;
+        width: 100%;
+    }
+    .input{
+        background-color: #FAFAFA;
+        width: 100%;
+        /* max-width: 300px; */
+    }
+    .manageUserContainer form{
+        display: block;
+    }
+    button{
+        margin-top: 2rem;
+    }
 }

@@ -83,7 +83,7 @@ const AdminManageUsers = () => {
             <article className='manageUserContainer'>
                     <h3 style={{fontSize: '1.2rem', fontFamily: 'Montserrat', marginTop: '2.5rem', textTransform: 'uppercase', textAlign: 'center'}}>Edit User Information</h3>
                     <form>
-                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"10rem", }}>
+                        <div className="formContainer">
                             <div style={{margin: 'auto'}}>
                                 <label>Name</label>
                                 <div className='input'><input type='text' required/></div>
@@ -93,8 +93,8 @@ const AdminManageUsers = () => {
                                 <div className='input' style={{display: 'flex', border: '1px solid #E6E6E6', borderRadius: "4px", alignItems: 'center', paddingRight: "8px"}}><input type={passwordType} required style={{border: 'none'}}/><span><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{fontSize: '1rem', justifySelf: 'center', cursor: 'pointer' }} onClick={()=>setShowPassword(!showPassword)}/></span></div>
                             </div>
                         </div>
-                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"10rem", marginTop: "5rem"}}>
-                            <div style={{margin: 'auto'}}>
+                        <div className="formContainer1">
+                            <div style={{margin: 'auto', }}>
                                 <label>E-mail</label>
                                 <div className='input'><input type='email' required/></div>
                             </div>
