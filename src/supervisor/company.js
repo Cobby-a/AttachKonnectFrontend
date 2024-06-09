@@ -1,5 +1,5 @@
 import profile from './assets/profile.png'
-import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard, faUserGear } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard, faUserGear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import './company.css'
