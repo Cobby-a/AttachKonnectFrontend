@@ -1,0 +1,166 @@
+@media screen and (min-width: 0px){
+    .supervisorManageUsersBody{
+        margin: 1rem;
+    }
+    .profile img{
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile h2{
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 18px;
+    }
+}
+
+@media screen and (min-width: 600px){
+    .supervisorManageUsersBody{
+        margin: 1.5rem;
+    }
+    .profile img{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile h2{
+        font-weight: 400;
+        line-height: 28px;
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1000px){
+    .supervisorManageUsersBody{
+        margin: 2rem 3rem 2rem 3rem;
+    }
+    .profile img{
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile h2{
+        font-weight: 400;
+        line-height: 60px;
+        font-size: 1.8rem;
+    }
+}
+
+.profile{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.75rem;
+    align-items: center;
+}
+
+@media screen and (min-width: 1001px){
+    .mainContainer{
+        padding: 20px 10px;
+        margin-top: 3rem;
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+    }
+    .MainContainer{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .mainContainer{
+        display: none;
+    }
+}
+
+.manageUserContainer{
+    margin: 0 auto;
+}
+.manageUserContainer form{
+    display: grid;
+    justify-content: center;
+    margin-top: 4rem;
+    width: 100%;
+}
+form label{
+    font-size: 12px;
+    color: #4C4C4C;
+}
+form input{
+    font-size: 13px;
+    font-family: "Poppins";
+}
+
+input{
+    border: none;
+    font-family: 'Poppins';
+    background-color: #FAFAFA;
+    width: 100%;
+    padding: 6px 8px 6px 8px;
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+}
+input:focus{
+    outline: none;
+}
+button{
+    margin: 4rem auto;
+    display: flex;
+    border: none;
+    width: 140px;
+    text-align: center;
+    justify-content: center;
+    padding: 8px 0;
+    font-family: "Poppins";
+    color: #ffffff;
+    background-color: #1A7AE0;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px #7c8388;
+}
+
+@media screen and (min-width: 552px){
+    .formContainer{
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 10rem;
+    }
+    .formContainer1{
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 10rem;
+        margin-top: 5rem;
+    }
+    .input{
+        background-color: #FAFAFA;
+        width: 180px;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 551px){
+    .formContainer{
+        display: block;
+        width: 100%;
+    }
+    .formContainer1{
+        display: block;
+        width: 100%;
+    }
+    .input{
+        background-color: #FAFAFA;
+        width: 100%;
+        /* max-width: 300px; */
+    }
+    .manageUserContainer form{
+        display: block;
+    }
+    button{
+        margin-top: 2rem;
+    }
+}
