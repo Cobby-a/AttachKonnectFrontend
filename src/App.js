@@ -14,7 +14,8 @@ import '@fortawesome/fontawesome-free/css/all.css';
 // import SupervisorManageUsers from './supervisor/manageUsers';
 // import StudentCompany from './student/company';
 // import StudentVacancy from './student/vacancy';
-import StudentApply from './student/apply';
+// import StudentApply from './student/apply';
+import StudentDashboard from './student/dashboard';
 
 function App() {
   return (
@@ -34,7 +35,8 @@ function App() {
       {/* <SupervisorManageUsers/> */}
       {/* <StudentCompany/> */}
       {/* <StudentVacancy/> */}
-      <StudentApply/>
+      {/* <StudentApply/> */}
+      <StudentDashboard/>
     </div>
   );
 }
