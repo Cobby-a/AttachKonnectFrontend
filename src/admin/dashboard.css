@@ -4,20 +4,20 @@
     .adminBody{
         margin: 1rem;
     }
-    .profile img{
+    .adminBody .profile img{
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminBody .profile h2{
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 18px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .welcome{
+    .adminBody .welcome{
         display: none;
     }
 }
@@ -26,20 +26,20 @@
     .adminBody{
         margin: 1.5rem;
     }
-    .profile img{
+    .adminBody .profile img{
         width: 60px;
         height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminBody .profile h2{
         font-weight: 400;
         line-height: 28px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 1.5rem;
     }
-    .welcome{
+    .adminBody .welcome{
         display: none;
     }
 }
@@ -48,25 +48,25 @@
     .adminBody{
         margin: 2rem 3rem 2rem 3rem;
     }
-    .profile img{
+    .adminBody .profile img{
         width: 70px;
         height: 70px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminBody .profile h2{
         font-weight: 400;
         line-height: 60px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 1.8rem;
     }
-    .welcome{
+    .adminBody .welcome{
         display: none;
     }
 }
 
-.profile{
+.adminBody .profile{
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 0.75rem;
@@ -74,7 +74,7 @@
 }
 
 @media screen and (min-width: 1001px){
-    .welcome{
+    .adminBody .welcome{
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -86,12 +86,12 @@
         border-radius: 1rem;
         box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
     }
-    .welcome p{
+    .adminBody .welcome p{
         font-size: 0.7rem;
         color: #ffffff;
         font-family: 'Poppins';
     }
-    .welcome h3{
+    .adminBody .welcome h3{
         font-size: 1.4rem;
         color: #ffffff;
         line-height: 30px;
@@ -99,12 +99,12 @@
         font-weight: 600;
         margin-bottom: 0.2rem;
     }
-    .welcome div{
+    .adminBody .welcome div{
         width: 100%;
         max-width: 350px;
         align-self: center;
     }
-    .welcome img{
+    .adminBody .welcome img{
         width: 100%;
         max-width: 300px;
         object-fit: cover;
@@ -115,10 +115,10 @@
         justify-content: space-around;
         align-content: space-around;
     }
-    .welcome1{
+    .adminBody .welcome1{
         display: none;
     }
-    .services{
+    .adminBody .services{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -129,7 +129,7 @@
         margin:0 auto;
         padding: 20px 10px;
     }
-    .service{
+    .adminBody .service{
         width: 100%;
         max-width: 264px;
         height: 224px;
@@ -139,14 +139,14 @@
         border: 2px solid #d9d9d9;
         color: #1D2254;
     }
-    .mainContainer{
+    .adminBody .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
         display: flex;
         flex-flow: row wrap;
         width: 100%;
     }
-    .mainContainer1{
+    .adminBody .mainContainer1{
         display: flex;
         flex-flow: row wrap;
         column-gap: 20px;
@@ -154,7 +154,7 @@
         margin-top: 5rem;
         row-gap: 10rem;
     }
-    .mainContainer2{
+    .adminBody .mainContainer2{
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -163,15 +163,15 @@
         flex: 2;
         max-height: 200px;
     }
-    .supervisors{
+    .adminBody .supervisors{
         flex: 1;
         justify-content: center;
     }
-    .supervisors div{
+    .adminBody .supervisors div{
         display: flex;
         justify-content: center;
     }
-    .mainContainer3{
+    .adminBody .mainContainer3{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -181,13 +181,13 @@
         border: 3px solid #925FE2;
         flex: 1;
     }
-    .mainContainer3 img{
+    .adminBody .mainContainer3 img{
         object-fit: cover;
         margin-right: 3rem;
         width: 80px;
         height: 80px;
     }
-    .supervisors img{
+    .adminBody .supervisors img{
         width: 80px;
         height: 80px;
         object-fit: cover;
@@ -195,17 +195,17 @@
         margin-left: 1rem;
         border: 2px solid #925FE2;
     }
-    #mainContainer3{
+    .adminBody #mainContainer3{
         border: none;
         box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
     }
-    .MainContainer{
+    .adminBody .MainContainer{
         display: none;
     }
 }
 
 @media screen and (max-width: 1000px){
-    .welcome1{
+    .adminBody .welcome1{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -216,12 +216,12 @@
         margin-top: 1.5rem;
         box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
     }
-    .welcome1 p{
+    .adminBody .welcome1 p{
         font-size: 0.7rem;
         color: #ffffff;
         font-family: 'Poppins';
     }
-    .welcome1 h3{
+    .adminBody .welcome1 h3{
         font-size: 1.4rem;
         color: #ffffff;
         line-height: 30px;
@@ -229,20 +229,20 @@
         font-weight: 600;
         margin-bottom: 0.2rem;
     }
-    .welcome1 div{
+    .adminBody .welcome1 div{
         width: 100%;
         max-width: 350px;
         align-self: center;
     }
-    .welcome1 img{
+    .adminBody .welcome1 img{
         width: 100%;
         max-width: 300px;
         object-fit: cover;
     }
-    .mainContainer{
+    .adminBody .mainContainer{
         display: none;
     }
-    .MainContainer1{
+    .adminBody .MainContainer1{
         display: flex;
         flex-flow: row wrap;
         column-gap: 20px;
@@ -250,7 +250,7 @@
         width: 100%;
         margin-bottom: 4rem;
     }
-    .MainContainer2{
+    .adminBody .MainContainer2{
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
@@ -258,16 +258,16 @@
         column-gap: 20px;
         row-gap: 20px;
     }
-    .Supervisors{
+    .adminBody .Supervisors{
         flex: 1;
         justify-content: center;
         margin-top: 2rem;
     }
-    .Supervisors div{
+    .adminBody .Supervisors div{
         display: flex;
         justify-content: center;
     }
-    .MainContainer3{
+    .adminBody .MainContainer3{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -277,17 +277,17 @@
         border: 3px solid #925FE2;
         flex: 1;
     }
-    #MainContainer3{
+    .adminBody #MainContainer3{
         border: none;
         box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
     }
-    .MainContainer3 img{
+    .adminBody .MainContainer3 img{
         object-fit: cover;
         margin-right: 3rem;
         width: 80px;
         height: 80px;
     }
-    .Supervisors img{
+    .adminBody .Supervisors img{
         width: 80px;
         height: 80px;
         object-fit: cover;

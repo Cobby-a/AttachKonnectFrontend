@@ -2,14 +2,14 @@
     .adminManageUsersBody{
         margin: 1rem;
     }
-    .profile img{
+    .adminManageUsersBody .profile img{
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminManageUsersBody .profile h2{
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 18px;
@@ -20,14 +20,14 @@
     .adminManageUsersBody{
         margin: 1.5rem;
     }
-    .profile img{
+    .adminManageUsersBody .profile img{
         width: 60px;
         height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminManageUsersBody .profile h2{
         font-weight: 400;
         line-height: 28px;
         font-size: 1.5rem;
@@ -38,21 +38,21 @@
     .adminManageUsersBody{
         margin: 2rem 3rem 2rem 3rem;
     }
-    .profile img{
+    .adminManageUsersBody .profile img{
         width: 70px;
         height: 70px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminManageUsersBody .profile h2{
         font-weight: 400;
         line-height: 60px;
         font-size: 1.8rem;
     }
 }
 
-.profile{
+.adminManageUsersBody .profile{
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 0.75rem;
@@ -60,43 +60,43 @@
 }
 
 @media screen and (min-width: 1001px){
-    .mainContainer{
+    .adminManageUsersBody .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
         display: flex;
         flex-flow: row wrap;
         width: 100%;
     }
-    .MainContainer{
+    .adminManageUsersBody .MainContainer{
         display: none;
     }
 }
 
 @media screen and (max-width: 1000px){
-    .mainContainer{
+    .adminManageUsersBody .mainContainer{
         display: none;
     }
 }
 
-.manageUserContainer{
+.adminManageUsersBody .manageUserContainer{
     margin: 0 auto;
 }
-.manageUserContainer form{
+.adminManageUsersBody .manageUserContainer form{
     display: grid;
     justify-content: center;
     margin-top: 4rem;
     width: 100%;
 }
-form label{
+.adminManageUsersBody form label{
     font-size: 12px;
     color: #4C4C4C;
 }
-form input{
+.adminManageUsersBody form input{
     font-size: 13px;
     font-family: "Poppins";
 }
 
-input{
+.adminManageUsersBody input{
     border: none;
     font-family: 'Poppins';
     background-color: #FAFAFA;
@@ -105,10 +105,10 @@ input{
     border: 1px solid #E6E6E6;
     border-radius: 4px;
 }
-input:focus{
+.adminManageUsersBody input:focus{
     outline: none;
 }
-button{
+.adminManageUsersBody button{
     margin: 4rem auto;
     display: flex;
     border: none;
@@ -125,18 +125,18 @@ button{
 }
 
 @media screen and (min-width: 552px){
-    .formContainer{
+    .adminManageUsersBody .formContainer{
         display: flex;
         flex-flow: row wrap;
         column-gap: 10rem;
     }
-    .formContainer1{
+    .adminManageUsersBody .formContainer1{
         display: flex;
         flex-flow: row wrap;
         column-gap: 10rem;
         margin-top: 5rem;
     }
-    .input{
+    .adminManageUsersBody .input{
         background-color: #FAFAFA;
         width: 180px;
         max-width: 300px;
@@ -144,23 +144,23 @@ button{
 }
 
 @media screen and (max-width: 551px){
-    .formContainer{
+    .adminManageUsersBody .formContainer{
         display: block;
         width: 100%;
     }
-    .formContainer1{
+    .adminManageUsersBody .formContainer1{
         display: block;
         width: 100%;
     }
-    .input{
+    .adminManageUsersBody .input{
         background-color: #FAFAFA;
         width: 100%;
         /* max-width: 300px; */
     }
-    .manageUserContainer form{
+    .adminManageUsersBody .manageUserContainer form{
         display: block;
     }
-    button{
+    .adminManageUsersBody button{
         margin-top: 2rem;
     }
 }

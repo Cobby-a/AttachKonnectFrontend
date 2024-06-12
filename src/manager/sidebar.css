@@ -4,6 +4,7 @@
     }
     .sidebar{
         max-width: 350px;
+        min-width: 100px;
         font-family: 'Poppins';
         flex: 1;
     }

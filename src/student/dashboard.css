@@ -2,14 +2,14 @@
     .studentDashboardBody{
         margin: 1rem;
     }
-    .profile img{
+    .studentDashboardBody .profile img{
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .studentDashboardBody .profile h2{
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 18px;
@@ -20,14 +20,14 @@
     .studentDashboardBody{
         margin: 1.5rem;
     }
-    .profile img{
+    .studentDashboardBody .profile img{
         width: 60px;
         height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .studentDashboardBody .profile h2{
         font-weight: 400;
         line-height: 28px;
         font-size: 1.5rem;
@@ -35,24 +35,24 @@
 }
 
 @media screen and (min-width: 1001px){
-    .studentDashboard{
+    .studentDashboardBody .studentDashboard{
         margin: 2rem 3rem 2rem 3rem;
     }
-    .profile img{
+    .studentDashboardBody .profile img{
         width: 80px;
         height: 80px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .studentDashboardBody .profile h2{
         font-weight: 400;
         line-height: 60px;
         font-size: 2rem;
     }
 }
 
-.profile{
+.studentDashboardBody .profile{
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 0.75rem;
@@ -60,29 +60,29 @@
 }
 
 @media screen and (min-width: 1001px){
-    .mainContainer{
+    .studentDashboardBody .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
         display: flex;
         flex-flow: row wrap;
         width: 100%;
     }
-    .MainContainer{
+    .studentDashboardBody .MainContainer{
         display: none;
     }
     
 }
 
 @media screen and (max-width: 1000px){
-    .mainContainer{
+    .studentDashboardBody .mainContainer{
         display: none;
     }
-    .mainContainer1{
+    .studentDashboardBody .mainContainer1{
         margin-top: 2rem;
     }
 }
 
-.mainContainer1{
+.studentDashboardBody .mainContainer1{
     display: flex;
     flex-flow: row wrap;
     /* width: 100%; */
@@ -91,23 +91,23 @@
     /* row-gap: 1rem; */
 }
 
-.studentDeets1, .studentDeets2, .studentDeets3{
+.studentDashboardBody .studentDeets1, .studentDashboardBody .studentDeets2, .studentDashboardBody .studentDeets3{
     flex: 1;
     min-width: 200px;
 }
-.studentDeets1{
+.studentDashboardBody .studentDeets1{
     padding: 12px;
     background-color: #EEEEEE;
     border-radius: 20px;
     margin-bottom: 1.6rem;
 }
-.pTitle{
+.studentDashboardBody .pTitle{
     font-family: "Montserrat";
     font-weight: 400;
     font-size: 12px;
     color: #4C4C4C;
 }
-.pBody{
+.studentDashboardBody .pBody{
     font-family: "Montserrat";
     font-size: 16px;
     color: #4C4C4C;

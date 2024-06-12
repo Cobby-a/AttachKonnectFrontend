@@ -1,4 +1,4 @@
-.body {
+.authBody {
     background-image: url("../assets/bg.svg");
     /* background-repeat: no-repeat;
     background-position: center center;
@@ -6,30 +6,30 @@
     background-size: 100%;
 }
 
-.logo{
+.authContainer .logo{
     position: absolute; 
     top: 1rem; 
     left: 1rem;
 }
 
 @media screen and (max-width: 800px){
-    .logo{
+    .authContainer .logo{
         top: 0.8rem; 
         left: 0.8rem;
     }
 }
-.logo img {
+.authContainer .logo img {
     width: 75px;
     height: 75px;
     object-fit: cover;
 }
-.container {
+.authContainer {
     min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.maincontainer {
+.authContainer .maincontainer {
     width: 90vw;
     margin: 7rem auto;
     background: #ffffff;
@@ -39,34 +39,34 @@
     display: grid;
     max-height: 100vh;
   }
-  .container1{
+  .authContainer .container1{
     background: #242D4E;
     width: 100%;
     border-radius: 0.25rem 0 0 0.25rem;
   }
-  .container2{
+  .authContainer .container2{
     background: #ffffff;
     width: 100%;
     border-radius: 0 0.25rem 0.25rem 0;
     margin: auto auto;
   }
-  .container2 h2 {
+  .authContainer .container2 h2 {
     text-align: center;
   }
-  .container1 img{
+  .authContainer .container1 img{
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
   @media screen and (min-width: 900px) {
-    .maincontainer {
+    .authContainer .maincontainer {
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
-    #welcome p{
+    .authContainer #welcome p{
       font-size: 1.5rem;
     }
-    .underline{
+    .authContainer .underline{
       width: 4.5rem;
       height: 2px;
       background: #868282;
@@ -76,15 +76,15 @@
     }
   }
   @media screen and (max-width: 900px){
-    .container1{
+    .authContainer .container1{
       display: none;
     }
-    .container2{
+    .authContainer .container2{
       border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
       margin-top: 3rem;
       margin-bottom: 3rem;
     }
-    .underline{
+    .authContainer .underline{
       width: 3.125rem;
       height: 2px;
       background: #868282;
@@ -92,37 +92,37 @@
       margin-right: 0.4rem;
       margin-top: 1.3rem;
     }
-    form{
+    .authContainer form{
       margin-left: 1rem;
       margin-right: 1rem;
     }
   }
-  .container2 h2{
+  .authContainer .container2 h2{
     font-weight: 400;
     color: #4D4D4D;
     line-height: 43px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  #welcome{
+  .authContainer #welcome{
     display: inline-flex;
     justify-content: center;
     width: 100%;
     margin-top: 0.25rem;
   }
-  #welcome p{
+  .authContainer #welcome p{
     font-size: 1.25rem;
     line-height: 28.8px;
     color: #313030;
     opacity: 30%;
   }
-  .userTypes{
+  .authContainer .userTypes{
     display: inline-flex;
     justify-content: center;
     width: 100%;
     margin-top: -1rem;
     padding-right: 20px;
   }
-  form{
+  .authContainer form{
     width: 100%;
     max-width: 350px;
     min-width: 100px;
@@ -130,10 +130,10 @@
     padding: 0 1rem;
     
   }
-  fieldset{
+  .authContainer fieldset{
     border: none;
   }
-  input{
+  .authContainer input{
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -145,10 +145,10 @@
     color: #444444;
     font-family: 'Poppins';
   }
-  input:focus{
+  .authContainer input:focus{
     outline: none;
   }
-  button{
+  .authContainer button{
     width: 100%;
     margin-top: 10px;
     min-height: 3rem;

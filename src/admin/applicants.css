@@ -3,14 +3,14 @@
         margin: 1rem;
         margin-bottom: 3rem;
     }
-    .profile img{
+    .adminApplicantsBody .profile img{
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminApplicantsBody .profile h2{
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 18px;
@@ -22,14 +22,14 @@
         margin: 1.5rem;
         margin-bottom: 4rem;
     }
-    .profile img{
+    .adminApplicantsBody .profile img{
         width: 60px;
         height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminApplicantsBody .profile h2{
         font-weight: 400;
         line-height: 28px;
         font-size: 1.5rem;
@@ -40,21 +40,21 @@
     .adminApplicantsBody{
         margin: 2rem 3rem 2rem 3rem;
     }
-    .profile img{
+    .adminApplicantsBody .profile img{
         width: 70px;
         height: 70px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .profile h2{
+    .adminApplicantsBody .profile h2{
         font-weight: 400;
         line-height: 60px;
         font-size: 1.8rem;
     }
 }
 
-.profile{
+.adminApplicantsBody .profile{
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 0.75rem;
@@ -62,17 +62,17 @@
 }
 
 @media screen and (min-width: 1001px){
-    .mainContainer{
+    .adminApplicantsBody .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
         display: flex;
         flex-flow: row wrap;
         width: 100%;
     }
-    .MainContainer{
+    .adminApplicantsBody .MainContainer{
         display: none;
     }
-    .mainApplicantsBody{
+    .adminApplicantsBody .mainApplicantsBody{
         display: flex;
         flex-flow: row wrap;
         column-gap: 20px;
@@ -81,7 +81,7 @@
         margin-left: 2rem;
         margin: -2rem 0 auto 2rem;
     }
-    .applicantsSearch{
+    .adminApplicantsBody .applicantsSearch{
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
@@ -89,15 +89,15 @@
         width: 100%;
         align-content: center;
     }
-    .applicantsSearch form{
+    .adminApplicantsBody .applicantsSearch form{
         justify-items: center;
         background-color: #E6E6E6;
         height: 0;
     }
-    .applicantsSearch span{
+    .adminApplicantsBody .applicantsSearch span{
         position: absolute;
     }
-    input{
+    .adminApplicantsBody input{
         border: none;
         font-family: 'Poppins';
         background-color: #FAFAFA;
@@ -106,21 +106,21 @@
         border: 1px solid #E6E6E6;
         border-radius: 4px;
     }
-    input:focus{
+    .adminApplicantsBody input:focus{
         outline: none;
     }
 }
 
 @media screen and (max-width: 1000px){
-    .mainContainer{
+    .adminApplicantsBody .mainContainer{
         display: none;
     }
-    .mainApplicantsBody{
+    .adminApplicantsBody .mainApplicantsBody{
         display: flex;
         flex-flow: row ;
         margin-top: 2.1rem;
     }
-    .applicantsSearch{
+    .adminApplicantsBody .applicantsSearch{
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
@@ -130,17 +130,17 @@
         row-gap: 6px;
         /* align-content: center; */
     }
-    .applicantsSearch form{
+    .adminApplicantsBody .applicantsSearch form{
         /* justify-items: center; */
         background-color: #E6E6E6;
         height: 0px;
         /* position: absolute; */
         margin-bottom: 3.5rem;
     }
-    .applicantsSearch span{
+    .adminApplicantsBody .applicantsSearch span{
         position: absolute;
     }
-    input{
+    .adminApplicantsBody input{
         border: none;
         font-family: 'Poppins';
         background-color: #FAFAFA;
@@ -149,18 +149,18 @@
         border: 1px solid #E6E6E6;
         border-radius: 4px;
     }
-    input:focus{
+    .adminApplicantsBody input:focus{
         outline: none;
     }
 }
 
-table {
+.adminApplicantsBody table {
     border-collapse: collapse;
     width: 100%;
     font-size: 12px;
   }
   
-  .applicantsdeets td, .applicantsdeets th {
+  .adminApplicantsBody .applicantsdeets td, .adminApplicantsBody .applicantsdeets th {
     border-bottom: 1px solid #F2F2F2;
     border-top: none;
     border-right: none;
@@ -168,11 +168,11 @@ table {
     padding: 12px 8px 12px 8px;
     white-space: nowrap;
   }
-  .applicantsdeets td{
+  .adminApplicantsBody .applicantsdeets td{
     color: #808080;
   }
   
-  .applicantsdeets th {
+  .adminApplicantsBody .applicantsdeets th {
     padding-top: 16px;
     padding-bottom: 16px;
     text-align: left;
@@ -181,17 +181,17 @@ table {
     font-family: 'Montserrat';
     font-weight: 600;
   }
-  .table{
+  .adminApplicantsBody .table{
     width: 100%;
     overflow-x: auto;
   }
-  .verified{
+  .adminApplicantsBody .verified{
     padding: 4px;
     background-color: #DEEDE5;
     border-radius: 4px;
     color: #427A5B;
   }
-  .pending{
+  .adminApplicantsBody .pending{
     padding: 4px;
     background-color: #FDF8CE;
     border-radius: 4px;

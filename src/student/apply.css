@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
 }
-.applyContainer{
+.studentApplyBody .applyContainer{
     width: 90vw;
     margin: 5rem auto;
     background: #ffffff;
@@ -13,7 +13,7 @@
     max-width: 960px;
     box-shadow: 0 4px 4px #7c8388;
 }
-.formContainer1{
+.studentApplyBody .formContainer1{
     display: flex;
     flex-flow: row wrap;
     column-gap: 1rem;
@@ -22,29 +22,29 @@
     margin-bottom: 1rem;
     /* width: 100%; */
 }
-.formContainer2{
+.studentApplyBody .formContainer2{
     display: flex;
     flex-flow: row wrap;
     column-gap: 1rem;
     row-gap: 1rem;
     justify-content: center;
 }
-.input{
+.studentApplyBody .input{
     background-color: #FAFAFA;
     min-width: 200px;
     /* max-width: 200px; */
 }
-form label, p{
+.studentApplyBody form label, .studentApplyBody p{
     font-size: 12px;
     color: #4C4C4C;
     line-height: 16px;
 }
-form input{
+.studentApplyBody form input{
     font-size: 13px;
     font-family: "Poppins";
 }
 
-input{
+.studentApplyBody input{
     border: none;
     font-family: 'Poppins';
     background-color: #FAFAFA;
@@ -53,14 +53,14 @@ input{
     border: 1px solid #E6E6E6;
     border-radius: 4px;
 }
-input:focus{
+.studentApplyBody input:focus{
     outline: none;
 }
-form p{
+.studentApplyBody form p{
     margin-bottom: -1px;
     padding-bottom: 4px;
 }
-button{
+.studentApplyBody button{
     border: none;
     width: 140px;
     text-align: center;
@@ -73,7 +73,7 @@ button{
     box-shadow: 0 4px 6px #7c8388;
     margin-top: 1rem;
 }
-.formContainer3{
+.studentApplyBody .formContainer3{
     display: flex;
     flex-flow: row wrap;
     column-gap: 1.5rem;
@@ -81,7 +81,7 @@ button{
     margin-top: 1rem;
     row-gap: 1rem;
 }
-textarea{
+.studentApplyBody textarea{
     border: none;
     font-family: 'Poppins';
     background-color: #FAFAFA;
@@ -91,6 +91,6 @@ textarea{
     width: 100%;
     padding: 8px;
 }
-textarea:focus{
+.studentApplyBody textarea:focus{
     outline: none;
 }
