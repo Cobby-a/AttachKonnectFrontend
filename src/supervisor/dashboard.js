@@ -137,7 +137,7 @@ const SupervisorDashboard = () => {
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Intern'/>
                         </form>
-                        <button>Register Intern</button>
+                        <Link to="/supervisor/dashboard/register-intern"><button>Register Intern</button></Link>
                     </div>
                     
                 </article>
