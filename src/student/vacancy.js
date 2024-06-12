@@ -5,6 +5,7 @@ import { useState } from 'react'
 import './vacancy.css'
 import './sidebar.css'
 import { data } from './studentData'
+import { Link } from 'react-router-dom'
 
 
 
@@ -33,10 +34,10 @@ const StudentVacancy = () => {
                                 <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer', position: 'relative', left: '87%', marginBottom: '0.75rem'}} onClick={()=>setMenu(!menu)}/>
                                 {/* <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p> */}
                             <div className='SidebarIcons'>
-                                <div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div>
-                                <div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div>
-                                <div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div>
-                                <div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
+                                <Link to ="/student/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
+                                <Link to ="/student/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
+                                <Link to ="/student/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
+                                <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                             </div>
                             </article>
                         </div>
@@ -47,10 +48,10 @@ const StudentVacancy = () => {
                 <article className='sidebar'>
                     {/* <p style={{fontFamily: 'Segoe UI', marginTop: '-3rem', marginBottom: '3rem', marginLeft: '-1rem', fontWeight:'600',}}>Welcome to dashboard</p> */}
                     <div className='sidebarIcons'>
-                        <div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%'}}/>Dashboard</div>
-                        <div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div>
-                        <div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div>
-                        <div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
+                        <Link to ="/student/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
+                        <Link to ="/student/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
+                        <Link to ="/student/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
+                        <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                     </div>
                 </article>
                 <article className="mainVacancyBody">
@@ -96,7 +97,7 @@ const StudentVacancy = () => {
                                 <td><span className={classname}>{reportStatus}</span></td>
                                 <td>{vacancy}</td>
                                 <td>{company}</td>
-                                <td><span style={{cursor: 'pointer', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff"}}>Apply</span></td>
+                                <td><Link to ="/student/vacancyboard/apply"><span style={{cursor: 'pointer', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff"}}>Apply</span></Link></td>
                             </tr>
                         )
                     })}
@@ -161,7 +162,7 @@ const StudentVacancy = () => {
                                 <td><span className={classname}>{reportStatus}</span></td>
                                 <td>{vacancy}</td>
                                 <td>{company}</td>
-                                <td><span style={{cursor: 'pointer', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff"}}>Apply</span></td>
+                                <td><Link to ="/student/vacancyboard/apply"><span style={{cursor: 'pointer', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff"}}>Apply</span></Link></td>
                             </tr>
                         )
                     })}

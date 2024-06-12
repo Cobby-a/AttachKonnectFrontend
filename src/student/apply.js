@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './apply.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from 'react-router-dom';
+import './sidebar.css'
 
 const StudentApply = () => {
     return(
@@ -9,7 +10,7 @@ const StudentApply = () => {
             <section className='applyContainer'>
                 <div style={{display: 'flex', justifyContent:'space-between',}}>
                     <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Apply</p>
-                    <FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/>
+                    <Link to="/student/vacancyboard"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
                 </div>
                 <form>
                     <div className="formContainer1">
@@ -50,7 +51,7 @@ const StudentApply = () => {
                             <textarea rows="10" name='jobDescription'></textarea>
                         </div>
                     </div>
-                    <button type='submit'>Apply Internship</button>
+                    <Link to="/student/vacancyboard"><button type='submit'>Apply Internship</button></Link>
                 </form>
             </section>
         </article>

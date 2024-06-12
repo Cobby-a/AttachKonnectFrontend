@@ -7,6 +7,7 @@ import { Checkbox,  } from '@mui/material'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ManagerSignIn = () => {
     const [forAdmin, setForAdmin] = useState(true);
@@ -15,6 +16,7 @@ const ManagerSignIn = () => {
     const [forManager, setForManager] = useState(false);
     const [forPassword, setForPassword] = useState(false);
 
+    let url = "/admin/dashboard"
     const Admin = () =>{
         setForAdmin(true);
         setForManager(false);
@@ -46,15 +48,18 @@ const ManagerSignIn = () => {
     }
     if(forStudent === true){
         accountType = "Student"
+        url = "/student/dashboard"
     }
     else if(forManager === true){
         accountType = "Manager"
+        url = "/manager/dashboard"
     }
     else if(forSupervisor === true){
         accountType = "Supervisor"
+        url = "/supervisor/dashboard"
     }
     return(
-        <article className='container'>
+        <article className='authContainer'>
             <section className="logo">
                 <img src={logo} alt="logo" />
             </section>
@@ -122,7 +127,8 @@ const ManagerSignIn = () => {
                             onChange={()=>setForPassword(!forPassword)}
                             checked={forPassword}
                             />
-                            <button type='submit'>Login</button>
+                            
+                            <Link to={url}><button type='submit'>Login</button></Link>
                         </fieldset>
                     </form>
                 </div>

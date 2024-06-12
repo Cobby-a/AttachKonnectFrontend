@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './registerIntern.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 
 const SupervisorRegisterIntern = () => {
@@ -9,7 +10,7 @@ const SupervisorRegisterIntern = () => {
             <section className='manageUserContainer'>
                 <div style={{display: 'flex', justifyContent:'space-between',}}>
                     <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Create Intern</p>
-                    <FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/>
+                    <Link to="/supervisor/dashboard"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
                 </div>
                 <form>
                     <div className="formContainer1">
@@ -50,7 +51,7 @@ const SupervisorRegisterIntern = () => {
                             <textarea rows="10" name='jobDescription'></textarea>
                         </div>
                     </div>
-                    <button type='submit'>Register Intern</button>
+                    <Link to="/supervisor/dashboard"><button type='submit'>Register Intern</button></Link>
                 </form>
             </section>
         </article>
