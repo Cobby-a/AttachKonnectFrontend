@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/AttachKonnectFrontend/static/css/main.58025728.css",
+    "main.js": "/AttachKonnectFrontend/static/js/main.88a8249b.js",
+    "static/media/bg.svg": "/AttachKonnectFrontend/static/media/bg.2d38053b5d8efc479239.svg",
+    "static/media/fa-solid-900.ttf": "/AttachKonnectFrontend/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
+    "static/media/fa-brands-400.ttf": "/AttachKonnectFrontend/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
+    "static/media/comp.svg": "/AttachKonnectFrontend/static/media/comp.a52dd8ef1df3bbac92666bf9b322cbc3.svg",
+    "static/media/fa-solid-900.woff2": "/AttachKonnectFrontend/static/media/fa-solid-900.4d986b00ff9ca3828fbd.woff2",
+    "static/media/fa-brands-400.woff2": "/AttachKonnectFrontend/static/media/fa-brands-400.455ea818179b4def0c43.woff2",
+    "static/media/logoname.svg": "/AttachKonnectFrontend/static/media/logoname.a9bb0ec4f3c1462d3bb4b470c08b9913.svg",
+    "static/media/fa-regular-400.ttf": "/AttachKonnectFrontend/static/media/fa-regular-400.eb91f7b948a42799f678.ttf",
+    "static/media/welcome.png": "/AttachKonnectFrontend/static/media/welcome.44b46b42ed1a95afd58e.png",
+    "static/media/profile.png": "/AttachKonnectFrontend/static/media/profile.43f2377c805a72a7328b.png",
+    "static/media/fa-regular-400.woff2": "/AttachKonnectFrontend/static/media/fa-regular-400.21cb8f55d8e0c5b89751.woff2",
+    "static/media/logo.svg": "/AttachKonnectFrontend/static/media/logo.83b6a7d013608d66620c877f07d405ae.svg",
+    "static/media/fa-v4compatibility.ttf": "/AttachKonnectFrontend/static/media/fa-v4compatibility.c8e090db312b0bea2aa2.ttf",
+    "static/media/stat.svg": "/AttachKonnectFrontend/static/media/stat.03b79c4f3dd54183feac273957411644.svg",
+    "static/media/fa-v4compatibility.woff2": "/AttachKonnectFrontend/static/media/fa-v4compatibility.cf7f5903d06b79ad60f1.woff2",
+    "static/media/instagram.svg": "/AttachKonnectFrontend/static/media/instagram.8c68d01eb9fcc96c445b5ec20e060db8.svg",
+    "static/media/google.svg": "/AttachKonnectFrontend/static/media/google.e5c4f5e38af7a81259c22ab94ed393bc.svg",
+    "static/media/spotify.svg": "/AttachKonnectFrontend/static/media/spotify.5ed7e113b8ecd7651b1eaee9fe83f2f5.svg",
+    "static/media/apple.svg": "/AttachKonnectFrontend/static/media/apple.c8201cb91600802fa01accd53f6af91b.svg",
+    "index.html": "/AttachKonnectFrontend/index.html",
+    "static/media/tesla.svg": "/AttachKonnectFrontend/static/media/tesla.df63b24a7affa38a8d872161fd4fbb4b.svg",
+    "static/media/facebook.svg": "/AttachKonnectFrontend/static/media/facebook.5cf0a4adc0d1a7b6c74e8ded6c42c4af.svg",
+    "main.58025728.css.map": "/AttachKonnectFrontend/static/css/main.58025728.css.map",
+    "main.88a8249b.js.map": "/AttachKonnectFrontend/static/js/main.88a8249b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.58025728.css",
+    "static/js/main.88a8249b.js"
+  ]
+}
