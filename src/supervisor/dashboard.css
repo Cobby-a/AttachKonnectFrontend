@@ -41,8 +41,8 @@
         margin: 2rem 3rem 2rem 3rem;
     }
     .supervisorDashboardBody .profile img{
-        width: 70px;
-        height: 70px;
+        width: 65px;
+        height: 65x;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -50,7 +50,7 @@
     .supervisorDashboardBody .profile h2{
         font-weight: 400;
         line-height: 60px;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 }
 

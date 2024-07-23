@@ -9,13 +9,14 @@
         flex: 1;
     }
     .sidebarIcons div{
-        font-size: 1.2rem;
-        padding-bottom: 1rem;
+        font-size: 1.1rem;
+        padding-bottom: 1.2rem;
         justify-content: space-between;
         cursor: pointer;
     }
     .sidebarIcons{
         width: 180px;
+        margin-top: 1.2rem;
     }
     .Sidebar{
         display: none;

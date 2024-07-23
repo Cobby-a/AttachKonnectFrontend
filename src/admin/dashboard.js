@@ -5,12 +5,23 @@ import comp from './assets/comp.svg'
 import stats from './assets/stat.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuilding, faHouse, faBriefcase, faUserTie, faUserGear, faRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './sidebar.css'
 import { Link } from 'react-router-dom'
 
 const AdminDashboard = () => {
+
+    useEffect (()=>{
+        document.title = "Admin Dashboard"
+    })
+
     const [menu, setMenu] = useState(false);
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const d = new Date();
+    let month = months[d.getMonth()];
+    let day = d.getDate();
+    let year = d.getFullYear();
     return (
         <main className="adminBody">
             <header>
@@ -37,7 +48,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className='welcome'>
                     <div>
-                        <p>March 4, 2024</p>
+                        <p>{month} {day}, {year}</p>
                         <h3>Welcome back, Solomon!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
@@ -45,7 +56,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className='welcome1'>
                     <div>
-                        <p>March 4, 2024</p>
+                        <p>{month} {day}, {year}</p>
                         <h3>Welcome back, Solomon!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>

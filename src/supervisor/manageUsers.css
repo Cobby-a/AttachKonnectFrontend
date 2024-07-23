@@ -39,8 +39,8 @@
         margin: 2rem 3rem 2rem 3rem;
     }
     .supervisorManageUsersBody .profile img{
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -48,7 +48,7 @@
     .supervisorManageUsersBody .profile h2{
         font-weight: 400;
         line-height: 60px;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 }
 

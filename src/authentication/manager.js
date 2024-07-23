@@ -6,57 +6,120 @@ import { Checkbox,  } from '@mui/material'
 // import FormControlLabel from '@mui/material'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
+
 const ManagerSignIn = () => {
+
+    useEffect (()=>{
+        document.title = "AttachmentKonnect - Portal"
+    })
+    
     const [forAdmin, setForAdmin] = useState(true);
     const [forSupervisor, setForSupervisor] = useState(false);
     const [forStudent, setForStudent] = useState(false);
     const [forManager, setForManager] = useState(false);
     const [forPassword, setForPassword] = useState(false);
+    const [managerSignUp, setManagerSignUp] = useState("button2")
 
-    let url = "/admin/dashboard"
+    const [loginData, setLoginData] = useState({
+        username: '',
+        password: ''
+    })
+
+    const handleChange = (event)=>{
+        setLoginData({
+            ...loginData,
+            [event.target.name]:event.target.value
+        })
+    }
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const submitForm =() =>{
+        const teacherFormData = new FormData();
+        teacherFormData.append('username', loginData.username)
+        teacherFormData.append('password', loginData.password)
+        if(forManager === true){
+            try{
+                axios.post("http://127.0.0.1:8000/manager/manager-login", teacherFormData)
+                .then((response)=>{
+                    console.log(response.data);
+                    if(response.data.bool === true){
+                        localStorage.setItem('managerLoginStatus', true)
+                        localStorage.setItem('managerId', response.data.manager_id)
+                        localStorage.setItem('companyName', response.data.company_name)
+                        window.location.href='/manager/dashboard';
+                    }
+                    else{
+                        setErrorMessage("Invalid Email or Password! Try again.")
+                    }
+                });
+            }catch(error){
+                console.log(error)
+            }
+        }
+    }
+
+    // const managerLoginStatus = localStorage.getItem('managerLoginStatus')
+    // if(managerLoginStatus === 'true'){
+    //     window.location.href='/manager/dashboard';
+    // }
+    let url = ""
     const Admin = () =>{
         setForAdmin(true);
         setForManager(false);
         setForStudent(false);
         setForSupervisor(false);
+        setManagerSignUp("button2");
+        setErrorMessage('');
     }
     const Supervisor = () =>{
         setForAdmin(false);
         setForManager(false);
         setForStudent(false);
         setForSupervisor(true);
+        setManagerSignUp("button2");
+        setErrorMessage('');
     }
     const Student = () =>{
         setForAdmin(false);
         setForManager(false);
         setForStudent(true);
         setForSupervisor(false);
+        setManagerSignUp("button2");
+        setErrorMessage('');
     }
     const Manager = () =>{
         setForAdmin(false);
         setForManager(true);
         setForStudent(false);
         setForSupervisor(false);
+        setManagerSignUp("button1");
+        setErrorMessage('');
     }
     let accountType = "Admin"
     let passwordType = "password"
     if(forPassword === true){
         passwordType = "text"
     }
-    if(forStudent === true){
+    if(forAdmin === true){
+        url = "/admin/dashboard"
+    }
+    else if(forStudent === true){
         accountType = "Student"
         url = "/student/dashboard"
     }
-    else if(forManager === true){
-        accountType = "Manager"
-        url = "/manager/dashboard"
-    }
+    // else if(forManager === true){
+    //     accountType = "Manager"
+    //     url = "http://127.0.0.1:8000/manager/manager-login"
+    // }
     else if(forSupervisor === true){
         accountType = "Supervisor"
-        url = "/supervisor/dashboard"
+        url = "/manager/dashboard"
     }
     return(
         <article className='authContainer'>
@@ -114,10 +177,11 @@ const ManagerSignIn = () => {
                         />
                     </FormGroup>
                     </div>
-                    <form>
+                    {errorMessage && <p style={{textAlign: 'center', marginTop: '1rem', marginBottom: '-1.2rem', fontSize: '1rem', color: "#ff3333", }}>{errorMessage}</p>}
+                    <div className='form'>
                         <fieldset>
-                            <input id="username" name="username" type="text" required placeholder='Username'/>
-                            <input id="password" name="password" type={passwordType} required placeholder='Enter Your Password'/>
+                            <input id="email" name="username" type="text" required placeholder='Username' value={loginData.username} onChange={handleChange}/>
+                            <input id="password" name="password" type={passwordType} required placeholder='Enter Your Password' value={loginData.password} onChange={handleChange}/>
                             <FormControlLabel
                             value="showpassword"
                             control={<Checkbox />}
@@ -128,9 +192,10 @@ const ManagerSignIn = () => {
                             checked={forPassword}
                             />
                             
-                            <Link to={url}><button type='submit'>Login</button></Link>
+                            <button type='submit' onClick={submitForm}>Login</button>
+                            <Link to="/manager-apply"><button type='submit' className={managerSignUp}>Want to join our service? Apply!</button></Link>
                         </fieldset>
-                    </form>
+                    </div>
                 </div>
             </section>
         </article>

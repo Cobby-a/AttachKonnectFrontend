@@ -1,14 +1,34 @@
 import profile from './assets/profile.png'
 import { faBuilding, faHouse, faBriefcase, faUserTie, faUserGear, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './company.css'
 import './sidebar.css'
 import { data } from './adminData'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 
 const AdminCompany = () => {
+    
+    const [companyData, setCompanyData] = useState([])
     const [menu, setMenu] = useState(false);
+
+    const baseUrl = 'http://127.0.0.1:8000/manager'
+
+    useEffect (()=>{
+        document.title = "Companies"
+        try{
+            axios.get(baseUrl)
+            .then((response)=>{
+                setCompanyData(response.data)
+            });
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[])
+
 
     const numbers = [
         {id : 1},
@@ -74,32 +94,34 @@ const AdminCompany = () => {
                         <th style={{paddingLeft: '1rem'}}>Logo</th>
                         <th>Contract status</th>
                         <th>Report Status</th>
-                        <th>Vacancy</th>
+                        {/* <th>Vacancy</th> */}
                         <th>Company</th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
+                    {companyData.map((data)=>{
+                        const {id, companyLogo, contractStatus, reportStatus, companyName} = data;
                         let classname = "verified";
+                        let classname1 = "verified";
 
-                        if(contactStatus === 'Pending'){
+
+                        if(contractStatus === 'Pending'){
                             classname = "pending"
                         }
 
                         if(reportStatus === 'Pending'){
-                            classname = "pending"
+                            classname1 = "pending"
                         }
 
                         return(
                             <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
+                                <td style={{paddingLeft: '1rem'}}><img src={companyLogo} alt={companyName} style={{width: "30px", height: "30px", objectFit: 'cover', borderRadius: '50%'}}/></td>
+                                <td><span className={classname}>{contractStatus}</span></td>
+                                <td><span className={classname1}>{reportStatus}</span></td>
+                                {/* <td>{vacancy}</td> */}
+                                <td>{companyName}</td>
                                 <td>
                                     <span style={{ cursor: 'pointer'}}>
                                         <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
@@ -114,7 +136,7 @@ const AdminCompany = () => {
                         )
                     })}
                     <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
+                        <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
                             <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
                             {numbers.map((num)=>{
                                 return(
@@ -149,32 +171,34 @@ const AdminCompany = () => {
                         <th style={{paddingLeft: '1rem',}}>Logo</th>
                         <th>Contract status</th>
                         <th>Report Status</th>
-                        <th>Vacancy</th>
+                        {/* <th>Vacancy</th> */}
                         <th>Company</th>
                         <th></th>
                         <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
+                    {companyData.map((data)=>{
+                        const {id, companyLogo, contractStatus, reportStatus, companyName} = data;
                         let classname = "verified";
+                        let classname1 = "verified";
 
-                        if(contactStatus === 'Pending'){
+
+                        if(contractStatus === 'Pending'){
                             classname = "pending"
                         }
 
                         if(reportStatus === 'Pending'){
-                            classname = "pending"
+                            classname1 = "pending"
                         }
 
                         return(
                             <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
+                                <td style={{paddingLeft: '1rem'}}><img src={companyLogo} alt={companyName} style={{width: "30px", height: "30px", objectFit: 'cover', borderRadius: '50%'}}/></td>
+                                <td><span className={classname}>{contractStatus}</span></td>
+                                <td><span className={classname1}>{reportStatus}</span></td>
+                                {/* <td>{vacancy}</td> */}
+                                <td>{companyName}</td>
                                 <td>
                                     <span style={{marginRight: '1rem', cursor: 'pointer'}}>
                                         <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
@@ -189,7 +213,7 @@ const AdminCompany = () => {
                         )
                     })}
                     <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
+                        <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
                             <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
                             {numbers.map((num)=>{
                                 return(

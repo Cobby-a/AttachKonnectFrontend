@@ -1,14 +1,17 @@
 import profile from './assets/profile.png'
-import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard, faRemove, faDeleteLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './company.css'
 import './sidebar.css'
-import { data } from './manageData'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-const ManagerCompany = () => {
+const CompanyVacancies = () => {
     const [menu, setMenu] = useState(false);
+    const [vacancyData, setVacancyData] = useState([]);
+
+    // const [moreInfo, setMoreInfo] = useState(false);
 
     const numbers = [
         {id : 1},
@@ -20,6 +23,23 @@ const ManagerCompany = () => {
         {id : 7},
     ]
 
+
+    const managerId = localStorage.getItem('managerId');
+    console.log(managerId);
+    const url = "http://127.0.0.1:8000/manager/companyroles-list/"
+    useEffect(()=>{
+        document.title = "Vacancies"
+        try{
+            axios.get(url+managerId)
+            .then((response)=>{
+                console.log(response.data);
+                setVacancyData(response.data)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[managerId])
     return(
         <main className="managerCompanyBody">
             <header>
@@ -34,7 +54,7 @@ const ManagerCompany = () => {
                                 {/* <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p> */}
                             <div className='SidebarIcons'>
                                 <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
-                                <Link to ="/manager/companyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
+                                <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
                                 <div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div>
                                 <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
                                 <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
@@ -49,7 +69,7 @@ const ManagerCompany = () => {
                     {/* <p style={{fontFamily: 'Segoe UI',  marginBottom: '3rem', marginLeft: '-1rem', fontWeight:'600',}}>Welcome to dashboard</p> */}
                     <div className='sidebarIcons'>
                         <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
-                        <Link to ="/manager/companyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
+                        <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>YourVacancies</div></Link>
                         <div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div>
                         <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
                         <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
@@ -58,8 +78,8 @@ const ManagerCompany = () => {
                 <article className="mainCompanyBody">
                     <div className='companySearch'>
                         <div>
-                            <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Companies</p>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Your Vacancies</p>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor, edit and view your vacancies.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
@@ -69,50 +89,24 @@ const ManagerCompany = () => {
                     <table className="companydeets">
                     <thead>
                     <tr>
-                        <th style={{paddingLeft: '1rem'}}>Logo</th>
-                        <th>Contract status</th>
-                        <th>Report Status</th>
-                        <th>Vacancy</th>
-                        <th>Company</th>
+                        <th style={{paddingLeft: '1rem'}}>Role Name</th>
+                        <th>Interns Needed</th>
+                        <th>Slots remaining</th>
+                        <th>Deadline</th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
+                    {vacancyData.map((data)=>{
+                        const {id, role, numberOfInterns, deadline, moreInfo} = data;
 
                         return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                                <td>    
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                            </tr>
+                            <Vac1 key={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo}/>
                         )
                     })}
+                    <tbody>
                     <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
+                        <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
                             <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
                             {numbers.map((num)=>{
                                 return(
@@ -131,8 +125,8 @@ const ManagerCompany = () => {
                 <article className="mainCompanyBody">
                     <div className='companySearch'>
                         <div>
-                            <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Companies</h3>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Your Vacancies</h3>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor, edit and view your vacancies.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
@@ -144,50 +138,24 @@ const ManagerCompany = () => {
                     <table className="companydeets">
                     <thead>
                     <tr>
-                        <th style={{paddingLeft: '1rem',}}>Logo</th>
-                        <th>Contract status</th>
-                        <th>Report Status</th>
-                        <th>Vacancy</th>
-                        <th>Company</th>
+                        <th style={{paddingLeft: '1rem'}}>Role Name</th>
+                        <th>Interns Needed</th>
+                        <th>Slots remaining</th>
+                        <th>Deadline</th>
                         <th></th>
                         <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
+                    {vacancyData.map((data)=>{
+                        const {id, role, numberOfInterns, deadline, moreInfo} = data;
 
                         return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    <span style={{marginRight: '1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>     
-                                <td>   
-                                    <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                            </tr>
+                            <Vac1 key={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo}/>
                         )
                     })}
+                    <tbody>
                     <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
+                        <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
                             <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
                             {numbers.map((num)=>{
                                 return(
@@ -206,4 +174,60 @@ const ManagerCompany = () => {
     )
 }
 
-export default ManagerCompany;
+
+const Vac1 = ({role, numberOfInterns, deadline, moreInfo}) => {
+    const [showInfo, setShowInfo] = useState(false);
+    const [edit, setEdit] = useState(false)
+    const [vacancy1Data, setVacancy1Data] = useState({
+        'role' :role,
+        'numberOfInterns' :numberOfInterns,
+        'deadline': deadline,
+        'moreInfo': moreInfo,
+    })
+
+    const handleChange = (event)=>{
+        setVacancy1Data({
+            ...vacancy1Data,
+            [event.target.name]:event.target.value
+        })
+    }
+
+    const onEdit = () =>{
+        setShowInfo(true)
+        setEdit(true)
+    }
+    const onCancel = () =>{
+        setShowInfo(false)
+        setEdit(false)
+    }
+    const onSave = () =>{
+
+    }
+    const onDelete = () =>{
+        
+    }
+    return(
+        <tbody>
+        <tr style={{cursor: 'pointer'}}>
+            <td style={{paddingLeft: '1rem'}} onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '175px'}} value={vacancy1Data.role} onChange={handleChange} name='role'/>:role}</td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '50px', textAlign: 'center'}} value={vacancy1Data.numberOfInterns} onChange={handleChange} name='numberOfInterns'/>:numberOfInterns}</td>
+            <td onClick={()=>setShowInfo(!showInfo)}></td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '115px'}} value={vacancy1Data.deadline} onChange={handleChange} name='deadline' type='date'/>:deadline}</td>
+            <td>
+                <span style={{marginRight: '0.5rem', cursor: 'pointer'}}>
+                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}}>Save</button> : <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onEdit()}>Edit</button>}
+                </span>
+            </td>     
+            <td>   
+                <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
+                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: '-1rem',}} onClick={()=>onCancel()}>Cancel</button> : <FontAwesomeIcon icon={faTrash} style={{fontSize: '1.2rem', color: "#ff3333"}}/>}
+                </span>
+            </td>
+        </tr>
+        <tr style={{borderTop: '0', }} className={showInfo ? 'showInfo1' : 'showInfo'}>
+            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0', }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Short info on the role: </span>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '100%',}} value={vacancy1Data.moreInfo} onChange={handleChange} name='moreInfo'/>:moreInfo}</td>
+        </tr>
+        </tbody>
+    )
+}
+export default CompanyVacancies;
