@@ -7,6 +7,15 @@ import './sidebar.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+import Swal from 'sweetalert2'
+
+// const Swal = require('sweetalert2')
+
+
+
+const url = "http://127.0.0.1:8000/manager/"
+const managerId = localStorage.getItem('managerId');
+
 const CompanyVacancies = () => {
     const [menu, setMenu] = useState(false);
     const [vacancyData, setVacancyData] = useState([]);
@@ -24,13 +33,11 @@ const CompanyVacancies = () => {
     ]
 
 
-    const managerId = localStorage.getItem('managerId');
     console.log(managerId);
-    const url = "http://127.0.0.1:8000/manager/companyroles-list/"
     useEffect(()=>{
         document.title = "Vacancies"
         try{
-            axios.get(url+managerId)
+            axios.get(url+'companyroles-list/'+managerId)
             .then((response)=>{
                 console.log(response.data);
                 setVacancyData(response.data)
@@ -39,7 +46,7 @@ const CompanyVacancies = () => {
         catch(error){
             console.log(error)
         }
-    },[managerId])
+    },[])
     return(
         <main className="managerCompanyBody">
             <header>
@@ -94,14 +101,14 @@ const CompanyVacancies = () => {
                         <th>Slots remaining</th>
                         <th>Deadline</th>
                         <th></th>
-                        <th></th>
+                        <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
                     {vacancyData.map((data)=>{
                         const {id, role, numberOfInterns, deadline, moreInfo} = data;
 
                         return(
-                            <Vac1 key={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo}/>
+                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} setVacancyData={setVacancyData}/>
                         )
                     })}
                     <tbody>
@@ -150,7 +157,7 @@ const CompanyVacancies = () => {
                         const {id, role, numberOfInterns, deadline, moreInfo} = data;
 
                         return(
-                            <Vac1 key={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo}/>
+                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} setVacancyData={setVacancyData}/>
                         )
                     })}
                     <tbody>
@@ -175,7 +182,7 @@ const CompanyVacancies = () => {
 }
 
 
-const Vac1 = ({role, numberOfInterns, deadline, moreInfo}) => {
+const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) => {
     const [showInfo, setShowInfo] = useState(false);
     const [edit, setEdit] = useState(false)
     const [vacancy1Data, setVacancy1Data] = useState({
@@ -199,33 +206,158 @@ const Vac1 = ({role, numberOfInterns, deadline, moreInfo}) => {
     const onCancel = () =>{
         setShowInfo(false)
         setEdit(false)
+        setVacancy1Data({role : role, numberOfInterns : numberOfInterns, deadline: deadline, moreInfo: moreInfo })
+        setRoleError("")
+        setDeadlineError("")
+        setNumOfInternError("")
     }
-    const onSave = () =>{
+    useEffect(()=>{
+        try{
+            axios.get(url+'roles')
+            .then((response)=>{
+                console.log(response.data);
+                // setVacancyData(response.data)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[])
+    
+    const [roleError, setRoleError] = useState('')
+    const [numOfInternError, setNumOfInternError] = useState('')
+    const [deadlineError, setDeadlineError] = useState('')
 
+    const onSave = (id) =>{
+        let regex = new RegExp('^[0-9]+$');
+        if(vacancy1Data.role.length === 0){
+            setRoleError("Role field cannot be empty")
+            return;
+        }
+        else if(vacancy1Data.role.length !== 0){
+            setRoleError("")
+        }
+        if(vacancy1Data.role.length < 3){
+            setRoleError("specify a valid role")
+            return;
+        }
+        else if(vacancy1Data.role.length >= 3){
+            setRoleError("")
+        }
+        if(vacancy1Data.numberOfInterns.length === 0){
+            setNumOfInternError("Number of interns field cannot be empty")
+            return;
+        }
+        else if(vacancy1Data.numberOfInterns.length !== 0){
+            setNumOfInternError("")
+        }
+        if(regex.test(vacancy1Data.numberOfInterns) === false){
+            setNumOfInternError("Invalid input type for number of Interns")
+            return;
+        }
+        else if(regex.test(vacancy1Data.numberOfInterns) === true){
+            setNumOfInternError("")
+        }
+        if(vacancy1Data.deadline.length !== 10){
+            setDeadlineError("Input a valid date")
+            return;
+        }
+        else if(vacancy1Data.deadline.length === 10){
+            setDeadlineError("")
+        }
+        if(vacancy1Data.role.length !== 0 && vacancy1Data.role.length >= 3 && vacancy1Data.numberOfInterns.length !== 0 && regex.test(vacancy1Data.numberOfInterns) === true && vacancy1Data.deadline.length === 10){
+            const formData = new FormData();
+            formData.append('company', managerId);
+            formData.append('role', vacancy1Data.role);
+            formData.append('numberOfInterns', vacancy1Data.numberOfInterns);
+            formData.append('moreInfo', vacancy1Data.moreInfo)
+
+            try{
+                axios.put(url+'roles/'+id+'/', formData)
+                .then((response)=>{
+                    console.log(response)
+                    if(response.status===200){
+                        Swal.fire({
+                            title: 'Data has been updated',
+                            icon: 'success',
+                            toast: true,
+                            timer: 3000,
+                            position: 'top-right',
+                            timerProgressBar:true,
+                            showConfirmButton: false,
+                        });
+                        try{
+                            axios.get(url+'companyroles-list/'+managerId)
+                            .then((response)=>{
+                                setVacancyData(response.data)
+                                setShowInfo(false)
+                                setEdit(false)
+                            })
+                        }
+                        catch(error){
+                            console.log(error)
+                        }
+                    }
+                    // window.location.href='/manager/vacancyboard'
+                })
+            }catch(error){
+                console.log(error)
+            }
+        }
     }
-    const onDelete = () =>{
-        
+
+    const handleDeleteClick = (role, id) => {
+        Swal.fire({
+            title: 'Confirm',
+            text: `Are you sure you want to delete vacancy for ${role}?`,
+            icon: 'info',
+            confirmButtonText: 'Yes, Continue',
+            showCancelButton: true
+          })
+          .then((result)=>{
+            if(result.isConfirmed){
+                try{
+                    axios.delete(url+'roles/'+id+'/')
+                    .then((response)=>{
+                        console.log(response)
+                        Swal.fire('success', `Vacancy for ${role} has been deleted.`);
+                        try{
+                            axios.get(url+'companyroles-list/'+managerId)
+                            .then((response)=>{
+                                setVacancyData(response.data)
+                            })
+                        }
+                        catch(error){
+                            console.log(error)
+                        }
+                    })
+                }
+                catch(error){
+                    console.log(error)
+                }
+            }
+          })
     }
     return(
         <tbody>
         <tr style={{cursor: 'pointer'}}>
-            <td style={{paddingLeft: '1rem'}} onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '175px'}} value={vacancy1Data.role} onChange={handleChange} name='role'/>:role}</td>
-            <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '50px', textAlign: 'center'}} value={vacancy1Data.numberOfInterns} onChange={handleChange} name='numberOfInterns'/>:numberOfInterns}</td>
+            <td style={{paddingLeft: '1rem'}} onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '175px'}} value={vacancy1Data.role} onChange={handleChange} name='role'/>:role} {roleError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{roleError}</p>}</td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '50px', textAlign: 'center'}} value={vacancy1Data.numberOfInterns} onChange={handleChange} name='numberOfInterns'/>:numberOfInterns} {numOfInternError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{numOfInternError}</p>}</td>
             <td onClick={()=>setShowInfo(!showInfo)}></td>
-            <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '115px'}} value={vacancy1Data.deadline} onChange={handleChange} name='deadline' type='date'/>:deadline}</td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '115px'}} value={vacancy1Data.deadline} onChange={handleChange} name='deadline' type='date'/>:deadline} {deadlineError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{deadlineError}</p>}</td>
             <td>
                 <span style={{marginRight: '0.5rem', cursor: 'pointer'}}>
-                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}}>Save</button> : <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onEdit()}>Edit</button>}
+                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onSave(id)}>Save</button> : <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onEdit()}>Edit</button>}
                 </span>
             </td>     
             <td>   
                 <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
-                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: '-1rem',}} onClick={()=>onCancel()}>Cancel</button> : <FontAwesomeIcon icon={faTrash} style={{fontSize: '1.2rem', color: "#ff3333"}}/>}
+                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: '-1rem',}} onClick={()=>onCancel()}>Cancel</button> : <FontAwesomeIcon onClick={()=>handleDeleteClick(role, id)} icon={faTrash} style={{fontSize: '1.2rem', color: "#ff3333"}}/>}
                 </span>
             </td>
         </tr>
         <tr style={{borderTop: '0', }} className={showInfo ? 'showInfo1' : 'showInfo'}>
-            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0', }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Short info on the role: </span>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '100%',}} value={vacancy1Data.moreInfo} onChange={handleChange} name='moreInfo'/>:moreInfo}</td>
+            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0',paddingRight: "1.5rem" }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Short info on the role: </span>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '100%',}} value={vacancy1Data.moreInfo} onChange={handleChange} name='moreInfo'/>:moreInfo}</td>
         </tr>
         </tbody>
     )
