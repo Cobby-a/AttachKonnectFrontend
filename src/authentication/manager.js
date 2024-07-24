@@ -24,6 +24,7 @@ const ManagerSignIn = () => {
     const [forManager, setForManager] = useState(false);
     const [forPassword, setForPassword] = useState(false);
     const [managerSignUp, setManagerSignUp] = useState("button2")
+    const [placeholder, setPlaceHolder] = useState("Username")
 
     const [loginData, setLoginData] = useState({
         username: '',
@@ -40,12 +41,12 @@ const ManagerSignIn = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const submitForm =() =>{
-        const teacherFormData = new FormData();
-        teacherFormData.append('username', loginData.username)
-        teacherFormData.append('password', loginData.password)
+        const loginFormData = new FormData();
+        loginFormData.append('username', loginData.username)
+        loginFormData.append('password', loginData.password)
         if(forManager === true){
             try{
-                axios.post("http://127.0.0.1:8000/manager/manager-login", teacherFormData)
+                axios.post("http://127.0.0.1:8000/manager/manager-login/", loginFormData)
                 .then((response)=>{
                     console.log(response.data);
                     if(response.data.bool === true){
@@ -56,6 +57,25 @@ const ManagerSignIn = () => {
                     }
                     else{
                         setErrorMessage("Invalid Email or Password! Try again.")
+                    }
+                });
+            }catch(error){
+                console.log(error)
+            }
+        }
+        if(forStudent === true){
+            try{
+                axios.post("http://127.0.0.1:8000/student/student-login/", loginFormData)
+                .then((response)=>{
+                    console.log(response.data);
+                    if(response.data.bool === true){
+                        localStorage.setItem('studentLoginStatus', true)
+                        localStorage.setItem('studentId', response.data.student_id)
+                        localStorage.setItem('studentName', response.data.student_name)
+                        window.location.href='/student/dashboard';
+                    }
+                    else{
+                        setErrorMessage("Invalid Student Id or Password! Try again.")
                     }
                 });
             }catch(error){
@@ -76,6 +96,7 @@ const ManagerSignIn = () => {
         setForSupervisor(false);
         setManagerSignUp("button2");
         setErrorMessage('');
+        setPlaceHolder('Username')
     }
     const Supervisor = () =>{
         setForAdmin(false);
@@ -84,6 +105,7 @@ const ManagerSignIn = () => {
         setForSupervisor(true);
         setManagerSignUp("button2");
         setErrorMessage('');
+        setPlaceHolder('Staff Id');
     }
     const Student = () =>{
         setForAdmin(false);
@@ -92,6 +114,7 @@ const ManagerSignIn = () => {
         setForSupervisor(false);
         setManagerSignUp("button2");
         setErrorMessage('');
+        setPlaceHolder('Student Id')
     }
     const Manager = () =>{
         setForAdmin(false);
@@ -100,6 +123,7 @@ const ManagerSignIn = () => {
         setForSupervisor(false);
         setManagerSignUp("button1");
         setErrorMessage('');
+        setPlaceHolder('Email')
     }
     let accountType = "Admin"
     let passwordType = "password"
@@ -180,7 +204,7 @@ const ManagerSignIn = () => {
                     {errorMessage && <p style={{textAlign: 'center', marginTop: '1rem', marginBottom: '-1.2rem', fontSize: '1rem', color: "#ff3333", }}>{errorMessage}</p>}
                     <div className='form'>
                         <fieldset>
-                            <input id="email" name="username" type="text" required placeholder='Username' value={loginData.username} onChange={handleChange}/>
+                            <input id="email" name="username" type="text" required placeholder={placeholder} value={loginData.username} onChange={handleChange}/>
                             <input id="password" name="password" type={passwordType} required placeholder='Enter Your Password' value={loginData.password} onChange={handleChange}/>
                             <FormControlLabel
                             value="showpassword"
