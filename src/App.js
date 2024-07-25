@@ -22,6 +22,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ManagerSignUp from './authentication/managerSignUp';
 import ManagerCreateVacancy from './manager/createVacancy';
 
+import CompanyDeets from './student/comapanyDeets';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route exact path = "/student/companyboard" element = {<StudentCompany/>}/>
             <Route exact path = "/student/vacancyboard" element = {<StudentVacancy/>}/>
             <Route exact path = "/student/vacancyboard/apply" element = {<StudentApply/>}/>
+            <Route exact path="/student/company/:id/:companyName" element={<CompanyDeets/>} />
             <Route exact path="*" element={<Navigate to="portal" replace />} />
           </Route>
         </Routes>

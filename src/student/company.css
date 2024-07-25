@@ -167,6 +167,10 @@
     border-left: none;
     padding: 12px 8px 12px 8px;
     white-space: nowrap;
+    /* margin-top: -16px; */
+    /* position: absolute;
+    top: 50; */
+    /* display: flex; */
   }
   .studentCompanyBody .companydeets td{
     color: #808080;

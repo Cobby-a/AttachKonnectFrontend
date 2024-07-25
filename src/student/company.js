@@ -1,14 +1,35 @@
 import profile from './assets/profile.png'
 import { faBuilding, faHouse, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './company.css'
 import './sidebar.css'
 import { data } from './studentData'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+
+
+const baseUrl = 'http://127.0.0.1:8000/manager'
+
 
 const StudentCompany = () => {
     const [menu, setMenu] = useState(false);
+
+    const [companyData, setCompanyData] = useState([])
+
+    useEffect (()=>{
+        document.title = "Companies"
+        try{
+            axios.get(baseUrl)
+            .then((response)=>{
+                setCompanyData(response.data)
+            });
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[])
 
     const numbers = [
         {id : 1},
@@ -56,8 +77,8 @@ const StudentCompany = () => {
                 <article className="mainCompanyBody">
                     <div className='companySearch'>
                         <div>
-                            <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Companies</p>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Companies on the system</p>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>View companies on the system and have access to their vacancies.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
@@ -70,33 +91,16 @@ const StudentCompany = () => {
                         <th style={{paddingLeft: '1rem'}}>Logo</th>
                         <th>Contract status</th>
                         <th>Report Status</th>
-                        <th>Vacancy</th>
                         <th>Company</th>
-                        <th></th>
+                        <th style={{paddingRight: "1rem"}}></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
+                    {companyData.map((data)=>{
+                        const {id, companyLogo, contractStatus, reportStatus, companyName} = data;
 
                         return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td></td>
-                            </tr>
+                            <Companydeets key={id} id={id} companyLogo={companyLogo} companyName={companyName} contractStatus={contractStatus} reportStatus={reportStatus}/>
                         )
                     })}
                     <tr >
@@ -119,8 +123,8 @@ const StudentCompany = () => {
                 <article className="mainCompanyBody">
                     <div className='companySearch'>
                         <div>
-                            <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Companies</h3>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Companies on the system</h3>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>View companies on the system and have access to their vacancies.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
@@ -135,38 +139,16 @@ const StudentCompany = () => {
                         <th style={{paddingLeft: '1rem',}}>Logo</th>
                         <th>Contract status</th>
                         <th>Report Status</th>
-                        <th>Vacancy</th>
                         <th>Company</th>
-                        <th></th>
-                        <th style={{paddingRight: "4rem"}}></th>
+                        <th style={{paddingRight: "1rem"}}></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
+                    {companyData.map((data)=>{
+                        const {id, companyLogo, contractStatus, reportStatus, companyName} = data;
 
                         return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    {/* <span style={{marginRight: '1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span> */}
-                                </td>
-                            </tr>
+                            <Companydeets key={id} id={id} companyLogo={companyLogo} companyName={companyName} contractStatus={contractStatus} reportStatus={reportStatus}/>
                         )
                     })}
                     <tr >
@@ -186,6 +168,30 @@ const StudentCompany = () => {
             </section>
 
         </main>
+    )
+}
+
+const Companydeets = ({id, companyLogo, contractStatus, companyName, reportStatus}) => {
+    let classname = "verified";
+    let classname1 = "verified";
+
+
+    if(contractStatus === 'Pending'){
+        classname = "pending"
+    }
+
+    if(reportStatus === 'Pending'){
+        classname1 = "pending"
+    }
+    return (
+        <tr key={id} style={{cursor: 'pointer'}} onClick={()=>window.open(`/student/company/${id}/${companyName.split(` `).join(`-`).toLowerCase()}`)}>
+            {/* <Link to = {`/student/company/${id}/${companyName.split(` `).join(`-`).toLowerCase()}`} state={{id: id, companyName: companyName}}></Link> */}
+            <td style={{paddingLeft: '1rem'}}><img src={companyLogo} alt={companyName} style={{width: "30px", height: "30px", objectFit: 'cover', borderRadius: '50%'}}/></td>
+            <td><span className={classname}>{contractStatus}</span></td>
+            <td><span className={classname1}>{reportStatus}</span></td>
+            <td>{companyName}</td>
+            <td><Link to = {`/student/company/${id}/${companyName.split(` `).join(`-`).toLowerCase()}`} state={{id: id, companyName: companyName}}><button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}}>View</button></Link></td>
+        </tr>
     )
 }
 

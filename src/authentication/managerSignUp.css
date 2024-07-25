@@ -101,7 +101,7 @@
 .managerSignUpBody textarea:focus{
     outline: none;
 }
-input::file-selector-button {
+.managerSignUpBody input::file-selector-button {
   font-weight: bold;
   /* color: #111111; */
   padding: 6px 8px 6px 8px;
@@ -112,6 +112,6 @@ input::file-selector-button {
   font-size: 12px;
   font-weight: 100;
 }
-input[type="file"] {
+.managerSignUpBody input[type="file"] {
     padding: 0;
 }

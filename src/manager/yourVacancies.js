@@ -211,18 +211,18 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) =
         setDeadlineError("")
         setNumOfInternError("")
     }
-    useEffect(()=>{
-        try{
-            axios.get(url+'roles')
-            .then((response)=>{
-                console.log(response.data);
-                // setVacancyData(response.data)
-            })
-        }
-        catch(error){
-            console.log(error)
-        }
-    },[])
+    // useEffect(()=>{
+    //     try{
+    //         axios.get(url+'roles')
+    //         .then((response)=>{
+    //             console.log(response.data);
+    //             // setVacancyData(response.data)
+    //         })
+    //     }
+    //     catch(error){
+    //         console.log(error)
+    //     }
+    // },[])
     
     const [roleError, setRoleError] = useState('')
     const [numOfInternError, setNumOfInternError] = useState('')
