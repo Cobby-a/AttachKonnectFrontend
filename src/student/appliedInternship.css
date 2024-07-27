@@ -1,0 +1,94 @@
+.yourAppliedInternshipsBody{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    
+}
+.yourAppliedInternshipsBody .yourAppliedInternshipContainer{
+    width: 100vw;
+    margin: 2rem auto 2rem;
+    background: #ffffff;
+    
+    padding: 2rem 1.2rem;
+    max-width: 1000px;
+    /* box-shadow: 0 4px 4px #7c8388; */
+}
+.yourAppliedInternshipsBody .formContainer1{
+    display: flex;
+    flex-flow: column nowrap;
+    /* column-gap: 1rem; */
+    justify-content: center;
+    row-gap: 1rem;
+    margin-bottom: 1.5rem;
+    /* box-shadow: 0 4px 2px #9b9d9e; */
+    /* border-radius: 4px; */
+    padding: 16px 16px;
+    background-color: #ffffff;
+    border-bottom: 1.5px solid #cccccc;
+    /* width: 100%; */
+}
+.yourAppliedInternshipsBody .input{
+    background-color: #FAFAFA;
+    /* min-width: 200px; */
+    /* max-width: 200px; */
+}
+.yourAppliedInternshipsBody .form label, .yourAppliedInternshipsBody p{
+    font-size: 12px;
+    color: #4C4C4C;
+    line-height: 16px;
+    font-family: "Poppins";
+}
+.yourAppliedInternshipsBody .form input{
+    font-size: 12px;
+    font-family: "Montserrat";
+}
+
+.yourAppliedInternshipsBody input{
+    border: none;
+    font-family: 'Poppins';
+    background-color: #F5F5F5;
+    width: 100%;
+    padding: 6px 8px 6px 8px;
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+}
+.yourAppliedInternshipsBody input:focus{
+    outline: none;
+}
+.yourAppliedInternshipsBody .form p{
+    margin-bottom: -1px;
+    padding-bottom: 4px;
+}
+.yourAppliedInternshipsBody button{
+    border: none;
+    /* width: 140px; */
+    text-align: center;
+    padding: 6px 2px;
+    font-family: "Montserrat";
+    color: #ffffff;
+    background-color: #1A7AE0;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    /* padding: 2px 2px; */
+
+    margin-top: -0.2rem;
+}
+.yourAppliedInternshipsBody input::file-selector-button {
+    font-weight: bold;
+    /* color: #111111; */
+    padding: 4px 8px 4px 8px;
+    border: 0;
+    border-radius: 3px;
+    font-family: "Poppins";
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 100;
+  }
+  .yourAppliedInternshipsBody input[type="file"] {
+      padding: 0;
+      width: 100%;
+      /* width: 300px; */
+  }

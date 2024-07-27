@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './companyDeets.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,7 +11,8 @@ import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-    const url = 'http://127.0.0.1:8000/manager/'
+    const url = 'http://127.0.0.1:8000/'
+    const studentId = localStorage.getItem('studentId');
 
     const modStyle = {
         position: 'absolute',
@@ -30,18 +29,16 @@ import axios from 'axios';
 
 
 const CompanyDeets = () => {
-    // const location = useLocation();
-    // console.log(location)
     // companyName.split(` `).join(`-`).toLowerCase()
     const {companyName, id} = useParams();
     
     const [companyDetailsData, setCompanyDetailsData] = useState([])
     const [companyData, setCompanyData] = useState([])
-
+    const [modalOpen, setModalOpen] = useState(false)
     useEffect (()=>{
         document.title = companyName.split('-').join(' ')
         try{
-            axios.get(url+'companyroles-list/'+id)
+            axios.get(url+'manager/companyroles-list/'+id)
             .then((response)=>{
                 setCompanyDetailsData(response.data)
             });
@@ -50,7 +47,7 @@ const CompanyDeets = () => {
             console.log(error)
         }
         try{
-            axios.get(url+id)
+            axios.get(url+'manager/'+id)
             .then((response)=>{
                 setCompanyData(response.data)
             });
@@ -60,39 +57,9 @@ const CompanyDeets = () => {
         }
     },[id, companyName])
 
-
-    const [modalOpen, setModalOpen] = useState(false)
-
-    // const onSubmitApplication = () => {
-    //     // let regex = /^[a-zA-Z\s]+$/;
-    //         const managerApplicationData = new FormData();
-    //         managerApplicationData.append("company", managerId)
-    //         managerApplicationData.append("role", vacancyData.role)
-    //         managerApplicationData.append("numberOfInterns", vacancyData.numberOfInterns)
-    //         managerApplicationData.append("deadline", vacancyData.deadline)
-    //         managerApplicationData.append("moreInfo", vacancyData.moreInfo)
-
-    //         try{
-    //             axios.post(baseUrl, managerApplicationData).then((response)=>{
-    //                 setVacancyData({
-    //                     'role' :'',
-    //                     'numberOfInterns' :'',
-    //                     'deadline': '',
-    //                     'moreInfo': '',
-    //                 });
-    //                 setModalOpen(true);
-    //             })
-    //         }catch(error){
-    //             console.log(error)
-    //         }
-    // }
-    const onClosed = () => {
-        setModalOpen(false);
-        window.location.href='/manager/dashboard';
-    }
     return(
-        <article className='companyDetailsBody' >
-            <section className='companyDetailsContainer' style={{display: modalOpen ? "none" : "block",}}>
+        <article className='companyDetailsBody'  style={{display: modalOpen ? "none" : ""}}>
+            <section className='companyDetailsContainer' >
                 <div style={{}}>
                     <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>{companyName.split('-').join(' ')}</p>
                     <p>Information about the company: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.briefInfo}</span></p>
@@ -101,59 +68,100 @@ const CompanyDeets = () => {
                 <div className='form'>
                 <p style={{fontFamily: 'Montserrat', fontWeight: "400", fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center', marginBottom: '0.5rem', marginTop: '2rem', color: '#000'}}>Vacancies</p>
                     {companyDetailsData.map((data)=>{
-                        const {role, numberOfInterns, deadline, moreInfo} = data;
+                        const {id, role, numberOfInterns, deadline, moreInfo} = data;
+                        let roleId = id
                         return(
-                            <CompanyDeet role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo}/>
+                            <CompanyDeet companyName={companyName} key={roleId} roleId={roleId} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} setModalOpen={setModalOpen} modalOpen={modalOpen}/>
                         )
                     })}
                 </div>
-                <Modal
-                    open={modalOpen}
-                    onClose={()=>onClosed()}
-                    aria-labelledby="title"
-                    aria-describedby="description"                    
-                >
-                    <Box sx={modStyle} style={{maxWidth: '500px', width: '90%'}}>
-                    <span style={{display: 'flex', justifyContent: 'flex-end'}}><FontAwesomeIcon onClick={()=>onClosed()} icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-1rem",}}/></span>   
-                    <Typography id="modal-modal-title" variant="h6" component="h2" style={{fontFamily: 'Montserrat', padding: "1rem 1rem 1rem 1rem"}}>
-                        You have added new role for your company, {companyName}
-                    </Typography>
-                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography> */}
-                    </Box>
-                </Modal>
             </section>
         </article>
     )
 }
-const CompanyDeet = ({role, numberOfInterns, deadline, moreInfo}) => {
+const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, companyName, modalOpen, setModalOpen}) => {
+    const [studentApplyData, setStudentApplyData] = useState({
+        'applicationFile' :'',
+    })
     const [onfile, setOnFile] = useState(false);
 
+    const handleFileChange=(event)=>{
+        setStudentApplyData({
+            ...studentApplyData,
+            [event.target.name]:event.target.files[0]
+        })
+    }
+
+    const [applicationError, setApplicationError] = useState('')
+
+    const onClosed = () => {
+        setModalOpen(false);
+        window.location.href='/student/dashboard';
+    }
+
+    const onSubmitApplication = (roleId, setModalOpen) => {
+        if(studentApplyData.applicationFile === ""){
+            setApplicationError("Please provide the necessary file to proceed")
+            return;
+        }
+        else{
+            setApplicationError("")
+        }
+        if(studentApplyData.applicationFile !== ""){
+            const studentApplicationData = new FormData();
+            studentApplicationData.append("student", studentId)
+            studentApplicationData.append("role", roleId)
+            studentApplicationData.append("applicationFile", studentApplyData.applicationFile, studentApplyData.applicationFile.name)
+
+            try{
+                axios.post(url+'student/student-roles-applied/', studentApplicationData, {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                })
+                .then((response)=>{
+                    console.log(response.data);
+                    setModalOpen(true);
+                })
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
+    }
     return(
         <div className="formContainer1">
             <div style={{flex: 1, width:"100%", }}>
                 <p>Name of Role: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{role}</span></p>
-                {/* <div className='input'><input type='text' required name='role' value={vacancyData.role} onChange={handleChange} /></div> */}
             </div>
             <div style={{flex: 1, width:"100%", }}>
                 <p>Number of Interns remaining needed: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{numberOfInterns}</span></p>
-                {/* <div className='input'><input type='text' required name='role' value={vacancyData.role} onChange={handleChange} /></div> */}
             </div>
             <div style={{flex: 1, width:"100%", }}>
                 <p>Deadline for submission:  <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{deadline}</span></p>
-                {/* <div className='input'><input type='text' required name='role' value={vacancyData.role} onChange={handleChange} /></div> */}
             </div>
             <div style={{flex: 1, width:"100%",}}>
                 <p>More Information about the role: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{moreInfo}</span></p>
-                {/* <div className='input'><input type='text' required name='role' value={vacancyData.role} onChange={handleChange} /></div> */}
             </div>
             {onfile && <div style={{flex: 1, width:"100%", marginTop: '8px'}}>
                 <label>Submit your file</label>
-                <div className='input'><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' /></div>
-                {/* {roleError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{roleError}</p>} */}
+                <div className='input'><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' onChange={handleFileChange}/></div>
+                {applicationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{applicationError}</p>}
             </div>}
-            {onfile ? <button type='submit' >Submit your file for application</button> : <button type='submit' onClick={()=> setOnFile(true)}>Click to Submit your file for application</button>}
+            {onfile ? <button type='submit' onClick={()=>onSubmitApplication(roleId, setModalOpen)}>Submit your file for application</button> : <button type='submit' onClick={()=> setOnFile(true)}>Click to Submit your file for application</button>}
+            <Modal
+                open={modalOpen}
+                onClose={()=>onClosed()}
+                aria-labelledby="title"
+                aria-describedby="description"                    
+            >
+                <Box sx={modStyle} style={{maxWidth: '500px', width: '90%'}}>
+                <span style={{display: 'flex', justifyContent: 'flex-end'}}><FontAwesomeIcon onClick={()=>onClosed()} icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-1rem",}}/></span>   
+                <Typography id="modal-modal-title" variant="h6" component="h2" style={{fontFamily: 'Montserrat', padding: "1rem 1rem 1rem 1rem"}}>
+                    You have applied for the internship vacancy, {role} at {companyName.split('-').join(' ')}
+                </Typography>
+                </Box>
+            </Modal>
         </div>
     )
 }

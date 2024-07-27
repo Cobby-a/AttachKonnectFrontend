@@ -23,6 +23,7 @@ import ManagerSignUp from './authentication/managerSignUp';
 import ManagerCreateVacancy from './manager/createVacancy';
 
 import CompanyDeets from './student/comapanyDeets';
+import AppliedInternships from './student/appliedInternships';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             <Route exact path = "/student/vacancyboard" element = {<StudentVacancy/>}/>
             <Route exact path = "/student/vacancyboard/apply" element = {<StudentApply/>}/>
             <Route exact path="/student/company/:id/:companyName" element={<CompanyDeets/>} />
+            <Route exact path = "/student/your-applied-internships" element = {<AppliedInternships/>}/>
             <Route exact path="*" element={<Navigate to="portal" replace />} />
           </Route>
         </Routes>
