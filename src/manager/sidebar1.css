@@ -1,0 +1,58 @@
+@media screen and (min-width: 1101px){
+    .applicantshamMenu{
+        display: none;
+    }
+    .applicantssidebar{
+        max-width: 350px;
+        min-width: 100px;
+        font-family: 'Poppins';
+        flex: 1;
+    }
+    .applicantssidebarIcons div{
+        font-size: 1.1rem;
+        padding-bottom: 1.2rem;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    .applicantssidebarIcons{
+        width: 180px;
+        margin-top: 1.2rem;
+    }
+    .applicantsSidebar{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .applicantshamMenu{
+        align-self: flex-end;
+    }
+    .applicantsSidebarIcons div{
+        font-size: 1rem;
+        padding-bottom: 1.2rem;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    .applicantsSidebarIcons{
+        margin-top: 2rem;
+    }
+    .applicantsSidebar{
+        position: fixed;
+        top: 0;
+        right: 0px;
+        margin-right: 0.5rem;
+        width: 320px;
+        height: 100vh;
+        background-color: #ffffff;
+        padding-left: 2rem;
+        transition: 0.3s ease-in-out;
+        padding-top: 1rem;
+        padding-bottom: 4rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+        z-index: 1;
+    }
+    .applicantsNonSidebar{
+        display: none;
+    }
+}
