@@ -124,7 +124,7 @@
     box-shadow: 0 4px 6px #7c8388;
 }
 
-@media screen and (min-width: 552px){
+@media screen and (min-width: 700px){
     .supervisorManageUsersBody .formContainer{
         display: flex;
         flex-flow: row wrap;
@@ -143,7 +143,7 @@
     }
 }
 
-@media screen and (max-width: 551px){
+@media screen and (max-width: 701px){
     .supervisorManageUsersBody .formContainer{
         display: block;
         width: 100%;

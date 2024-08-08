@@ -1,9 +1,8 @@
 import logo from '../assets/logo.svg'
+import compssalogo from '../assets/compssaLogo.png'
 import logo1 from '../assets/logoname.svg'
 
 import { Checkbox,  } from '@mui/material'
-// import FormGroup from '@mui/material'
-// import FormControlLabel from '@mui/material'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import axios from 'axios';
@@ -44,11 +43,28 @@ const ManagerSignIn = () => {
         const loginFormData = new FormData();
         loginFormData.append('username', loginData.username)
         loginFormData.append('password', loginData.password)
+        if(forAdmin === true){
+            try{
+                axios.post("http://127.0.0.1:8000/admin-page/admin-login/", loginFormData)
+                .then((response)=>{
+                    if(response.data.bool === true){
+                        localStorage.setItem('adminLoginStatus', true)
+                        localStorage.setItem('admin_id', response.data.admin_id)
+                        localStorage.setItem('adminUserName', response.data.adminUsername)
+                        window.location.href='/admin/dashboard';
+                    }
+                    else{
+                        setErrorMessage("Invalid admin username or password! Try again.")
+                    }
+                });
+            }catch(error){
+                console.log(error)
+            }
+        }
         if(forManager === true){
             try{
                 axios.post("http://127.0.0.1:8000/manager/manager-login/", loginFormData)
                 .then((response)=>{
-                    console.log(response.data);
                     if(response.data.bool === true){
                         localStorage.setItem('managerLoginStatus', true)
                         localStorage.setItem('managerId', response.data.manager_id)
@@ -67,7 +83,6 @@ const ManagerSignIn = () => {
             try{
                 axios.post("http://127.0.0.1:8000/student/student-login/", loginFormData)
                 .then((response)=>{
-                    console.log(response.data);
                     if(response.data.bool === true){
                         localStorage.setItem('studentLoginStatus', true)
                         localStorage.setItem('studentId', response.data.student_id)
@@ -88,7 +103,6 @@ const ManagerSignIn = () => {
     // if(managerLoginStatus === 'true'){
     //     window.location.href='/manager/dashboard';
     // }
-    let url = ""
     const Admin = () =>{
         setForAdmin(true);
         setForManager(false);
@@ -130,25 +144,30 @@ const ManagerSignIn = () => {
     if(forPassword === true){
         passwordType = "text"
     }
-    if(forAdmin === true){
-        url = "/admin/dashboard"
-    }
-    else if(forStudent === true){
-        accountType = "Student"
-        url = "/student/dashboard"
-    }
+    // if(forAdmin === true){
+    //     url = "/admin/dashboard"
+    // }
+    // else if(forStudent === true){
+    //     accountType = "Student"
+    //     url = "/student/dashboard"
+    // }
     // else if(forManager === true){
     //     accountType = "Manager"
     //     url = "http://127.0.0.1:8000/manager/manager-login"
     // }
-    else if(forSupervisor === true){
-        accountType = "Supervisor"
-        url = "/manager/dashboard"
-    }
+    // else if(forSupervisor === true){
+    //     accountType = "Supervisor"
+    //     url = "/manager/dashboard"
+    // }
     return(
         <article className='authContainer'>
-            <section className="logo">
-                <img src={logo} alt="logo" />
+            <section>
+                <section className="logo">
+                    <img src={logo} alt="logo" />
+                </section>
+                <section className="logo1">
+                    <img src={compssalogo} alt="logo" />
+                </section>
             </section>
             <section className='maincontainer'>
                 <div className='container1'>

@@ -2,35 +2,11 @@
     .adminManageUsersBody{
         margin: 1rem;
     }
-    .adminManageUsersBody .profile img{
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .adminManageUsersBody .profile h2{
-        font-weight: 400;
-        font-size: 1.2rem;
-        line-height: 18px;
-    }
 }
 
 @media screen and (min-width: 600px){
     .adminManageUsersBody{
         margin: 1.5rem;
-    }
-    .adminManageUsersBody .profile img{
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .adminManageUsersBody .profile h2{
-        font-weight: 400;
-        line-height: 28px;
-        font-size: 1.5rem;
     }
 }
 
@@ -38,26 +14,8 @@
     .adminManageUsersBody{
         margin: 2rem 3rem 2rem 3rem;
     }
-    .adminManageUsersBody .profile img{
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .adminManageUsersBody .profile h2{
-        font-weight: 400;
-        line-height: 60px;
-        font-size: 1.5rem;
-    }
 }
 
-.adminManageUsersBody .profile{
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 0.75rem;
-    align-items: center;
-}
 
 @media screen and (min-width: 1001px){
     .adminManageUsersBody .mainContainer{
@@ -79,24 +37,24 @@
 }
 
 .adminManageUsersBody .manageUserContainer{
-    margin: 0 auto;
+    margin: 5rem auto;
 }
-.adminManageUsersBody .manageUserContainer form{
+.adminManageUsersBody .manageUserContainer .form{
     display: grid;
     justify-content: center;
     margin-top: 4rem;
     width: 100%;
 }
-.adminManageUsersBody form label{
+.adminManageUsersBody .form label{
     font-size: 12px;
     color: #4C4C4C;
 }
-.adminManageUsersBody form input{
+.adminManageUsersBody .form input, .adminManageUsersBody .form select{
     font-size: 13px;
     font-family: "Poppins";
 }
 
-.adminManageUsersBody input{
+.adminManageUsersBody input, .adminManageUsersBody .form select{
     border: none;
     font-family: 'Poppins';
     background-color: #FAFAFA;
@@ -105,7 +63,7 @@
     border: 1px solid #E6E6E6;
     border-radius: 4px;
 }
-.adminManageUsersBody input:focus{
+.adminManageUsersBody input:focus, .adminManageUsersBody select:focus{
     outline: none;
 }
 .adminManageUsersBody button{
@@ -124,26 +82,27 @@
     box-shadow: 0 4px 6px #7c8388;
 }
 
-@media screen and (min-width: 552px){
+@media screen and (min-width: 801px){
     .adminManageUsersBody .formContainer{
         display: flex;
         flex-flow: row wrap;
-        column-gap: 10rem;
+        column-gap: 2rem;
     }
     .adminManageUsersBody .formContainer1{
         display: flex;
         flex-flow: row wrap;
-        column-gap: 10rem;
+        column-gap: 2rem;
         margin-top: 5rem;
     }
     .adminManageUsersBody .input{
         background-color: #FAFAFA;
-        width: 180px;
-        max-width: 300px;
+        /* min-width: 250px; */
+        width: 350px;
+        max-width: 450px;
     }
 }
 
-@media screen and (max-width: 551px){
+@media screen and (max-width: 800px){
     .adminManageUsersBody .formContainer{
         display: block;
         width: 100%;
@@ -154,10 +113,11 @@
     }
     .adminManageUsersBody .input{
         background-color: #FAFAFA;
+        margin-bottom: 1rem;
         width: 100%;
         /* max-width: 300px; */
     }
-    .adminManageUsersBody .manageUserContainer form{
+    .adminManageUsersBody .manageUserContainer .form{
         display: block;
     }
     .adminManageUsersBody button{

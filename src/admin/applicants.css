@@ -135,7 +135,7 @@
         background-color: #E6E6E6;
         height: 0px;
         /* position: absolute; */
-        margin-bottom: 3.5rem;
+        margin-bottom: 3rem;
     }
     .adminApplicantsBody .applicantsSearch span{
         position: absolute;
@@ -151,6 +151,9 @@
     }
     .adminApplicantsBody input:focus{
         outline: none;
+    }
+    .adminApplicantsBody button{
+        margin-bottom: 1rem;
     }
 }
 
@@ -196,4 +199,17 @@
     background-color: #FDF8CE;
     border-radius: 4px;
     color: #938406;
+  }
+
+  .adminApplicantsBody button{
+    border: none;
+    width: 140px;
+    /* padding: 8px 0; */
+    font-family: "Poppins";
+    color: #ffffff;
+    background-color: #1A7AE0;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px #7c8388;
+    height: 38px;
   }

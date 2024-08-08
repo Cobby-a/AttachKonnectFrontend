@@ -11,14 +11,27 @@
     top: 1rem; 
     left: 1rem;
 }
+.authContainer .logo1{
+  position: absolute; 
+  top: 1rem; 
+  right: 1rem;
+}
 
 @media screen and (max-width: 800px){
     .authContainer .logo{
         top: 0.8rem; 
         left: 0.8rem;
+        /* display: flex;
+        justify-content: space-between; */
     }
+    .authContainer .logo1{
+      top: 0.8rem; 
+      right: 0.8rem;
+      /* display: flex;
+      justify-content: space-between; */
+  }
 }
-.authContainer .logo img {
+.authContainer .logo img, .authContainer .logo1 img {
     width: 75px;
     height: 75px;
     object-fit: cover;

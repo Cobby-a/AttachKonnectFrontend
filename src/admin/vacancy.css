@@ -161,8 +161,8 @@
   }
   
   .adminVacancyBody .vacancydeets td, .adminVacancyBody .vacancydeets th {
-    border-bottom: 1px solid #F2F2F2;
-    border-top: none;
+    border-top: 1px solid #F2F2F2;
+    border-bottom: none;
     border-right: none;
     border-left: none;
     padding: 12px 8px 12px 8px;
@@ -196,4 +196,10 @@
     background-color: #FDF8CE;
     border-radius: 4px;
     color: #938406;
+  }
+  .showInfo{
+    display: none;
+  }
+  .showInfo1{
+    display: '';
   }

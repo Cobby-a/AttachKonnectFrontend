@@ -1,16 +1,41 @@
-import profile from './assets/profile.png'
-import { faBuilding, faHouse, faBriefcase, faUserTie, faUserGear, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass,} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './vacancy.css'
 import './sidebar.css'
-import { data } from './adminData'
 import { Link } from 'react-router-dom'
+import logoProfile from '../assets/profileLogo.png'
+import axios from 'axios'
 
 
+
+const adminUserName = localStorage.getItem('adminUserName');
+
+const url = "http://127.0.0.1:8000/manager/"
 
 const AdminVacancy = () => {
     const [menu, setMenu] = useState(false);
+    const [vacancyData, setVacancyData] = useState([]);
+
+
+    const onLogout = () =>{
+        localStorage.removeItem('adminLoginStatus')
+        window.location.href='/portal'
+    }
+
+    useEffect(()=>{
+        document.title = "Vacancies"
+        try{
+            axios.get(url+'rolesView/')
+            .then((response)=>{
+                console.log(response.data);
+                setVacancyData(response.data)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[])
 
     const numbers = [
         {id : 1},
@@ -25,9 +50,9 @@ const AdminVacancy = () => {
         <main className="adminVacancyBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={logoProfile} alt="profile" />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Solomon</h2>
+                        <h2 style={{alignSelf: 'center'}}>{adminUserName}</h2>
                         <div className='hamMenu'>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
@@ -37,9 +62,8 @@ const AdminVacancy = () => {
                                 <Link to ="/admin/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/admin/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                                 <Link to ="/admin/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                                <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                                <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                                <Link to="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
@@ -53,16 +77,15 @@ const AdminVacancy = () => {
                         <Link to ="/admin/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/admin/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                         <Link to ="/admin/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                        <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                        <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                        <Link to="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
                 <article className="mainVacancyBody">
                     <div className='vacancySearch'>
                         <div>
                             <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Vacancies</p>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor vacancies of the companies on the system.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchVacancy' placeholder='Search Vacancy'/>
@@ -72,50 +95,23 @@ const AdminVacancy = () => {
                     <table className="vacancydeets">
                     <thead>
                     <tr>
-                        <th style={{paddingLeft: '1rem'}}>Logo</th>
-                        <th>Contract status</th>
-                        <th>Report Status</th>
-                        <th>Vacancy</th>
-                        <th>Company</th>
-                        <th></th>
-                        <th></th>
+                        <th style={{paddingLeft: '1rem'}}>Role Name</th>
+                        <th>Interns Needed</th>
+                        <th>Slots remaining</th>
+                        <th>Deadline</th>
+                        <th style={{paddingRight: "2rem"}}>Company</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
+                    {vacancyData.map((data)=>{
+                        const {id, role, numberOfInterns, deadline, moreInfo, company} = data;
 
                         return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                                <td>    
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                            </tr>
+                            <Vacancy1 key={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} company={company}/>
                         )
                     })}
+                    <tbody>
                     <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
+                        <td colSpan='5' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
                             <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
                             {numbers.map((num)=>{
                                 return(
@@ -135,7 +131,7 @@ const AdminVacancy = () => {
                     <div className='vacancySearch'>
                         <div>
                             <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Vacancies</h3>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor vacancies of the companies on the system.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchVacancy' placeholder='Search Vacancy'/>
@@ -147,50 +143,23 @@ const AdminVacancy = () => {
                     <table className="vacancydeets">
                     <thead>
                     <tr>
-                        <th style={{paddingLeft: '1rem',}}>Logo</th>
-                        <th>Contract status</th>
-                        <th>Report Status</th>
-                        <th>Vacancy</th>
-                        <th>Company</th>
-                        <th></th>
-                        <th style={{paddingRight: "4rem"}}></th>
+                        <th style={{paddingLeft: '1rem'}}>Role Name</th>
+                        <th>Interns Needed</th>
+                        <th>Slots remaining</th>
+                        <th>Deadline</th>
+                        <th style={{paddingRight: "2rem"}}>Company</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {data.map((data)=>{
-                        const {id, logo, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
+                    {vacancyData.map((data)=>{
+                        const {id, role, numberOfInterns, deadline, moreInfo, company} = data;
 
                         return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}><img src={logo} alt={company} style={{width: "25px", height: "25px", objectFit: 'cover',}}/></td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    <span style={{marginRight: '1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>     
-                                <td>   
-                                    <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                            </tr>
+                            <Vacancy1 key={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} company={company}/>
                         )
                     })}
+                    <tbody>
                     <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
+                        <td colSpan='5' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
                             <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
                             {numbers.map((num)=>{
                                 return(
@@ -205,6 +174,26 @@ const AdminVacancy = () => {
                 </div>
             </section>
         </main>
+    )
+}
+
+
+const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company}) => {
+    const [showInfo, setShowInfo] = useState(false);
+    
+    return(
+        <tbody>
+        <tr style={{cursor: 'pointer'}}>
+            <td style={{paddingLeft: '1rem'}} onClick={()=>setShowInfo(!showInfo)}>{role}</td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{numberOfInterns}</td>
+            <td onClick={()=>setShowInfo(!showInfo)}></td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{deadline}</td>
+            <td onClick={()=>setShowInfo(!showInfo)} style={{paddingRight: '2rem'}}>{company.companyName}</td>
+        </tr>
+        <tr style={{borderTop: '0', }} className={showInfo ? 'showInfo1' : 'showInfo'}>
+            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0',paddingRight: "1.5rem" }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Short info on the role: </span>{moreInfo}</td>
+        </tr>
+        </tbody>
     )
 }
 

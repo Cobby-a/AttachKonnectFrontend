@@ -3,13 +3,23 @@ import profile from './assets/profile.png'
 import welcome from './assets/welcome.png'
 import comp from './assets/comp.svg'
 import stats from './assets/stat.svg'
+import logoProfile from '../assets/profileLogo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBuilding, faHouse, faBriefcase, faUserTie, faUserGear, faRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import './sidebar.css'
 import { Link } from 'react-router-dom'
 
+
+// const adminId = localStorage.getItem('managerId');
+const adminUserName = localStorage.getItem('adminUserName');
+
 const AdminDashboard = () => {
+
+    const onLogout = () =>{
+        localStorage.removeItem('adminLoginStatus')
+        window.location.href='/portal'
+    }
 
     useEffect (()=>{
         document.title = "Admin Dashboard"
@@ -26,9 +36,9 @@ const AdminDashboard = () => {
         <main className="adminBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={logoProfile} alt="profile" />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Solomon</h2>
+                        <h2 style={{alignSelf: 'center'}}>{adminUserName}</h2>
                         <div className='hamMenu'>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
@@ -38,9 +48,9 @@ const AdminDashboard = () => {
                                 <Link to ="/admin/dashboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/admin/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                                 <Link to ="/admin/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                                <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                                <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                                <Link to="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                                {/* <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link> */}
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
@@ -49,7 +59,7 @@ const AdminDashboard = () => {
                 <div className='welcome'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, Solomon!</h3>
+                        <h3>Welcome back, {adminUserName}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
@@ -57,7 +67,7 @@ const AdminDashboard = () => {
                 <div className='welcome1'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, Solomon!</h3>
+                        <h3>Welcome back, {adminUserName}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
@@ -70,9 +80,9 @@ const AdminDashboard = () => {
                         <Link to ="/admin/dashboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/admin/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                         <Link to ="/admin/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                        <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                        <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                        <Link to="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                        {/* <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link> */}
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
                 <article className='mainContainer1'>

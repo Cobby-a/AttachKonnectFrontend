@@ -1,16 +1,24 @@
-import profile from './assets/profile.png'
-import { faBuilding, faHouse, faBriefcase, faUserTie, faUserGear, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass,} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
 import './company.css'
 import './sidebar.css'
-import { data } from './adminData'
+
+import logoProfile from '../assets/profileLogo.png'
+
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 
+const adminUserName = localStorage.getItem('adminUserName');
+
 const AdminCompany = () => {
     
+    const onLogout = () =>{
+        localStorage.removeItem('adminLoginStatus')
+        window.location.href='/portal'
+    }
+
     const [companyData, setCompanyData] = useState([])
     const [menu, setMenu] = useState(false);
 
@@ -44,9 +52,9 @@ const AdminCompany = () => {
         <main className="adminCompanyBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={logoProfile} alt="profile" />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Solomon</h2>
+                        <h2 style={{alignSelf: 'center'}}>{adminUserName}</h2>
                         <div className='hamMenu'>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
@@ -56,9 +64,8 @@ const AdminCompany = () => {
                                 <Link to ="/admin/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/admin/companyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                                 <Link to ="/admin/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                                <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                                <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                                <Link to="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
@@ -72,16 +79,15 @@ const AdminCompany = () => {
                         <Link to ="/admin/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/admin/companyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                         <Link to ="/admin/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                        <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                        <Link to="/admin/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                        <Link to="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to="/admin/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
                 <article className="mainCompanyBody">
                     <div className='companySearch'>
                         <div>
                             <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Companies</p>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor companies on the system.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
@@ -96,8 +102,8 @@ const AdminCompany = () => {
                         <th>Report Status</th>
                         {/* <th>Vacancy</th> */}
                         <th>Company</th>
-                        <th></th>
-                        <th></th>
+                        {/* <th></th>
+                        <th></th> */}
                     </tr>
                     </thead>
                     <tbody>
@@ -122,7 +128,7 @@ const AdminCompany = () => {
                                 <td><span className={classname1}>{reportStatus}</span></td>
                                 {/* <td>{vacancy}</td> */}
                                 <td>{companyName}</td>
-                                <td>
+                                {/* <td>
                                     <span style={{ cursor: 'pointer'}}>
                                         <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
                                     </span>
@@ -131,7 +137,7 @@ const AdminCompany = () => {
                                     <span style={{ cursor: 'pointer'}}>
                                         <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
                                     </span>
-                                </td>
+                                </td> */}
                             </tr>
                         )
                     })}
@@ -156,7 +162,7 @@ const AdminCompany = () => {
                     <div className='companySearch'>
                         <div>
                             <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Companies</h3>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor companies on the system.</p>
                         </div>
                         <form>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
@@ -172,9 +178,9 @@ const AdminCompany = () => {
                         <th>Contract status</th>
                         <th>Report Status</th>
                         {/* <th>Vacancy</th> */}
-                        <th>Company</th>
-                        <th></th>
-                        <th style={{paddingRight: "4rem"}}></th>
+                        <th style={{paddingRight: "4rem"}}>Company</th>
+                        {/* <th></th>
+                        <th style={{paddingRight: "4rem"}}></th> */}
                     </tr>
                     </thead>
                     <tbody>
@@ -199,7 +205,7 @@ const AdminCompany = () => {
                                 <td><span className={classname1}>{reportStatus}</span></td>
                                 {/* <td>{vacancy}</td> */}
                                 <td>{companyName}</td>
-                                <td>
+                                {/* <td>
                                     <span style={{marginRight: '1rem', cursor: 'pointer'}}>
                                         <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
                                     </span>
@@ -208,7 +214,7 @@ const AdminCompany = () => {
                                     <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
                                         <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
                                     </span>
-                                </td>
+                                </td> */}
                             </tr>
                         )
                     })}
