@@ -105,10 +105,10 @@ const CompanyVacancies = () => {
                     </tr>
                     </thead>
                     {vacancyData.map((data)=>{
-                        const {id, role, numberOfInterns, deadline, moreInfo} = data;
+                        const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
                         return(
-                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} setVacancyData={setVacancyData}/>
+                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setVacancyData={setVacancyData}/>
                         )
                     })}
                     <tbody>
@@ -154,10 +154,10 @@ const CompanyVacancies = () => {
                     </tr>
                     </thead>
                     {vacancyData.map((data)=>{
-                        const {id, role, numberOfInterns, deadline, moreInfo} = data;
+                        const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
                         return(
-                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} setVacancyData={setVacancyData}/>
+                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setVacancyData={setVacancyData}/>
                         )
                     })}
                     <tbody>
@@ -182,7 +182,9 @@ const CompanyVacancies = () => {
 }
 
 
-const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) => {
+const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, total_accepted_students}) => {
+
+    
     const [showInfo, setShowInfo] = useState(false);
     const [edit, setEdit] = useState(false)
     const [vacancy1Data, setVacancy1Data] = useState({
@@ -211,23 +213,11 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) =
         setDeadlineError("")
         setNumOfInternError("")
     }
-    // useEffect(()=>{
-    //     try{
-    //         axios.get(url+'roles')
-    //         .then((response)=>{
-    //             console.log(response.data);
-    //             // setVacancyData(response.data)
-    //         })
-    //     }
-    //     catch(error){
-    //         console.log(error)
-    //     }
-    // },[])
     
     const [roleError, setRoleError] = useState('')
     const [numOfInternError, setNumOfInternError] = useState('')
     const [deadlineError, setDeadlineError] = useState('')
-
+    
     const onSave = (id) =>{
         let regex = new RegExp('^[0-9]+$');
         if(vacancy1Data.role.length === 0){
@@ -271,7 +261,7 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) =
             formData.append('role', vacancy1Data.role);
             formData.append('numberOfInterns', vacancy1Data.numberOfInterns);
             formData.append('moreInfo', vacancy1Data.moreInfo)
-
+            
             try{
                 axios.put(url+'roles/'+id+'/', formData)
                 .then((response)=>{
@@ -313,8 +303,8 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) =
             icon: 'info',
             confirmButtonText: 'Yes, Continue',
             showCancelButton: true
-          })
-          .then((result)=>{
+        })
+        .then((result)=>{
             if(result.isConfirmed){
                 try{
                     axios.delete(url+'roles/'+id+'/')
@@ -338,12 +328,18 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData}) =
             }
           })
     }
+
+    let slot_remaining = numberOfInterns - total_accepted_students
+    if(total_accepted_students >= numberOfInterns){
+        slot_remaining = "Quota reached"
+    }
+
     return(
         <tbody>
         <tr style={{cursor: 'pointer'}}>
             <td style={{paddingLeft: '1rem'}} onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '175px'}} value={vacancy1Data.role} onChange={handleChange} name='role'/>:role} {roleError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{roleError}</p>}</td>
             <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '50px', textAlign: 'center'}} value={vacancy1Data.numberOfInterns} onChange={handleChange} name='numberOfInterns'/>:numberOfInterns} {numOfInternError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{numOfInternError}</p>}</td>
-            <td onClick={()=>setShowInfo(!showInfo)}></td>
+            <td onClick={()=>setShowInfo(!showInfo)}>{slot_remaining}</td>
             <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '115px'}} value={vacancy1Data.deadline} onChange={handleChange} name='deadline' type='date'/>:deadline} {deadlineError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{deadlineError}</p>}</td>
             <td>
                 <span style={{marginRight: '0.5rem', cursor: 'pointer'}}>

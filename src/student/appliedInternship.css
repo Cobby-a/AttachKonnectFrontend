@@ -2,7 +2,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     background-color: #ffffff;
     
 }
@@ -35,7 +35,7 @@
     /* max-width: 200px; */
 }
 .yourAppliedInternshipsBody .form label, .yourAppliedInternshipsBody p{
-    font-size: 12px;
+    font-size: 13px;
     color: #4C4C4C;
     line-height: 16px;
     font-family: "Poppins";
@@ -110,3 +110,18 @@
     color: #ffffff;
     font-family: 'Montserrat';
   }
+.yourAppliedInternshipsBody select{
+    border: none;
+    font-family: 'Montserrat';
+    background-color: #FAFAFA;
+    width: 90px;
+    padding: 4px 4px;
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #002D5D;
+    font-size: 14px;
+}
+.yourAppliedInternshipsBody select:focus{
+    outline: none;
+}

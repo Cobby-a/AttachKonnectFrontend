@@ -61,17 +61,17 @@ const CompanyDeets = () => {
         <article className='companyDetailsBody'  style={{display: modalOpen ? "none" : ""}}>
             <section className='companyDetailsContainer' >
                 <div style={{}}>
-                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>{companyName.split('-').join(' ')}</p>
+                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center', lineHeight: '1.6rem'}}>{companyName.split('-').join(' ')}</p>
                     <p>Information about the company: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.briefInfo}</span></p>
                     <p>Location: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.location}</span></p>
                 </div>
                 <div className='form'>
                 <p style={{fontFamily: 'Montserrat', fontWeight: "400", fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center', marginBottom: '0.5rem', marginTop: '2rem', color: '#000'}}>Vacancies</p>
                     {companyDetailsData.map((data)=>{
-                        const {id, role, numberOfInterns, deadline, moreInfo} = data;
+                        const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
                         let roleId = id
                         return(
-                            <CompanyDeet companyName={companyName} key={roleId} roleId={roleId} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} setModalOpen={setModalOpen} modalOpen={modalOpen}/>
+                            <CompanyDeet companyName={companyName} key={roleId} roleId={roleId} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setModalOpen={setModalOpen} modalOpen={modalOpen}/>
                         )
                     })}
                 </div>
@@ -79,11 +79,19 @@ const CompanyDeets = () => {
         </article>
     )
 }
-const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, companyName, modalOpen, setModalOpen}) => {
+const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, companyName, total_accepted_students, modalOpen, setModalOpen}) => {
+
     const [studentApplyData, setStudentApplyData] = useState({
         'applicationFile' :'',
     })
     const [onfile, setOnFile] = useState(false);
+    const [appliedStatus, setAppliedStatus] = useState(false)
+
+    let numberReached = false
+
+    if (total_accepted_students >= numberOfInterns){
+        numberReached = true
+    }
 
     const handleFileChange=(event)=>{
         setStudentApplyData({
@@ -96,7 +104,7 @@ const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, company
 
     const onClosed = () => {
         setModalOpen(false);
-        window.location.href='/student/dashboard';
+        window.location.href='/student/your-applied-internships';
     }
 
     const onSubmitApplication = (roleId, setModalOpen) => {
@@ -129,6 +137,20 @@ const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, company
             }
         }
     }
+    useEffect(()=>{
+        try{
+            axios.get(url+'student/fetch-applied-status/'+studentId+'/'+roleId)
+            .then((response)=>{
+                if(response.data.bool === true){
+                    setAppliedStatus(true)
+                }
+                console.log(response.data.bool)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[roleId])
     return(
         <div className="formContainer1">
             <div style={{flex: 1, width:"100%", }}>
@@ -148,7 +170,15 @@ const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, company
                 <div className='input'><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' onChange={handleFileChange}/></div>
                 {applicationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{applicationError}</p>}
             </div>}
-            {onfile ? <button type='submit' onClick={()=>onSubmitApplication(roleId, setModalOpen)}>Submit your file for application</button> : <button type='submit' onClick={()=> setOnFile(true)}>Click to Submit your file for application</button>}
+            {!appliedStatus ? 
+                (numberReached ? 
+                    <p style={{fontSize: '14px', color: '#ff3333', fontFamily: "Montserrat", }}>Number of people needed for this role has been reached</p>
+                        : 
+                    (onfile ? <button type='submit' onClick={()=>onSubmitApplication(roleId, setModalOpen)}>Submit your file for application</button> : <button type='submit' onClick={()=> setOnFile(true)}>Click to Submit your file for application</button>)
+                )
+                : 
+                <p style={{fontSize: '14px', color: '#ff3333', fontFamily: "Montserrat", }}>You have already applied for this vacancy role</p>
+            }
             <Modal
                 open={modalOpen}
                 onClose={()=>onClosed()}

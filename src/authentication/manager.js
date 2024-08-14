@@ -221,7 +221,7 @@ const ManagerSignIn = () => {
                     </FormGroup>
                     </div>
                     {errorMessage && <p style={{textAlign: 'center', marginTop: '1rem', marginBottom: '-1.2rem', fontSize: '1rem', color: "#ff3333", }}>{errorMessage}</p>}
-                    <div className='form'>
+                    <form className='form' action="javascript:void(0);">
                         <fieldset>
                             <input id="email" name="username" type="text" required placeholder={placeholder} value={loginData.username} onChange={handleChange}/>
                             <input id="password" name="password" type={passwordType} required placeholder='Enter Your Password' value={loginData.password} onChange={handleChange}/>
@@ -235,10 +235,10 @@ const ManagerSignIn = () => {
                             checked={forPassword}
                             />
                             
-                            <button type='submit' onClick={submitForm}>Login</button>
+                            <button onClick={submitForm}>Login</button>
                             <Link to="/manager-apply"><button type='submit' className={managerSignUp}>Want to join our service? Apply!</button></Link>
                         </fieldset>
-                    </div>
+                    </form>
                 </div>
             </section>
         </article>

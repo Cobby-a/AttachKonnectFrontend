@@ -218,7 +218,7 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                 studentInternshipData.append("approval", "Rejected")
 
                 try{
-                    axios.post(url+'/student/student-internships/', studentInternshipData)
+                    axios.post(url+'/student/student-applied-internships/', studentInternshipData)
                     .then((response)=>{
                         console.log(response)
                         try{
@@ -265,7 +265,7 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                     studentInternshipData.append("smallInfo", acceptData.smallInfo)
 
                     try{
-                        axios.post(url+'/student/student-internships/', studentInternshipData, {
+                        axios.post(url+'/student/student-applied-internships/', studentInternshipData, {
                             headers: {
                                 'content-type': 'multipart/form-data'
                             }

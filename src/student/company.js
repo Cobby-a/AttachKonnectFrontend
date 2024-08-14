@@ -1,10 +1,9 @@
 import profile from './assets/profile.png'
-import { faBuilding, faHouse, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faBriefcase, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import './company.css'
 import './sidebar.css'
-import { data } from './studentData'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
@@ -17,6 +16,11 @@ const StudentCompany = () => {
     const [menu, setMenu] = useState(false);
 
     const [companyData, setCompanyData] = useState([])
+
+    const onLogout = () =>{
+        localStorage.removeItem('studentLoginStatus')
+        window.location.href='/portal'
+    }
 
     useEffect (()=>{
         document.title = "Companies"
@@ -57,7 +61,8 @@ const StudentCompany = () => {
                                 <Link to ="/student/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/student/companyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                                 <Link to ="/student/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                                <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to ="/student/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
@@ -71,7 +76,8 @@ const StudentCompany = () => {
                         <Link to ="/student/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/student/companyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                         <Link to ="/student/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                        <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to ="/student/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
                 <article className="mainCompanyBody">
@@ -190,7 +196,7 @@ const Companydeets = ({id, companyLogo, contractStatus, companyName, reportStatu
             <td><span className={classname}>{contractStatus}</span></td>
             <td><span className={classname1}>{reportStatus}</span></td>
             <td>{companyName}</td>
-            <td><Link to = {`/student/company/${id}/${companyName.split(` `).join(`-`).toLowerCase()}`} state={{id: id, companyName: companyName}}><button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}}>View</button></Link></td>
+            <td><button onClick={()=>window.open(`/student/company/${id}/${companyName.split(` `).join(`-`).toLowerCase()}`)} style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}}>View</button></td>
         </tr>
     )
 }

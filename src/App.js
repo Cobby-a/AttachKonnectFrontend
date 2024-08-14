@@ -24,8 +24,20 @@ import ManagerCreateVacancy from './manager/createVacancy';
 
 import CompanyDeets from './student/comapanyDeets';
 import AppliedInternships from './student/appliedInternships';
+import YourInternships from './student/yourInternships';
+import StudentProfile from './student/profile';
+import ManagerPrivateRoute from './managerPrivateRouter';
 
 function App() {
+  const isManagerLoggedIn = localStorage.getItem('managerLoginStatus') ? true : false;
+
+  const wrapManagerPrivateRoute = (element, user, redirect) => {
+    return (
+      <ManagerPrivateRoute user={user} redirect={redirect}>
+        {element}
+      </ManagerPrivateRoute>
+    );
+  };
   return (
     // <div className="App">
       <BrowserRouter>
@@ -39,10 +51,10 @@ function App() {
             <Route exact path = "/admin/vacancyboard" element = {<AdminVacancy/>}/>
             <Route exact path = "/admin/applicantsboard" element = {<AdminApplicants/>}/>
             <Route exact path = "/admin/manage-users" element = {<AdminManageUsers/>}/>
-            <Route exact path = "/manager/dashboard" element = {<ManagerDashboard/>}/>
-            <Route exact path = "/manager/vacancyboard" element = {<CompanyVacancies/>}/>
-            <Route exact path = "/manager/applicantsboard" element = {<ManagerApplicants/>}/>
-            <Route exact path = "/manager/create-vacancy" element = {<ManagerCreateVacancy/>}/>
+            <Route exact path = "/manager/dashboard" element={wrapManagerPrivateRoute(<ManagerDashboard/>, isManagerLoggedIn, '/manager/dashboard')}/>
+            <Route exact path = "/manager/vacancyboard" element={wrapManagerPrivateRoute(<CompanyVacancies/>, isManagerLoggedIn, '/manager/vacancyboard')}/>
+            <Route exact path = "/manager/applicantsboard" element={wrapManagerPrivateRoute(<ManagerApplicants/>, isManagerLoggedIn, '/manager/applicantsboard')}/>
+            <Route exact path = "/manager/create-vacancy" element={wrapManagerPrivateRoute(<ManagerCreateVacancy/>, isManagerLoggedIn, '/manager/create-vacancy')}/>
             <Route exact path = "/supervisor/dashboard" element = {<SupervisorDashboard/>}/>
             <Route exact path = "/supervisor/dashboard/register-intern" element = {<SupervisorRegisterIntern/>}/>
             <Route exact path = "/supervisor/companyboard" element = {<SupervisorCompany/>}/>
@@ -53,6 +65,8 @@ function App() {
             <Route exact path = "/student/vacancyboard/apply" element = {<StudentApply/>}/>
             <Route exact path="/student/company/:id/:companyName" element={<CompanyDeets/>} />
             <Route exact path = "/student/your-applied-internships" element = {<AppliedInternships/>}/>
+            <Route exact path = "/student/your-internships" element = {<YourInternships/>}/>
+            <Route exact path = "/student/profile" element = {<StudentProfile/>}/>
             <Route exact path="*" element={<Navigate to="portal" replace />} />
           </Route>
         </Routes>

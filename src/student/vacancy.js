@@ -1,7 +1,7 @@
 import profile from './assets/profile.png'
-import { faBuilding, faHouse, faBriefcase, faRightFromBracket, faBars, faXmark, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faHouse, faBriefcase, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faUser} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './vacancy.css'
 import './sidebar.css'
 import { data } from './studentData'
@@ -11,6 +11,15 @@ import { Link } from 'react-router-dom'
 
 const StudentVacancy = () => {
     const [menu, setMenu] = useState(false);
+
+    const onLogout = () =>{
+        localStorage.removeItem('studentLoginStatus')
+        window.location.href='/portal'
+    }
+
+    useEffect (()=>{
+        document.title = "Vacancies"
+    },[])
 
     const numbers = [
         {id : 1},
@@ -37,7 +46,8 @@ const StudentVacancy = () => {
                                 <Link to ="/student/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/student/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                                 <Link to ="/student/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                                <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to ="/student/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
@@ -51,7 +61,8 @@ const StudentVacancy = () => {
                         <Link to ="/student/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/student/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
                         <Link to ="/student/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
-                        <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to ="/student/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
                 <article className="mainVacancyBody">
