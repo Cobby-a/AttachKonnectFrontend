@@ -201,3 +201,8 @@
     border-radius: 4px;
     color: #938406;
   }
+  .studentCompanyBody .page:hover{
+    border: 0.124rem solid #cccccc;
+    border-radius: 3px;
+    padding: 0.5px 2px;
+  }

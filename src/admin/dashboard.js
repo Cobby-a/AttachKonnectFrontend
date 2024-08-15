@@ -90,7 +90,7 @@ const AdminDashboard = () => {
                         <div className='mainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Students on <br/>system</p>
-                                <Link to="/admin/manage-users"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                                <Link to="/admin/applicantsboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
                         <div className='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Students on <br/>system</p>
-                                <Link to ="/admin/manage-users"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                                <Link to ="/admin/applicantsboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>

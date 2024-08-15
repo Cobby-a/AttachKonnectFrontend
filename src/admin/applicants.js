@@ -14,6 +14,11 @@ const url = "http://127.0.0.1:8000/student/"
 const AdminApplicants = () => {
     const [menu, setMenu] = useState(false);
     const [studentData, setStudentData] = useState([]);
+    const [nextUrl, setNextUrl] = useState()
+    const [previousUrl, setPreviousUrl] = useState()
+
+    const [query, setQuery] = useState('');
+    const results = filterItems(studentData, query)
 
     const onLogout = () =>{
         localStorage.removeItem('adminLoginStatus')
@@ -25,8 +30,9 @@ const AdminApplicants = () => {
         try{
             axios.get(url+'studentView/')
             .then((response)=>{
-                console.log(response.data);
-                setStudentData(response.data)
+                setStudentData(response.data.results)
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
             })
         }
         catch(error){
@@ -34,15 +40,23 @@ const AdminApplicants = () => {
         }
     },[])
 
-    const numbers = [
-        {id : 1},
-        {id : 2},
-        {id : 3},
-        {id : 4},
-        {id : 5},
-        {id : 6},
-        {id : 7},
-    ]
+    function handleSearchChange(e) {
+        setQuery(e.target.value);
+    }
+
+    const paginationHandler = (url) => {
+        try{
+            axios.get(url)
+            .then((response)=>{
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
+                setStudentData(response.data.results)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
 
     return(
         <main className="adminApplicantsBody">
@@ -85,10 +99,10 @@ const AdminApplicants = () => {
                             <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Students</p>
                             <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor students on the system</p>
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Student'/>
+                        <form action="javascript:void(0);">
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Student Id' value={query} onChange={handleSearchChange}/>
                         </form>
-                        <Link to="/admin/manage-users"><button>Register Student</button></Link>
+                        <Link to="/admin/manage-users" target="_blank" rel="noopener noreferrer"><button>Register Student</button></Link>
                     </div>
                     <div className='table'>
                     <table className="applicantsdeets">
@@ -102,7 +116,7 @@ const AdminApplicants = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {studentData.map((data)=>{
+                    {results.map((data)=>{
                         const {student_id, last_name, level, programme, phone_number, other_names} = data;
 
                         return(
@@ -111,13 +125,12 @@ const AdminApplicants = () => {
                     })}
                     <tr >
                         <td colSpan='5' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -132,8 +145,8 @@ const AdminApplicants = () => {
                             <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Students</h3>
                             <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor students on the system</p>
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Student'/>
+                        <form action="javascript:void(0);">
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Student Id' value={query} onChange={handleSearchChange}/>
                         </form>
                         <Link to="/admin/manage-users"><button>Register Student</button></Link>
                     </div>
@@ -151,7 +164,7 @@ const AdminApplicants = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {studentData.map((data)=>{
+                    {results.map((data)=>{
                         const {student_id, last_name, level, programme, phone_number, other_names} = data;
 
                         return(
@@ -160,13 +173,12 @@ const AdminApplicants = () => {
                     })}
                     <tr >
                         <td colSpan='5' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -188,6 +200,16 @@ const Student1 = ({student_id, other_names, level, programme, phone_number}) => 
             <td style={{paddingRight : '2rem'}}>{phone_number}</td>
         </tr>
     )
+}
+
+function filterItems(items, query) {
+    query = query.toLowerCase();
+    return items.filter(item =>
+      item.student_id.split(' ').some(word =>
+        // word.toLowerCase().match(query)
+        word.toLowerCase().startsWith(query)
+      )
+    );
 }
 
 export default AdminApplicants;

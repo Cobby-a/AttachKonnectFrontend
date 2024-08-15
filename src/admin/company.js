@@ -19,8 +19,13 @@ const AdminCompany = () => {
         window.location.href='/portal'
     }
 
-    const [companyData, setCompanyData] = useState([])
     const [menu, setMenu] = useState(false);
+    const [companyData, setCompanyData] = useState([])
+    const [nextUrl, setNextUrl] = useState()
+    const [previousUrl, setPreviousUrl] = useState()
+
+    const [query, setQuery] = useState('');
+    const results = filterItems(companyData, query)
 
     const baseUrl = 'http://127.0.0.1:8000/manager'
 
@@ -29,7 +34,9 @@ const AdminCompany = () => {
         try{
             axios.get(baseUrl)
             .then((response)=>{
-                setCompanyData(response.data)
+                setCompanyData(response.data.results)
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
             });
         }
         catch(error){
@@ -37,16 +44,23 @@ const AdminCompany = () => {
         }
     },[])
 
+    function handleSearchChange(e) {
+        setQuery(e.target.value);
+    }
 
-    const numbers = [
-        {id : 1},
-        {id : 2},
-        {id : 3},
-        {id : 4},
-        {id : 5},
-        {id : 6},
-        {id : 7},
-    ]
+    const paginationHandler = (url) => {
+        try{
+            axios.get(url)
+            .then((response)=>{
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
+                setCompanyData(response.data.results)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
 
     return(
         <main className="adminCompanyBody">
@@ -89,8 +103,8 @@ const AdminCompany = () => {
                             <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Companies</p>
                             <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor companies on the system.</p>
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
+                        <form action="javascript:void(0);">
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company' value={query} onChange={handleSearchChange}/>
                         </form>
                     </div>
                     <div className='table'>
@@ -100,14 +114,11 @@ const AdminCompany = () => {
                         <th style={{paddingLeft: '1rem'}}>Logo</th>
                         <th>Contract status</th>
                         <th>Report Status</th>
-                        {/* <th>Vacancy</th> */}
                         <th>Company</th>
-                        {/* <th></th>
-                        <th></th> */}
                     </tr>
                     </thead>
                     <tbody>
-                    {companyData.map((data)=>{
+                    {results.map((data)=>{
                         const {id, companyLogo, contractStatus, reportStatus, companyName} = data;
                         let classname = "verified";
                         let classname1 = "verified";
@@ -126,30 +137,18 @@ const AdminCompany = () => {
                                 <td style={{paddingLeft: '1rem'}}><img src={companyLogo} alt={companyName} style={{width: "30px", height: "30px", objectFit: 'cover', borderRadius: '50%'}}/></td>
                                 <td><span className={classname}>{contractStatus}</span></td>
                                 <td><span className={classname1}>{reportStatus}</span></td>
-                                {/* <td>{vacancy}</td> */}
                                 <td>{companyName}</td>
-                                {/* <td>
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                                <td>    
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td> */}
                             </tr>
                         )
                     })}
                     <tr >
                         <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -164,8 +163,8 @@ const AdminCompany = () => {
                             <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Companies</h3>
                             <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor companies on the system.</p>
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
+                        <form action="javascript:void(0);">
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company' value={query} onChange={handleSearchChange}/>
                         </form>
                     </div>
                     
@@ -177,14 +176,11 @@ const AdminCompany = () => {
                         <th style={{paddingLeft: '1rem',}}>Logo</th>
                         <th>Contract status</th>
                         <th>Report Status</th>
-                        {/* <th>Vacancy</th> */}
                         <th style={{paddingRight: "4rem"}}>Company</th>
-                        {/* <th></th>
-                        <th style={{paddingRight: "4rem"}}></th> */}
                     </tr>
                     </thead>
                     <tbody>
-                    {companyData.map((data)=>{
+                    {results.map((data)=>{
                         const {id, companyLogo, contractStatus, reportStatus, companyName} = data;
                         let classname = "verified";
                         let classname1 = "verified";
@@ -203,30 +199,18 @@ const AdminCompany = () => {
                                 <td style={{paddingLeft: '1rem'}}><img src={companyLogo} alt={companyName} style={{width: "30px", height: "30px", objectFit: 'cover', borderRadius: '50%'}}/></td>
                                 <td><span className={classname}>{contractStatus}</span></td>
                                 <td><span className={classname1}>{reportStatus}</span></td>
-                                {/* <td>{vacancy}</td> */}
                                 <td>{companyName}</td>
-                                {/* <td>
-                                    <span style={{marginRight: '1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>     
-                                <td>   
-                                    <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td> */}
                             </tr>
                         )
                     })}
                     <tr >
                         <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -236,6 +220,16 @@ const AdminCompany = () => {
 
         </main>
     )
+}
+
+function filterItems(items, query) {
+    query = query.toLowerCase();
+    return items.filter(item =>
+      item.companyName.split(' ').some(word =>
+        // word.toLowerCase().match(query)
+        word.toLowerCase().startsWith(query)
+      )
+    );
 }
 
 export default AdminCompany;

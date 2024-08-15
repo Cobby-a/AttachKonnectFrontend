@@ -46,15 +46,22 @@
     .managerBody .notBell{
         display: none;
     }
-    .dot2{
+    .managerBody .dot2{
+        display: none;
+    }
+    .managerBody .not2{
         display: none;
     }
 }
 @media screen and (max-width: 601px){
-    .dot1{
+    .managerBody .dot1{
+        display: none;
+    }
+    .managerBody .not1{
         display: none;
     }
 }
+
 @media screen and (min-width: 1001px){
     .managerBody{
         margin: 2rem 3rem 2rem 3rem;

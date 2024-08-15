@@ -38,7 +38,7 @@ const CompanyDeets = () => {
     useEffect (()=>{
         document.title = companyName.split('-').join(' ')
         try{
-            axios.get(url+'manager/companyroles-list/'+id)
+            axios.get(url+'manager/companyroles-list1/'+id)
             .then((response)=>{
                 setCompanyDetailsData(response.data)
             });

@@ -1,7 +1,7 @@
 import welcome from './assets/welcome.png'
 import comp from './assets/comp.svg'
 import stats from './assets/stat.svg'
-import { faHouse, faBriefcase, faBuilding, faRightFromBracket, faBars, faXmark, faUser,} from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBriefcase, faBuilding, faRightFromBracket, faBars, faXmark, faUser, faBell} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
 import './dashboard.css'
@@ -16,6 +16,8 @@ const studentId = localStorage.getItem('studentId');
 
 const StudentDashboard = () => {
     const [studentData, setStudentData] = useState([])
+    const [studentNotificationData, setStudentNotificationData] = useState([])
+
 
     const onLogout = () =>{
         localStorage.removeItem('studentLoginStatus')
@@ -28,6 +30,15 @@ const StudentDashboard = () => {
             axios.get(url+studentId)
             .then((response)=>{
                 setStudentData(response.data)
+            })
+        }
+        catch(error){
+            alert(error)
+        }
+        try{
+            axios.get(url+"student-company-notification-list/"+studentId)
+            .then((response)=>{
+                setStudentNotificationData(response.data)
             })
         }
         catch(error){
@@ -49,6 +60,14 @@ const StudentDashboard = () => {
     if(studentData.profile_pic === null){
         profile_pic = defaultProf
     }
+
+    let studentNotificationStat = true
+    if(studentNotificationData.length < 1){
+        studentNotificationStat = false;
+    }
+
+    const [showNotification, setShowNotification] = useState(false)
+
     return(
         <main className="studentBody">
             <header>
@@ -57,7 +76,45 @@ const StudentDashboard = () => {
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <h2 style={{alignSelf: 'center'}}>{studentData.last_name}</h2>
                         <div className='hamMenu'>
-                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
+                        <span><FontAwesomeIcon icon={faBell} style={{fontSize: '1.6rem', cursor: 'pointer', paddingRight: '0.8rem'}} onClick={()=>setShowNotification(!showNotification)}/>
+                            {studentNotificationStat &&
+                                <span className='dot1' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-36px', right: '61px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                            }
+                            {studentNotificationStat &&
+                                <span className='dot2' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-56px', right: '52px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                            }
+                            {showNotification &&
+                                <div className='not1' style={{width: '400px', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '70px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                                    {studentNotificationStat && studentNotificationData.map((data)=>{
+                                        const {id, notText} = data
+                                        return(
+                                            <StudentNotify id={id} notText={notText} setStudentNotificationData={setStudentNotificationData}/>
+                                        )
+                                    })}
+                                    {!studentNotificationStat && 
+                                        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                            You have no alert
+                                    </div>
+                                    }
+                                </div>
+                            }
+                            {showNotification &&
+                                <div className='not2' style={{width: '80%', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '55px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                                    {studentNotificationStat && studentNotificationData.map((data)=>{
+                                        const {id, notText} = data
+                                        return(
+                                            <StudentNotify id={id} notText={notText} setStudentNotificationData={setStudentNotificationData}/>
+                                        )
+                                    })}
+                                    {!studentNotificationStat && 
+                                        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                            You have no alert
+                                    </div>
+                                    }
+                                </div>
+                            }
+                            </span>
+                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.3rem', fontSize: '1.6rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
                                 <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer', position: 'relative', left: '87%', marginBottom: '0.75rem'}} onClick={()=>setMenu(!menu)}/>
                                 <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p>
@@ -79,6 +136,27 @@ const StudentDashboard = () => {
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
+                </div>
+                <div className='notBell' style={{alignSelf: 'center'}}>
+                    <FontAwesomeIcon icon={faBell} style={{fontSize: '1.75rem',paddingLeft: '1rem',cursor: 'pointer',}} onClick={()=>setShowNotification(!showNotification)}/>
+                    {studentNotificationStat &&
+                        <span style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '20px', right: '46px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                    }
+                    {showNotification &&
+                        <div style={{width: '400px', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '60px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                            {studentNotificationStat && studentNotificationData.map((data)=>{
+                                const {id, notText} = data
+                                return(
+                                    <StudentNotify id={id} notText={notText} setStudentNotificationData={setStudentNotificationData}/>
+                                )
+                            })}
+                            {!studentNotificationStat && 
+                                <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                    You have no alert
+                            </div>
+                            }
+                        </div>
+                    }
                 </div>
                 <div className='welcome1'>
                     <div>
@@ -141,6 +219,35 @@ const StudentDashboard = () => {
                 </article>
             </section>
         </main>
+    )
+}
+
+const StudentNotify = ({id, notText, setStudentNotificationData}) =>{
+    const onClear = () => {
+        try{
+            axios.delete(url+'student-company-notification/'+id+'/')
+            .then((response)=>{
+                console.log(response)
+                try{
+                    axios.get(url+"student-company-notification-list/"+studentId)
+                    .then((response)=>{
+                        setStudentNotificationData(response.data)
+                    })
+                }
+                catch(error){
+                    console.log(error)
+                }
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    return(
+        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}} onClick={()=>window.open('/student/your-applied-internships')}>
+            {notText}<br/>
+            <span style={{cursor: 'pointer', textDecoration: 'underline', fontFamily: 'Montserrat', fontWeight: '600', fontSize: '12px', color: "#002D5D"}} onClick={onClear}>Clear</span>
+        </div>
     )
 }
 

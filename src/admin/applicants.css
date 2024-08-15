@@ -213,3 +213,8 @@
     box-shadow: 0 4px 6px #7c8388;
     height: 38px;
   }
+  .adminApplicantsBody .page:hover{
+    border: 0.124rem solid #cccccc;
+    border-radius: 3px;
+    padding: 0.5px 2px;
+  }

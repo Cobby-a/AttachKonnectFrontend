@@ -1,5 +1,4 @@
-import profile from './assets/profile.png'
-import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard, faRemove, faDeleteLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import './company.css'
@@ -8,52 +7,81 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import Swal from 'sweetalert2'
-
-// const Swal = require('sweetalert2')
-
+import defaultProf from './assets/defaultProf.jpg'
 
 
-const url = "http://127.0.0.1:8000/manager/"
+
+
 const managerId = localStorage.getItem('managerId');
+const url = "http://127.0.0.1:8000/manager/"
 
 const CompanyVacancies = () => {
     const [menu, setMenu] = useState(false);
     const [vacancyData, setVacancyData] = useState([]);
+    const [managerData, setManagerData] = useState([])
+    const [nextUrl, setNextUrl] = useState()
+    const [previousUrl, setPreviousUrl] = useState()
 
-    // const [moreInfo, setMoreInfo] = useState(false);
-
-    const numbers = [
-        {id : 1},
-        {id : 2},
-        {id : 3},
-        {id : 4},
-        {id : 5},
-        {id : 6},
-        {id : 7},
-    ]
-
+    const [query, setQuery] = useState('');
+    const results = filterItems(vacancyData, query)
 
     console.log(managerId);
     useEffect(()=>{
         document.title = "Vacancies"
         try{
-            axios.get(url+'companyroles-list/'+managerId)
+            axios.get(url+"companyroles-list/"+managerId)
             .then((response)=>{
                 console.log(response.data);
-                setVacancyData(response.data)
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
+                setVacancyData(response.data.results)
             })
         }
         catch(error){
             console.log(error)
         }
+        try{
+            axios.get(url+managerId)
+            .then((response)=>{
+                setManagerData(response.data)
+            })
+        }
+        catch(error){
+            alert(error)
+        }
     },[])
+
+    let company_pic = managerData.companyLogo
+
+    if(managerData.companyLogo === null){
+        company_pic = defaultProf
+    }
+
+    function handleSearchChange(e) {
+        setQuery(e.target.value);
+    }
+
+    const paginationHandler = (url) => {
+        try{
+            axios.get(url)
+            .then((response)=>{
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
+                setVacancyData(response.data.results)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
     return(
         <main className="managerCompanyBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={company_pic} alt={managerData.companyName} />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Hiring Manager</h2>
+                        <h2 style={{alignSelf: 'center'}}>{managerData.companyName}</h2>
                         <div className='hamMenu'>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
@@ -88,8 +116,8 @@ const CompanyVacancies = () => {
                             <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>Your Vacancies</p>
                             <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor, edit and view your vacancies.</p>
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
+                        <form action="javascript:void(0);">
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Vacancy' value={query} onChange={handleSearchChange}/>
                         </form>
                     </div>
                     <div className='table'>
@@ -104,7 +132,7 @@ const CompanyVacancies = () => {
                         <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
-                    {vacancyData.map((data)=>{
+                    {results.map((data)=>{
                         const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
                         return(
@@ -114,13 +142,12 @@ const CompanyVacancies = () => {
                     <tbody>
                     <tr >
                         <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -135,8 +162,8 @@ const CompanyVacancies = () => {
                             <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>Your Vacancies</h3>
                             <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor, edit and view your vacancies.</p>
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company'/>
+                        <form action="javascript:void(0);">
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Vacancy' value={query} onChange={handleSearchChange}/>
                         </form>
                     </div>
                     
@@ -153,7 +180,7 @@ const CompanyVacancies = () => {
                         <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
-                    {vacancyData.map((data)=>{
+                    {results.map((data)=>{
                         const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
                         return(
@@ -163,13 +190,12 @@ const CompanyVacancies = () => {
                     <tbody>
                     <tr >
                         <td colSpan='6' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -181,6 +207,15 @@ const CompanyVacancies = () => {
     )
 }
 
+function filterItems(items, query) {
+    query = query.toLowerCase();
+    return items.filter(item =>
+      item.role.split(' ').some(word =>
+        // word.toLowerCase().match(query)
+        word.toLowerCase().startsWith(query)
+      )
+    );
+}
 
 const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, total_accepted_students}) => {
 

@@ -25,15 +25,30 @@ const StudentProfile = () => {
 
     useEffect (()=>{
         document.title = "Profile"
+        try{
+            axios.get(url+studentId)
+            .then((response)=>{
+                setStudentInfo(response.data)
+            })
+        }
+        catch(error){
+            alert(error)
+        }
     },[])
+
+    let profile_pic1 = studentInfo.profile_pic
+
+    if(studentInfo.profile_pic === null){
+        profile_pic1 = defaultProf
+    }
 
     return(
         <main className="studentProfileBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={profile_pic1} alt={studentInfo.last_name} />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Eva</h2>
+                        <h2 style={{alignSelf: 'center'}}>{studentInfo.last_name}</h2>
                         <div className='hamMenu'>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>

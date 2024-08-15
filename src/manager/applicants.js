@@ -18,36 +18,63 @@ const managerId = localStorage.getItem('managerId');
 const ManagerApplicants = () => {
     const [menu, setMenu] = useState(false);
     const [applicantsData, setApplicantsData] = useState([])
-    const numbers = [
-        {id : 1},
-        {id : 2},
-        {id : 3},
-        {id : 4},
-        {id : 5},
-        {id : 6},
-        {id : 7},
-    ]
+    const [managerData, setManagerData] = useState([])
+
+    const [nextUrl, setNextUrl] = useState()
+    const [previousUrl, setPreviousUrl] = useState()
+
 
     useEffect (()=>{
         document.title = "Applicants"
         try{
             axios.get(url+'student/student-roles-applied1/')
             .then((response)=>{
-                setApplicantsData(response.data)
+                setApplicantsData(response.data.results)
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
             });
         }
         catch(error){
             console.log(error)
         }
+        try{
+            axios.get(url+"manager/"+managerId)
+            .then((response)=>{
+                setManagerData(response.data)
+            })
+        }
+        catch(error){
+            alert(error)
+        }
     },[])
     
+    let company_pic = managerData.companyLogo
+
+    if(managerData.companyLogo === null){
+        company_pic = defaultProf
+    }
+
+    const paginationHandler = (url) => {
+        try{
+            axios.get(url)
+            .then((response)=>{
+                setNextUrl(response.data.next)
+                setPreviousUrl(response.data.previous)
+                setApplicantsData(response.data.results)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
     return(
         <main className="managerApplicantsBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={company_pic} alt={managerData.companyName} />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Hiring Manager</h2>
+                        <h2 style={{alignSelf: 'center'}}>{managerData.companyName}</h2>
                         <div className='applicantshamMenu'>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'applicantsSidebar' : 'applicantsNonSidebar'}>
@@ -105,13 +132,12 @@ const ManagerApplicants = () => {
                     <tr >
                         <td style={{border: 'none'}}></td>
                         <td colSpan='7' style={{border: 'none', fontSize: '12px', padding: '18px', margin: 'auto', paddingTop: '2rem', textAlign: 'center'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer',}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -152,13 +178,12 @@ const ManagerApplicants = () => {
                     <tr >
                         <td style={{border: 'none'}}></td>
                         <td colSpan='7' style={{border: 'none', fontSize: '12px', padding: '18px', margin: 'auto', paddingTop: '2rem',paddingBottom:'2rem', textAlign: 'center'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer',}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
+                            {previousUrl &&
+                                <div className={previousUrl && "page"} style={{color: "#4C4C4C", marginRight: '1rem', display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(previousUrl)}>Previous Page</div>
+                            }
+                            {nextUrl &&
+                                <div className={nextUrl && "page"} style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}} onClick={()=>paginationHandler(nextUrl)}>Next Page</div>
+                            }
                         </td>
                     </tr>
                     </tbody>
@@ -202,7 +227,7 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
     if (student.profile_pic === null){
         profile = defaultProf
     }
-    const handleReject = (id, name, role, student_id, role_id) => {
+    const handleReject = (id, name, role, student_id, role_id, company) => {
         Swal.fire({
             title: 'Confirm',
             text: `Are you sure you want to reject ${name}'s internship application for the ${role} role?`,
@@ -235,11 +260,24 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                 }catch(error){
                     console.log(error)
                 }
+                const studentNotification = new FormData();
+                    studentNotification.append("student", student_id)
+                    let notMessage = "Your application to intern as a " + role + " at " + company + " has been rejected"
+                    studentNotification.append("notText", notMessage)
+
+                    try{
+                        axios.post(url+'/student/student-company-notification/', studentNotification)
+                        .then((response)=>{
+                            console.log(response)
+                        })
+                    }catch(error){
+                        console.log(error)
+                    }
             }
           })
     }
 
-    const handleAccept = (id, name, role, student_id, role_id) => {
+    const handleAccept = (id, name, role, student_id, role_id, company) => {
         if(acceptData.optionalFile === "" && acceptData.smallInfo.length < 3){
             setAcceptError("Please provide any necessary information for your yet to be accepted intern")
             return;
@@ -286,6 +324,19 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                     }catch(error){
                         console.log(error)
                     }
+                    const studentNotification = new FormData();
+                    studentNotification.append("student", student_id)
+                    let notMessage = "Your application to intern as a " + role + " at " + company + " has been accepted"
+                    studentNotification.append("notText", notMessage)
+
+                    try{
+                        axios.post(url+'/student/student-company-notification/', studentNotification)
+                        .then((response)=>{
+                            console.log(response)
+                        })
+                    }catch(error){
+                        console.log(error)
+                    }
                 }
             })
         }
@@ -309,7 +360,7 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
             <td style={{cursor: 'pointer'}}><a href={applicationFile} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '8px'}}/>{applicationFile.substr(28)}</a></td>
             <td style={{cursor: 'pointer'}}>
                 <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginRight: '0.5rem', display: showAcceptBtn1}} onClick={()=>setAcceptInfo(true)}>Accept</button>
-                <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>handleReject(id, student.other_names, role.role, student.student_id, role.id)}>Reject</button>
+                <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>handleReject(id, student.other_names, role.role, student.student_id, role.id, role.company.companyName)}>Reject</button>
             </td>
         </tr>
         {acceptInfo && <tr>
@@ -318,7 +369,7 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
             {acceptError && <p style={{ fontSize: '12.5px', color: "#ff3333", marginBottom: '0', marginTop: '-10px'}}>{acceptError}</p>}
                 <span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Provide Short Info on the role for the user: </span><input style={{padding: "1px 5px 1px 5px", width: '200px',}} value={acceptData.smallInfo} onChange={handleChange} name='smallInfo'/>
                 <span style={{marginLeft: '8px', fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Or submit a doc file for the user: </span><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='optionalFile' onChange={handleFileChange}/>
-                <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: "10px"}} onClick={()=>handleAccept(id, student.other_names, role.role, student.student_id, role.id)}>Accept</button>
+                <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: "10px"}} onClick={()=>handleAccept(id, student.other_names, role.role, student.student_id, role.id, role.company.companyName)}>Accept</button>
                 <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginRight: '0.5rem', marginLeft: "10px"}} onClick={()=>onCancel()}>Cancel</button>
             </td>
             </tr>

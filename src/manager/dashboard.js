@@ -76,9 +76,43 @@ const ManagerDashboard = () => {
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <h2 style={{alignSelf: 'center'}}>{managerData.companyName}</h2>
                         <div className='hamMenu'>
-                            <span><FontAwesomeIcon icon={faBell} style={{fontSize: '1.6rem', cursor: 'pointer', paddingRight: '0.8rem'}}/>
-                                <span className='dot1' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-38px', right: '58px'}}>.</span>
-                                <span className='dot2' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-56px', right: '50px'}}>.</span>
+                            <span><FontAwesomeIcon icon={faBell} style={{fontSize: '1.6rem', cursor: 'pointer', paddingRight: '0.8rem'}} onClick={()=>setShowNotification(!showNotification)}/>
+                            {managerNotificationStat &&
+                                <span className='dot1' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-38px', right: '58px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                            }
+                            {managerNotificationStat &&
+                                <span className='dot2' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-56px', right: '50px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                            }
+                            {showNotification &&
+                                <div className='not1' style={{width: '400px', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '70px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                                    {managerNotificationStat && managerNotificationData.map((data)=>{
+                                        const {id, notText} = data
+                                        return(
+                                            <ManagerNotify id={id} notText={notText} setManagerNotificationData={setManagerNotificationData}/>
+                                        )
+                                    })}
+                                    {!managerNotificationStat && 
+                                        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                            You have no alert
+                                    </div>
+                                    }
+                                </div>
+                            }
+                            {showNotification &&
+                                <div className='not2' style={{width: '80%', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '55px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                                    {managerNotificationStat && managerNotificationData.map((data)=>{
+                                        const {id, notText} = data
+                                        return(
+                                            <ManagerNotify id={id} notText={notText} setManagerNotificationData={setManagerNotificationData}/>
+                                        )
+                                    })}
+                                    {!managerNotificationStat && 
+                                        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                            You have no alert
+                                    </div>
+                                    }
+                                </div>
+                            }
                             </span>
                             <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{fontSize: '1.6rem',paddingRight: '0.2rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>

@@ -2,9 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './appliedInternship.css'
 import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import Modal from '@mui/material/Modal';
 
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
@@ -14,18 +11,6 @@ import axios from 'axios';
     const url = 'http://127.0.0.1:8000/'
     const studentId = localStorage.getItem('studentId');
 
-    // const modStyle = {
-    //     position: 'absolute',
-    //     top: '50%',
-    //     left: '50%',
-    //     transform: 'translate(-50%, -50%)',
-    //     // width: '100%',
-    //     bgcolor: 'background.paper',
-    //     // border: '2px solid #000',
-    //     boxShadow: 24,
-    //     borderRadius: 1,
-    //     p: 4,
-    // };
 
 
 const AppliedInternships = () => {
@@ -33,7 +18,6 @@ const AppliedInternships = () => {
     
     const [studentApplicationsData, setstudentApplicationsData] = useState([])
     const [studentInternshipData, setStudentInternshipData] = useState([])
-    const [modalOpen, setModalOpen] = useState(false)
 
 
     useEffect (()=>{
@@ -63,7 +47,7 @@ const AppliedInternships = () => {
         show = "block"
     }
     return(
-        <article className='yourAppliedInternshipsBody'  style={{display: modalOpen ? "none" : "",}}>
+        <article className='yourAppliedInternshipsBody'>
             <section className='yourAppliedInternshipContainer' >
                 <div style={{}}>
                     <p style={{fontFamily: 'Montserrat', fontWeight: "500", color: "#000", textTransform:'uppercase', fontSize: "1.2rem", textAlign: 'center', marginBottom: '3rem',}}>Your Applied Internships</p>
