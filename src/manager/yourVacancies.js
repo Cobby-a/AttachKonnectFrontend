@@ -1,4 +1,4 @@
-import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import './company.css'
@@ -90,7 +90,7 @@ const CompanyVacancies = () => {
                             <div className='SidebarIcons'>
                                 <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
-                                <div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div>
+                                <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
                                 <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                             </div>
@@ -105,7 +105,7 @@ const CompanyVacancies = () => {
                     <div className='sidebarIcons'>
                         <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>YourVacancies</div></Link>
-                        <div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div>
+                        <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
                         <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                     </div>
@@ -136,7 +136,7 @@ const CompanyVacancies = () => {
                         const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
                         return(
-                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setVacancyData={setVacancyData}/>
+                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setVacancyData={setVacancyData} setNextUrl={setNextUrl} setPreviousUrl={setPreviousUrl}/>
                         )
                     })}
                     <tbody>
@@ -184,7 +184,7 @@ const CompanyVacancies = () => {
                         const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
                         return(
-                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setVacancyData={setVacancyData}/>
+                            <Vac1 key={id} id={id} role={role} numberOfInterns={numberOfInterns} deadline={deadline} moreInfo={moreInfo} total_accepted_students={total_accepted_students} setVacancyData={setVacancyData} setNextUrl={setNextUrl} setPreviousUrl={setPreviousUrl}/>
                         )
                     })}
                     <tbody>
@@ -217,7 +217,7 @@ function filterItems(items, query) {
     );
 }
 
-const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, total_accepted_students}) => {
+const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, total_accepted_students, setNextUrl, setPreviousUrl}) => {
 
     
     const [showInfo, setShowInfo] = useState(false);
@@ -253,7 +253,7 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
     const [numOfInternError, setNumOfInternError] = useState('')
     const [deadlineError, setDeadlineError] = useState('')
     
-    const onSave = (id) =>{
+    const onSave = (id, setNextUrl, setPreviousUrl) =>{
         let regex = new RegExp('^[0-9]+$');
         if(vacancy1Data.role.length === 0){
             setRoleError("Role field cannot be empty")
@@ -312,9 +312,12 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
                             showConfirmButton: false,
                         });
                         try{
-                            axios.get(url+'companyroles-list/'+managerId)
+                            axios.get(url+"companyroles-list/"+managerId)
                             .then((response)=>{
-                                setVacancyData(response.data)
+                                console.log(response.data);
+                                setNextUrl(response.data.next)
+                                setPreviousUrl(response.data.previous)
+                                setVacancyData(response.data.results)
                                 setShowInfo(false)
                                 setEdit(false)
                             })
@@ -378,7 +381,7 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
             <td onClick={()=>setShowInfo(!showInfo)}>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '115px'}} value={vacancy1Data.deadline} onChange={handleChange} name='deadline' type='date'/>:deadline} {deadlineError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{deadlineError}</p>}</td>
             <td>
                 <span style={{marginRight: '0.5rem', cursor: 'pointer'}}>
-                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onSave(id)}>Save</button> : <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onEdit()}>Edit</button>}
+                    {edit ? <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onSave(id, setNextUrl, setPreviousUrl)}>Save</button> : <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>onEdit()}>Edit</button>}
                 </span>
             </td>     
             <td>   

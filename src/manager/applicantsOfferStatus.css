@@ -1,16 +1,16 @@
 @media screen and (min-width: 0px){
-    .studentVacancyBody{
+    .managerOfferStatusApplicantsBody{
         margin: 1rem;
         margin-bottom: 3rem;
     }
-    .studentVacancyBody .profile img{
+    .managerOfferStatusApplicantsBody .profile img{
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .studentVacancyBody .profile h2{
+    .managerOfferStatusApplicantsBody .profile h2{
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 18px;
@@ -18,18 +18,18 @@
 }
 
 @media screen and (min-width: 600px){
-    .studentVacancyBody{
+    .managerOfferStatusApplicantsBody{
         margin: 1.5rem;
         margin-bottom: 4rem;
     }
-    .studentVacancyBody .profile img{
+    .managerOfferStatusApplicantsBody .profile img{
         width: 60px;
         height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .studentVacancyBody .profile h2{
+    .managerOfferStatusApplicantsBody .profile h2{
         font-weight: 400;
         line-height: 28px;
         font-size: 1.5rem;
@@ -37,42 +37,42 @@
 }
 
 @media screen and (min-width: 1001px){
-    .studentVacancyBody{
+    .managerOfferStatusApplicantsBody{
         margin: 2rem 3rem 2rem 3rem;
     }
-    .studentVacancyBody .profile img{
+    .managerOfferStatusApplicantsBody .profile img{
         width: 60px;
         height: 60px;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .studentVacancyBody .profile h2{
+    .managerOfferStatusApplicantsBody .profile h2{
         font-weight: 400;
         line-height: 60px;
         font-size: 1.5rem;
     }
 }
 
-.studentVacancyBody .profile{
+.managerOfferStatusApplicantsBody .profile{
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 0.75rem;
     align-items: center;
 }
 
-@media screen and (min-width: 1001px){
-    .studentVacancyBody .mainContainer{
+@media screen and (min-width: 1101px){
+    .managerOfferStatusApplicantsBody .mainContainer{
         padding: 20px 10px;
         margin-top: 3rem;
         display: flex;
         flex-flow: row wrap;
         width: 100%;
     }
-    .studentVacancyBody .MainContainer{
+    .managerOfferStatusApplicantsBody .MainContainer{
         display: none;
     }
-    .studentVacancyBody .mainVacancyBody{
+    .managerOfferStatusApplicantsBody .mainApplicantsBody{
         display: flex;
         flex-flow: row wrap;
         column-gap: 20px;
@@ -81,7 +81,7 @@
         margin-left: 2rem;
         margin: -2rem 0 auto 2rem;
     }
-    .studentVacancyBody .vacancySearch{
+    .managerOfferStatusApplicantsBody .applicantsSearch{
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
@@ -89,15 +89,15 @@
         width: 100%;
         align-content: center;
     }
-    .studentVacancyBody .vacancySearch form{
+    .applicantsSearch form{
         justify-items: center;
         background-color: #E6E6E6;
         height: 0;
     }
-    .studentVacancyBody .vacancySearch span{
+    .managerOfferStatusApplicantsBody .applicantsSearch span{
         position: absolute;
     }
-    .studentVacancyBody input{
+    .managerOfferStatusApplicantsBody input{
         border: none;
         font-family: 'Poppins';
         background-color: #FAFAFA;
@@ -106,21 +106,21 @@
         border: 1px solid #E6E6E6;
         border-radius: 4px;
     }
-    .studentVacancyBody input:focus{
+    .managerOfferStatusApplicantsBody input:focus{
         outline: none;
     }
 }
 
-@media screen and (max-width: 1000px){
-    .studentVacancyBody .mainContainer{
+@media screen and (max-width: 1100px){
+    .managerOfferStatusApplicantsBody .mainContainer{
         display: none;
     }
-    .studentVacancyBody .mainVacancyBody{
+    .managerOfferStatusApplicantsBody .mainApplicantsBody{
         display: flex;
         flex-flow: row ;
         margin-top: 2.1rem;
     }
-    .studentVacancyBody .vacancySearch{
+    .managerOfferStatusApplicantsBody .applicantsSearch{
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
@@ -130,17 +130,17 @@
         row-gap: 6px;
         /* align-content: center; */
     }
-    .studentVacancyBody .vacancySearch form{
+    .managerOfferStatusApplicantsBody .applicantsSearch form{
         /* justify-items: center; */
         background-color: #E6E6E6;
         height: 0px;
         /* position: absolute; */
         margin-bottom: 3.5rem;
     }
-    .studentVacancyBody .vacancySearch span{
+    .managerOfferStatusApplicantsBody .applicantsSearch span{
         position: absolute;
     }
-    .studentVacancyBody input{
+    .managerOfferStatusApplicantsBody input{
         border: none;
         font-family: 'Poppins';
         background-color: #FAFAFA;
@@ -149,60 +149,45 @@
         border: 1px solid #E6E6E6;
         border-radius: 4px;
     }
-    .studentVacancyBody input:focus{
+    .managerOfferStatusApplicantsBody input:focus{
         outline: none;
     }
 }
 
-.studentVacancyBody table {
+.managerOfferStatusApplicantsBody table {
     border-collapse: collapse;
     width: 100%;
-    font-size: 12px;
+    font-size: 13px;
   }
   
-  .studentVacancyBody .vacancydeets td, .studentVacancyBody .vacancydeets th {
-    border-top: 1px solid #F2F2F2;
+  .managerOfferStatusApplicantsBody .applicantsdeets td, .managerOfferStatusApplicantsBody .applicantsdeets th {
+    border-top: 1px solid #D9D9D9;
     border-bottom: none;
     border-right: none;
     border-left: none;
-    padding: 12px 8px 12px 8px;
+    padding: 10px 6px;
     white-space: nowrap;
   }
-  .studentVacancyBody .vacancydeets td{
-    color: #808080;
+  .managerOfferStatusApplicantsBody .applicantsdeets td{
+    color: #000000;
   }
   
-  .studentVacancyBody .vacancydeets th {
-    padding-top: 16px;
-    padding-bottom: 16px;
+  .managerOfferStatusApplicantsBody .applicantsdeets th {
+    padding-top: 10x;
+    padding-bottom: 10px;
     text-align: left;
-    background-color: #F2F2F2;
-    color: #4C4C4C;
+    background-color: #D9D9D9;
+    color: #767676;
     font-family: 'Montserrat';
     font-weight: 600;
+    text-transform: uppercase;
   }
-  .studentVacancyBody .table{
+  .managerOfferStatusApplicantsBody .table{
     width: 100%;
     overflow-x: auto;
   }
-  .studentVacancyBody .verified{
-    padding: 4px;
-    background-color: #DEEDE5;
-    border-radius: 4px;
-    color: #427A5B;
-  }
-  .studentVacancyBody .pending{
-    padding: 4px;
-    background-color: #FDF8CE;
-    border-radius: 4px;
-    color: #938406;
-  }
-  .studentVacancyBody .page:hover{
-    border: 0.124rem solid #cccccc;
-    border-radius: 3px;
-    padding: 0.5px 2px;
-  }
-  .studentVacancyBody input::file-selector-button {
+
+  .managerOfferStatusApplicantsBody input::file-selector-button {
     font-weight: bold;
     /* color: #111111; */
     padding: 4px 8px 4px 8px;
@@ -213,8 +198,13 @@
     font-size: 12px;
     font-weight: 100;
   }
-  .studentVacancyBody input[type="file"] {
+  .managerOfferStatusApplicantsBody input[type="file"] {
       padding: 0;
-      width: 250px;
+      width: 200px;
       /* width: 300px; */
+  }
+  .managerOfferStatusApplicantsBody .page:hover{
+    border: 0.124rem solid #cccccc;
+    border-radius: 3px;
+    padding: 0.5px 2px;
   }

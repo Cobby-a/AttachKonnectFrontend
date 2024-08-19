@@ -133,6 +133,7 @@ const StudentInternship = ({id, role, approval, smallInfo, optionalFile, student
                 const studentInternshipData = new FormData();
                 studentInternshipData.append("student", student_id)
                 studentInternshipData.append("role", role_id)
+                studentInternshipData.append("company", company_id)
                 studentInternshipData.append("offer", studentInterData.offer)
 
                 try{
@@ -186,6 +187,7 @@ const StudentInternship = ({id, role, approval, smallInfo, optionalFile, student
                     const studentInternshipData = new FormData();
                     studentInternshipData.append("student", student_id)
                     studentInternshipData.append("role", role_id)
+                    studentInternshipData.append("company", company_id)
                     studentInternshipData.append("offer", studentInterData.offer)
 
                     try{

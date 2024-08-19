@@ -190,7 +190,7 @@ const StudentDashboard = () => {
                         <div className='mainContainer3' id='mainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>View your Internships</p>
-                                <Link to ="/student/your-internships"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <Link to ="/student/your-internships" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>
@@ -204,14 +204,14 @@ const StudentDashboard = () => {
                         <div className='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>View your Applied Internships</p>
-                                <Link to ="/student/your-applied-internships"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                                <Link to ="/student/your-applied-internships" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
                         <div className='MainContainer3' id='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>View your Internships</p>
-                                <Link to="/student/your-internships"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <Link to="/student/your-internships" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>

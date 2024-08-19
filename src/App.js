@@ -17,6 +17,7 @@ import StudentCompany from './student/company';
 import StudentVacancy from './student/vacancy';
 import StudentApply from './student/apply';
 import StudentDashboard from './student/dashboard';
+import ManagerApplicantsOffer from './manager/applicantsOfferStatus';
 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ManagerSignUp from './authentication/managerSignUp';
@@ -85,7 +86,8 @@ function App() {
             <Route exact path = "/manager/vacancyboard" element={wrapManagerPrivateRoute(<CompanyVacancies/>, isManagerLoggedIn, '/manager/vacancyboard')}/>
             <Route exact path = "/manager/applicantsboard" element={wrapManagerPrivateRoute(<ManagerApplicants/>, isManagerLoggedIn, '/manager/applicantsboard')}/>
             <Route exact path = "/manager/create-vacancy" element={wrapManagerPrivateRoute(<ManagerCreateVacancy/>, isManagerLoggedIn, '/manager/create-vacancy')}/>
-
+            <Route exact path = "/manager/applicants-offer-status" element={wrapManagerPrivateRoute(<ManagerApplicantsOffer/>, isManagerLoggedIn, '/manager/applicants-offer-status')}/>
+            
             <Route exact path = "/supervisor/dashboard" element = {<SupervisorDashboard/>}/>
             <Route exact path = "/supervisor/dashboard/register-intern" element = {<SupervisorRegisterIntern/>}/>
             <Route exact path = "/supervisor/companyboard" element = {<SupervisorCompany/>}/>

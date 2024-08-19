@@ -3,13 +3,13 @@
         display: none;
     }
     .applicantssidebar{
-        max-width: 350px;
+        max-width: 300px;
         min-width: 100px;
         font-family: 'Poppins';
         flex: 1;
     }
     .applicantssidebarIcons div{
-        font-size: 1.1rem;
+        font-size: 1rem;
         padding-bottom: 1.2rem;
         justify-content: space-between;
         cursor: pointer;
