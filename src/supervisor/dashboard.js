@@ -1,208 +1,255 @@
-import profile from './assets/profile.png'
-import { faBuilding, faHouse, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faPen, faClipboard, faUserGear } from '@fortawesome/free-solid-svg-icons'
+import welcome from './assets/welcome.png'
+import comp from './assets/comp.svg'
+import stats from './assets/stat.svg'
+import { faHouse, faBriefcase, faBuilding, faRightFromBracket, faBars, faXmark, faBell, faUserTie, faSquarePollVertical} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './dashboard.css'
 import './sidebar.css'
-import { data1 } from './supervisorData'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import defaultProf from './assets/defaultProf.jpg'
+
+const url = "http://127.0.0.1:8000/supervisor/"
+const staffId = localStorage.getItem('staffId');
 
 
 const SupervisorDashboard = () => {
+    const [supervisorData, setSupervisorData] = useState([])
+    const [supervisorNotificationData, setSupervisorNotificationData] = useState([])
+
+
+    const onLogout = () =>{
+        localStorage.removeItem('supervisorLoginStatus')
+        window.location.href='/portal'
+    }
+
+    useEffect (()=>{
+        document.title = "Supervisor Dashboard"
+        try{
+            axios.get(url+staffId)
+            .then((response)=>{
+                setSupervisorData(response.data)
+            })
+        }
+        catch(error){
+            alert(error)
+        }
+        try{
+            axios.get(url+"supervisor-company-notification-list/"+staffId)
+            .then((response)=>{
+                setSupervisorNotificationData(response.data)
+            })
+        }
+        catch(error){
+            alert(error)
+        }
+    },[])
+
     const [menu, setMenu] = useState(false);
 
-    const numbers = [
-        {id : 1},
-        {id : 2},
-        {id : 3},
-        {id : 4},
-        {id : 5},
-        {id : 6},
-        {id : 7},
-    ]
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const d = new Date();
+    let month = months[d.getMonth()];
+    let day = d.getDate();
+    let year = d.getFullYear();
+
+    let profile_pic = supervisorData.profile_pic
+
+    if(supervisorData.profile_pic === null){
+        profile_pic = defaultProf
+    }
+
+    let supervisorNotificationStat = true
+    if(supervisorNotificationData.length < 1){
+        supervisorNotificationStat = false;
+    }
+
+    const [showNotification, setShowNotification] = useState(false)
 
     return(
-        <main className="supervisorDashboardBody">
+        <main className="supervisorBody">
             <header>
                 <div className='profile'>
-                    <img src={profile} alt="profile" />
+                    <img src={profile_pic} alt={supervisorData.last_name} />
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Dr. Mensah</h2>
+                        <h2 style={{alignSelf: 'center'}}>{supervisorData.last_name}</h2>
                         <div className='hamMenu'>
-                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
+                        <span><FontAwesomeIcon icon={faBell} style={{fontSize: '1.6rem', cursor: 'pointer', paddingRight: '0.8rem'}} onClick={()=>setShowNotification(!showNotification)}/>
+                            {supervisorNotificationStat &&
+                                <span className='dot1' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-36px', right: '61px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                            }
+                            {supervisorNotificationStat &&
+                                <span className='dot2' style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '-56px', right: '52px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                            }
+                            {showNotification &&
+                                <div className='not1' style={{width: '400px', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '70px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                                    {supervisorNotificationStat && supervisorNotificationData.map((data)=>{
+                                        const {id, notText} = data
+                                        return(
+                                            <SupervisorNotify id={id} notText={notText} setSupervisorNotificationData={setSupervisorNotificationData}/>
+                                        )
+                                    })}
+                                    {!supervisorNotificationStat && 
+                                        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                            You have no alert
+                                    </div>
+                                    }
+                                </div>
+                            }
+                            {showNotification &&
+                                <div className='not2' style={{width: '80%', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '55px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                                    {supervisorNotificationStat && supervisorNotificationData.map((data)=>{
+                                        const {id, notText} = data
+                                        return(
+                                            <SupervisorNotify id={id} notText={notText} setSupervisorNotificationData={setSupervisorNotificationData}/>
+                                        )
+                                    })}
+                                    {!supervisorNotificationStat && 
+                                        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                            You have no alert
+                                    </div>
+                                    }
+                                </div>
+                            }
+                            </span>
+                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.3rem', fontSize: '1.6rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
                             <article className={menu ? 'Sidebar' : 'NonSidebar'}>
                                 <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer', position: 'relative', left: '87%', marginBottom: '0.75rem'}} onClick={()=>setMenu(!menu)}/>
-                                {/* <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p> */}
+                                <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p>
                             <div className='SidebarIcons'>
                                 <Link to ="/supervisor/dashboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/supervisor/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
-                                <Link to="/supervisor/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                                <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to ="/supervisor/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
+                                <Link to="/supervisor/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                                <Link to="/supervisor/intern-assessment"><div><FontAwesomeIcon icon={faSquarePollVertical} style={{paddingRight: '1rem', width: '10%'}}/>Intern Assessment</div></Link>
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
                     </div>
                 </div>
+                <div className='welcome'>
+                    <div>
+                        <p>{month} {day}, {year}</p>
+                        <h3>Welcome back, {supervisorData.last_name}!</h3>
+                        <p>Always stay updated in your system’s portal</p>
+                    </div>
+                    <img src={welcome} alt="welcome" />
+                </div>
+                <div className='notBell' style={{alignSelf: 'center'}}>
+                    <FontAwesomeIcon icon={faBell} style={{fontSize: '1.75rem',paddingLeft: '1rem',cursor: 'pointer',}} onClick={()=>setShowNotification(!showNotification)}/>
+                    {supervisorNotificationStat &&
+                        <span style={{fontSize: '5rem', color: '#ff3333', position: 'absolute', top: '20px', right: '46px', cursor: 'pointer'}} onClick={()=>setShowNotification(!showNotification)}>.</span>
+                    }
+                    {showNotification &&
+                        <div style={{width: '400px', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", padding: '0.2rem', position: 'absolute', right: '60px', zIndex: '1', backgroundColor: '#fff', borderRadius: '2px'}}>
+                            {supervisorNotificationStat && supervisorNotificationData.map((data)=>{
+                                const {id, notText} = data
+                                return(
+                                    <SupervisorNotify id={id} notText={notText} setSupervisorNotificationData={setSupervisorNotificationData}/>
+                                )
+                            })}
+                            {!supervisorNotificationStat && 
+                                <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
+                                    You have no alert
+                            </div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div className='welcome1'>
+                    <div>
+                        <p>{month} {day}, {year}</p>
+                        <h3>Welcome back, {supervisorData.last_name}!</h3>
+                        <p>Always stay updated in your system’s portal</p>
+                    </div>
+                    <img src={welcome} alt="welcome" />
+                </div>
             </header>
             <section className='mainContainer'>
                 <article className='sidebar'>
-                    {/* <p style={{fontFamily: 'Segoe UI', marginTop: '-3rem', marginBottom: '3rem', marginLeft: '-1rem', fontWeight:'600',}}>Welcome to dashboard</p> */}
+                    <p style={{fontFamily: 'Segoe UI', marginTop: '-3rem', marginBottom: '3rem', marginLeft: '-1rem', fontWeight:'600',}}>Welcome to dashboard</p>
                     <div className='sidebarIcons'>
                         <Link to ="/supervisor/dashboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/supervisor/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
-                        <Link to="/supervisor/manage-users"><div><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                        <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to ="/supervisor/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Vacancy</div></Link>
+                        <Link to="/supervisor/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Students</div></Link>
+                        <Link to="/supervisor/intern-assessment"><div><FontAwesomeIcon icon={faSquarePollVertical} style={{paddingRight: '1rem', width: '10%'}}/>Intern Assessment</div></Link>
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
-                <article className="mainDashboardBody">
-                    <div className='dashboardSearch'>
-                        <div>
-                            <p style={{ fontSize: '1.2rem', marginBottom: '0.4rem', fontFamily: 'Poppins'}}>All Interns</p>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                <article className='mainContainer1'>
+                    <div className='mainContainer2'>
+                        <div className='mainContainer3'>
+                            <div>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Students on <br/>system</p>
+                                <Link to="/supervisor/applicantsboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                            </div>
+                            <img src={comp} alt="Computer" />
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Intern'/>
-                        </form>
-                        <Link to="/supervisor/dashboard/register-intern"><button>Register Intern</button></Link>
+                        <div className='mainContainer3' id='mainContainer3'>
+                            <div>
+                            <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>Companies on system</p>
+                                <Link to ="/supervisor/companyboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                            </div>
+                            <img src={stats} alt="Statistics" />
+                        </div>
                     </div>
-                    <div className='table'>
-                    <table className="dashboarddeets">
-                    <thead>
-                    <tr>
-                        <th style={{paddingLeft: '1rem'}}>Intern</th>
-                        <th>Contract status</th>
-                        <th>Report Status</th>
-                        <th>Vacancy</th>
-                        <th>Company</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {data1.map((data)=>{
-                        const {id, intern, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}>{intern}</td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                                <td>    
-                                    <span style={{ cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                    <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
                 </article>
             </section>
+
             <section className='MainContainer'>
-                <article className="mainDashboardBody">
-                    <div className='dashboardSearch'>
-                        <div>
-                            <h3 style={{color: "#4C4C4C", fontSize: '1.1rem', marginBottom: '0.4rem', fontFamily: 'Montserrat'}}>All Interns</h3>
-                            <p style={{color: '#B3B3B3', fontSize: '0.8rem'}}>Monitor interns, their contracts and reports.</p>
+                <article className='MainContainer1'>
+                    <div className='MainContainer2'>
+                        <div className='MainContainer3'>
+                            <div>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Students on <br/>system</p>
+                                <Link to ="/supervisor/applicantsboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                            </div>
+                            <img src={comp} alt="Computer" />
                         </div>
-                        <form>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchApplicants' placeholder='Search Intern'/>
-                        </form>
-                        <Link to="/supervisor/dashboard/register-intern"><button>Register Intern</button></Link>
+                        <div className='MainContainer3' id='MainContainer3'>
+                            <div>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>Companies on system</p>
+                                <Link to="/supervisor/companyboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                            </div>
+                            <img src={stats} alt="Statistics" />
+                        </div>
                     </div>
-                    
                 </article>
-                <div className='table'>
-                    <table className="dashboarddeets">
-                    <thead>
-                    <tr>
-                        <th style={{paddingLeft: '1rem',}}>Logo</th>
-                        <th>Internship</th>
-                        <th>Report Status</th>
-                        <th>Vacancy</th>
-                        <th>Company</th>
-                        <th></th>
-                        <th style={{paddingRight: "4rem"}}></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {data1.map((data)=>{
-                        const {id, intern, contactStatus, reportStatus, vacancy, company} = data;
-                        let classname = "verified";
-
-                        if(contactStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        if(reportStatus === 'Pending'){
-                            classname = "pending"
-                        }
-
-                        return(
-                            <tr key={id}>
-                                <td style={{paddingLeft: '1rem'}}>{intern}</td>
-                                <td><span className={classname}>{contactStatus}</span></td>
-                                <td><span className={classname}>{reportStatus}</span></td>
-                                <td>{vacancy}</td>
-                                <td>{company}</td>
-                                <td>
-                                    <span style={{marginRight: '1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faPen} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>     
-                                <td>   
-                                    <span style={{marginLeft: '1rem', marginRight: '-1rem', cursor: 'pointer'}}>
-                                        <FontAwesomeIcon icon={faClipboard} style={{fontSize: '1.2rem', color: "#1A7AE0"}}/>
-                                    </span>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                    <tr >
-                        <td colSpan='7' style={{backgroundColor: "#F2F2F2", fontSize: '12px', padding: '18px'}}>
-                            <div style={{color: "#9F9F9F", paddingRight: '1rem', display: 'inline-block', cursor: 'pointer'}}>Previous Page</div>
-                            {numbers.map((num)=>{
-                                return(
-                                    <div key={num.id} style={{backgroundColor:"#E6E6E6", color: "#4C4C4C",width: "20px", height: "20px", borderRadius: "50%", textAlign: "center", alignContent: 'center', cursor: 'pointer', marginRight: "0.8rem",display: 'inline-block'}}><span style={{margin: '0'}}>{num.id}</span></div>
-                                )
-                            })}
-                            <div style={{color: "#4C4C4C", display: 'inline-block', cursor: 'pointer'}}>Next Page</div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
             </section>
         </main>
+    )
+}
+
+const SupervisorNotify = ({id, notText, setSupervisorNotificationData}) =>{
+    const onClear = () => {
+        try{
+            axios.delete(url+'student-company-notification/'+id+'/')
+            .then((response)=>{
+                console.log(response)
+                try{
+                    axios.get(url+"student-company-notification-list/"+staffId)
+                    .then((response)=>{
+                        setSupervisorNotificationData(response.data)
+                    })
+                }
+                catch(error){
+                    console.log(error)
+                }
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    return(
+        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}} onClick={()=>window.open('/student/your-applied-internships')}>
+            {notText}<br/>
+            <span style={{cursor: 'pointer', textDecoration: 'underline', fontFamily: 'Montserrat', fontWeight: '600', fontSize: '12px', color: "#002D5D"}} onClick={onClear}>Clear</span>
+        </div>
     )
 }
 

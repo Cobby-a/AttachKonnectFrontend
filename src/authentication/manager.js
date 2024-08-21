@@ -65,7 +65,13 @@ const ManagerSignIn = () => {
             try{
                 axios.post("http://127.0.0.1:8000/manager/manager-login/", loginFormData)
                 .then((response)=>{
-                    if(response.data.bool === true){
+                    if(response.data.bool === true && response.data.pp === 'attachmentkonnect'){
+                        // localStorage.setItem('managerLoginStatus', true)
+                        // localStorage.setItem('companyName', response.data.company_name)
+                        localStorage.setItem('managerId', response.data.manager_id)
+                        window.location.href='/manager/change-temporal-password';
+                    }
+                    else if(response.data.bool === true && response.data.pp !== 'attachmentkonnect'){
                         localStorage.setItem('managerLoginStatus', true)
                         localStorage.setItem('managerId', response.data.manager_id)
                         localStorage.setItem('companyName', response.data.company_name)
@@ -91,6 +97,24 @@ const ManagerSignIn = () => {
                     }
                     else{
                         setErrorMessage("Invalid Student Id or Password! Try again.")
+                    }
+                });
+            }catch(error){
+                console.log(error)
+            }
+        }
+        if(forSupervisor === true){
+            try{
+                axios.post("http://127.0.0.1:8000/supervisor/supervisor-login/", loginFormData)
+                .then((response)=>{
+                    if(response.data.bool === true){
+                        localStorage.setItem('supervisorLoginStatus', true)
+                        localStorage.setItem('staffId', response.data.staff_id)
+                        localStorage.setItem('supervisorName', response.data.supervisor_name)
+                        window.location.href='/supervisor/dashboard';
+                    }
+                    else{
+                        setErrorMessage("Invalid Staff Id or Password! Try again.")
                     }
                 });
             }catch(error){

@@ -183,14 +183,14 @@ const ManagerDashboard = () => {
                         <div className='mainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>New vacancy? <br/>Create new one</p>
-                                <Link to="/manager/create-vacancy"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"86px", padding: "4px 4px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Create</div></Link>
+                                <Link to="/manager/create-vacancy" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"86px", padding: "4px 4px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Create</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
                         <div className='mainContainer3' id='mainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>View your vacancies</p>
-                                <Link to ="/manager/vacancyboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <Link to ="/manager/vacancyboard" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>
@@ -204,14 +204,14 @@ const ManagerDashboard = () => {
                         <div className='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>New vacancy? <br/>Create new one</p>
-                                <Link to ="/manager/create-vacancy"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"86px", padding: "4px 4px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Create</div></Link>
+                                <Link to ="/manager/create-vacancy" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"86px", padding: "4px 4px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Create</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
                         <div className='MainContainer3' id='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>View your vacancies</p>
-                                <Link to="/manager/vacancyboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <Link to="/manager/vacancyboard" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>
@@ -245,8 +245,9 @@ const ManagerNotify = ({id, notText, setManagerNotificationData}) =>{
         }
     }
     return(
-        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}}>
-            {notText}<br/>
+        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", }}>
+            <span onClick={()=>window.open('/manager/applicants-offer-status')} style={{cursor: 'pointer'}}>{notText}</span>
+            <br/>
             <span style={{cursor: 'pointer', textDecoration: 'underline', fontFamily: 'Montserrat', fontWeight: '600', fontSize: '12px', color: "#002D5D"}} onClick={onClear}>Clear</span>
         </div>
     )

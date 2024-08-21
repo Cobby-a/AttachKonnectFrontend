@@ -25,29 +25,17 @@ import axios from 'axios';
 
     const baseUrl = 'http://127.0.0.1:8000/manager/'
 
-const ManagerSignUp = () => {
+const ManagerInternAssessment = () => {
     const [managerData, setManagerData] = useState({
         'companyName' :'',
         'email' :'',
         'location': '',
+        'password': '',
         'ceo': '',
         'durationOfExistence': '',
         'briefInfo': '',
-        'companyLogo': '',
-        'companyCertificate': '',
+        'companyLogo': ''
     })
-    const [nameError, setNameError] = useState('')
-    const [emailError, setEmailError] = useState('')
-    const [locationError, setLocationError] = useState('')
-    const [ceoError, setCeoError] = useState('')
-    const [durationError, setDurationError] = useState('')
-    const [briefInfoError, setBriefInfoError] = useState('')
-    const [logoError, setLogoError] = useState('')
-    const [certificateError, setCertificateError] = useState('')
-
-    const [buttonEnabled, setButtonEnabled] = useState(true)
-
-
     console.log(managerData)
     const handleChange=(event)=>{
         setManagerData({
@@ -73,99 +61,39 @@ const ManagerSignUp = () => {
     }
 
     const onSubmitApplication = () => {
-        if(managerData.companyName.length < 1){
-            setNameError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.companyName.length >= 1){
-            setNameError("")
-        }
-        if(managerData.email.length < 1){
-            setEmailError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.email.length >= 1){
-            setEmailError("")
-        }
-        if(managerData.location.length < 1){
-            setLocationError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.location.length >= 1){
-            setLocationError("")
-        }
-        if(managerData.ceo.length < 1){
-            setCeoError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.ceo.length >= 1){
-            setCeoError("")
-        }
-        if(managerData.durationOfExistence.length < 1){
-            setDurationError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.durationOfExistence.length >= 1){
-            setDurationError("")
-        }
-        if(managerData.briefInfo.length < 1){
-            setBriefInfoError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.briefInfo.length >= 1){
-            setBriefInfoError("")
-        }
-        if(managerData.companyLogo === ""){
-            setLogoError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.companyLogo !== ""){
-            setLogoError("")
-        }
-        if(managerData.companyCertificate === ""){
-            setCertificateError("Field cannot be left empty")
-            return;
-        }
-        else if(managerData.companyCertificate !== ""){
-            setCertificateError("")
-        }
-        if(managerData.companyName.length >= 1 && managerData.email.length >= 1 && managerData.location.length >= 1 && managerData.ceo.length >= 1 && managerData.durationOfExistence.length >= 1 && managerData.briefInfo.length >= 1 && managerData.companyLogo !== "" && managerData.companyCertificate !== ""){
-            const managerApplicationData = new FormData();
-            managerApplicationData.append("companyName", managerData.companyName)
-            managerApplicationData.append("email", managerData.email)
-            managerApplicationData.append("location", managerData.location)
-            managerApplicationData.append("ceo", managerData.ceo)
-            managerApplicationData.append("durationOfExistence", managerData.durationOfExistence)
-            managerApplicationData.append("briefInfo", managerData.briefInfo)
-            managerApplicationData.append("companyLogo", managerData.companyLogo, managerData.companyLogo.name)
-            managerApplicationData.append("companyCertificate", managerData.companyCertificate, managerData.companyCertificate.name)
+        const managerApplicationData = new FormData();
+        managerApplicationData.append("companyName", managerData.companyName)
+        managerApplicationData.append("email", managerData.email)
+        managerApplicationData.append("location", managerData.location)
+        managerApplicationData.append("password", managerData.password)
+        managerApplicationData.append("ceo", managerData.ceo)
+        managerApplicationData.append("durationOfExistence", managerData.durationOfExistence)
+        managerApplicationData.append("briefInfo", managerData.briefInfo)
+        managerApplicationData.append("companyLogo", managerData.companyLogo, managerData.companyLogo.name)
 
-            setButtonEnabled(false)
-
-            try{
-                axios.post(baseUrl, managerApplicationData, {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                })
-                .then((response)=>{
-                    console.log(response.data)
-                    setManagerData({
-                        'companyName' :'',
-                        'email' :'',
-                        'location': '',
-                        'ceo': '',
-                        'durationOfExistence': '',
-                        'briefInfo': '',
-                        'companyLogo': '',
-                        'companyCertificate': '',
-                    });
-                    setModalOpen(true);
-                })
-            }
-            catch(error){
-                console.log(error)
-            }
+        try{
+            axios.post(baseUrl, managerApplicationData, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            })
+            .then((response)=>{
+                console.log(response.data)
+                setManagerData({
+                    'companyName' :'',
+                    'email' :'',
+                    'location': '',
+                    'password': '',
+                    'ceo': '',
+                    'durationOfExistence': '',
+                    'briefInfo': '',
+                    'companyLogo': '',
+                });
+                setModalOpen(true);
+            })
+        }
+        catch(error){
+            console.log(error)
         }
     }
     return(
@@ -181,61 +109,47 @@ const ManagerSignUp = () => {
                         <div style={{flex: 1}}>
                             <label>Company name</label>
                             <div className='input'><input type='text' required name='companyName' value={managerData.companyName} onChange={handleChange} /></div>
-                            {nameError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{nameError}</p>}
                         </div>
                         <div style={{flex: 1}}>
                             <label>Email</label>
                             <div className='input'><input type='email' required name='email' value={managerData.email} onChange={handleChange}/></div>
-                            {emailError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{emailError}</p>}
                         </div>
                         <div style={{flex: 1}}>
                             <label>Location</label>
                             <div className='input'><input type='text' required name='location' value={managerData.location} onChange={handleChange}/></div>
-                            {locationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{locationError}</p>}
                         </div>
                     </div>
-                    {/* <div className="formContainer1">
+                    <div className="formContainer1">
                         <div style={{flex: 1}}>
                             <label>Password</label>
                             <div className='input'><input type='password' required name='password' value={managerData.password} onChange={handleChange} /></div>
                         </div>
-                    </div> */}
+                    </div>
                     <div className='formContainer2'>
                         <div style={{flex: 1}}>
                             <label>Name of CEO</label>
                             <div className='input'><input type='text' required name='ceo' value={managerData.ceo} onChange={handleChange}/></div>
-                            {ceoError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{ceoError}</p>}
                         </div>
                         <div style={{flex: 1}}>
                             <label>Duration of Comapny's existence</label>
                             <div className='input'><input type='text' required name='durationOfExistence' value={managerData.durationOfExistence} onChange={handleChange}/></div>
-                            {durationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{durationError}</p>}
                         </div>
                         <div style={{flex: 1}}>
                             <label>Company's logo (.jpg, .png and .jpeg formats)</label>
                             <div className='input'><input type='file' accept=".png, .jpg, .jpeg" name='companyLogo' required onChange={handleFileChange}/></div>
-                            {logoError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{logoError}</p>}
                         </div>
                     </div>
                     <div className='formContainer3'>
                         <div style={{flex: 1}}>
                             <p>Brief Intel on company's set objectives and activities</p>
                             <textarea rows="10" name='briefInfo' onChange={handleChange} value={managerData.briefInfo} required></textarea>
-                            {briefInfoError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{briefInfoError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <p>Company’s Registration Certificate</p>
-                            <div className='input'><input type='file' name='companyCertificate' required onChange={handleFileChange}/></div>
-                            {certificateError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{certificateError}</p>}
-                            {/* <textarea rows="10" name='jobDescription'></textarea> */}
+                            <p>Internship Activities (separate with commas)</p>
+                            <textarea rows="10" name='jobDescription'></textarea>
                         </div>
                     </div>
-                    {buttonEnabled &&
                     <button type='submit' onClick={onSubmitApplication}>Submit</button>
-                    }
-                    {!buttonEnabled &&
-                    <button type='submit' disabled onClick={onSubmitApplication}>Submit</button>
-                    }
                 </div>
                 <Modal
                     open={modalOpen}
@@ -259,4 +173,4 @@ const ManagerSignUp = () => {
     )
 }
 
-export default ManagerSignUp;
+export default ManagerInternAssessment;

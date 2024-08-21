@@ -1,5 +1,4 @@
 import './dashboard.css'
-import profile from './assets/profile.png'
 import welcome from './assets/welcome.png'
 import comp from './assets/comp.svg'
 import stats from './assets/stat.svg'
@@ -9,12 +8,18 @@ import { faBuilding, faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars
 import { useEffect, useState } from 'react'
 import './sidebar.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import defaultProf from './assets/defaultProf.jpg'
 
 
 // const adminId = localStorage.getItem('managerId');
 const adminUserName = localStorage.getItem('adminUserName');
+const url = "http://127.0.0.1:8000/supervisor/"
 
 const AdminDashboard = () => {
+    const [supervisorData, setSupervisorData] = useState([])
+
+
 
     const onLogout = () =>{
         localStorage.removeItem('adminLoginStatus')
@@ -23,7 +28,16 @@ const AdminDashboard = () => {
 
     useEffect (()=>{
         document.title = "Admin Dashboard"
-    })
+        try{
+            axios.get(url)
+            .then((response)=>{
+                setSupervisorData(response.data)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    },[])
 
     const [menu, setMenu] = useState(false);
 
@@ -106,9 +120,15 @@ const AdminDashboard = () => {
                     <div className='supervisors'>
                         <h3 style={{textAlign: 'center', fontWeight: 600, paddingBottom: '3rem', marginTop: '-3rem' }}>Supervisors</h3>
                         <div>
-                        <img src={profile} alt="profile" />
-                        <img src={profile} alt="profile" />
-                        <img src={profile} alt="profile" />
+                            {supervisorData.map((data)=>{
+                                let profile = data.profile_pic
+                                if (data.profile_pic === null){
+                                    profile = defaultProf
+                                }
+                                return(
+                                    <img src={profile} alt={data.last_name} />
+                                )
+                            })}
                         </div>
                         <h3 style={{textAlign: 'center', fontWeight: 600, marginTop: '0.7rem', cursor: 'pointer', color: '#925FE2', paddingLeft: '13.9rem', fontSize: '1.2rem' }}>See all</h3>
 
@@ -138,9 +158,15 @@ const AdminDashboard = () => {
                     <div className='Supervisors'>
                         <h3 style={{textAlign: 'center', fontWeight: 600, paddingBottom: '2rem', }}>Supervisors</h3>
                         <div>
-                        <img src={profile} alt="profile" />
-                        <img src={profile} alt="profile" />
-                        <img src={profile} alt="profile" />
+                            {supervisorData.map((data)=>{
+                                let profile = data.profile_pic
+                                if (data.profile_pic === null){
+                                    profile = defaultProf
+                                }
+                                return(
+                                    <img src={profile} alt={data.last_name} />
+                                )
+                            })}
                         </div>
                         <p style={{textAlign: 'center', marginTop: '0.5rem', cursor: 'pointer', color: '#925FE2', paddingLeft: '13.9rem', fontSize: '1.1rem' }}>See all</p>
 

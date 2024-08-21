@@ -244,8 +244,8 @@ const StudentNotify = ({id, notText, setStudentNotificationData}) =>{
         }
     }
     return(
-        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", cursor: 'pointer'}} onClick={()=>window.open('/student/your-applied-internships')}>
-            {notText}<br/>
+        <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"}}>
+            <span  onClick={()=>window.open('/student/your-applied-internships')} style={{cursor: 'pointer'}}>{notText}</span>
             <span style={{cursor: 'pointer', textDecoration: 'underline', fontFamily: 'Montserrat', fontWeight: '600', fontSize: '12px', color: "#002D5D"}} onClick={onClear}>Clear</span>
         </div>
     )

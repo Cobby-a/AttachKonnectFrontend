@@ -1,14 +1,14 @@
-import profile from './assets/profile.png'
-import { faBuilding, faHouse, faUserGear, faRightFromBracket, faBars, faXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import {faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './manageUsers.css'
 import './sidebar.css'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+const url = "http://127.0.0.1:8000/"
 
 
 const SupervisorManageUsers = () => {
-    const [menu, setMenu] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     let passwordType = "password"
@@ -16,92 +16,157 @@ const SupervisorManageUsers = () => {
         passwordType = "text";
     }
 
+        const [studentData, setStudentData] = useState({
+            'student_id' :'',
+            'password': '',
+            'last_name': '',
+            'other_names': '',
+            'level': '',
+            'programme': '',
+        })
+        console.log(studentData)
+        const handleChange=(event)=>{
+            setStudentData({
+                ...studentData,
+                [event.target.name]:event.target.value
+            })
+        }
+        useEffect (()=>{
+            document.title = "Supervisor Register-Student"
+        })
+
+        const onSaveStudent = () => {
+                const newStudentData = new FormData();
+                newStudentData.append("student_id", studentData.student_id)
+                newStudentData.append("password", studentData.password)
+                newStudentData.append("last_name", studentData.last_name)
+                newStudentData.append("other_names", studentData.other_names)
+                newStudentData.append("level", studentData.level)
+                newStudentData.append("programme", studentData.programme)
+    
+                try{
+                    axios.post(url+'student/', newStudentData)
+                    .then((response)=>{
+                        // setModalOpen(true);
+                        setStudentData({
+                            'student_id' :'',
+                            'password' :'',
+                            'last_name': '',
+                            'other_names': '',
+                            'level': '',
+                            'programme': '',
+                        });
+                        window.location.href='/supervisor/applicantsboard'
+                    })
+                }catch(error){
+                    console.log(error)
+                }
+            }
+    
     return(
         <main className="supervisorManageUsersBody">
-            <header>
-                <div className='profile'>
-                    <img src={profile} alt="profile" />
-                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h2 style={{alignSelf: 'center'}}>Dr. Mensah</h2>
-                        <div className='hamMenu'>
-                            <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer',}} onClick={()=>setMenu(!menu)}/>
-                            <article className={menu ? 'Sidebar' : 'NonSidebar'}>
-                                <FontAwesomeIcon icon={menu ? faXmark : faBars} style={{paddingRight: '0.5rem', fontSize: '1.75rem', cursor: 'pointer', position: 'relative', left: '87%', marginBottom: '0.75rem'}} onClick={()=>setMenu(!menu)}/>
-                                {/* <p style={{fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",   marginLeft: '-1rem', fontWeight:'600', fontSize: '1rem' }}>Welcome to dashboard</p> */}
-                            <div className='SidebarIcons'>
-                                <Link to ="/supervisor/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
-                                <Link to ="/supervisor/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
-                                <Link to="/supervisor/manage-users"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                                <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
-                            </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </header>
             <section className='mainContainer'>
-                <article className='sidebar'>
-                    {/* <p style={{fontFamily: 'Segoe UI', marginTop: '-3rem', marginBottom: '3rem', marginLeft: '-1rem', fontWeight:'600',}}>Welcome to dashboard</p> */}
-                    <div className='sidebarIcons'>
-                        <Link to ="/supervisor/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
-                        <Link to ="/supervisor/companyboard"><div><FontAwesomeIcon icon={faBuilding} style={{paddingRight: '1rem', width: '10%'}}/>Company</div></Link>
-                        <Link to="/supervisor/manage-users"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faUserGear} style={{paddingRight: '1rem', width: '10%'}}/>Manage Users</div></Link>
-                        <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
-                    </div>
-                </article>
                 <article className='manageUserContainer'>
-                    <h3 style={{fontSize: '1.2rem', fontFamily: 'Montserrat', marginTop: '-2.5rem', textTransform: 'uppercase', textAlign: 'center'}}>Edit User Information</h3>
-                    <form>
-                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"20rem", }}>
+                    <h3 style={{fontSize: '1.2rem', fontFamily: 'Montserrat', marginTop: '-2.5rem', textTransform: 'uppercase', textAlign: 'center'}}>Add User Information</h3>
+                    <div className='form'>
+                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"5rem", }}>
                             <div style={{flex: 1}}>
-                                <label>Name</label>
-                                <div className='input'><input type='text' required/></div>
+                                <label>Student Id</label>
+                                <div className='input'><input type='number' required name='student_id' onChange={handleChange}/></div>
                             </div>
                             <div style={{flex: 1}}>
                                 <label>Password</label>
-                                <div className='input' style={{display: 'flex', border: '1px solid #E6E6E6', borderRadius: "4px", alignItems: 'center', paddingRight: "8px"}}><input type={passwordType} required style={{border: 'none'}}/><span><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{fontSize: '1rem', justifySelf: 'center', cursor: 'pointer' }} onClick={()=>setShowPassword(!showPassword)}/></span></div>
+                                <div className='input' style={{display: 'flex', border: '1px solid #E6E6E6', borderRadius: "4px", alignItems: 'center', paddingRight: "8px"}}><input name='password' onChange={handleChange} type={passwordType} required style={{border: 'none'}}/><span><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{fontSize: '1rem', justifySelf: 'center', cursor: 'pointer' }} onClick={()=>setShowPassword(!showPassword)}/></span></div>
                             </div>
                         </div>
-                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"20rem", marginTop: "5rem"}}>
+                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"5rem", marginTop: "5rem"}}>
                             <div style={{flex: 1}}>
-                                <label>E-mail</label>
-                                <div className='input'><input type='email' required/></div>
+                                <label>Last Name</label>
+                                <div className='input'><input type='text' required onChange={handleChange} name='last_name'/></div>
                             </div>
                             <div style={{flex: 1}}>
-                                <label>Phone</label>
-                                <div className='input'><input type='tel' required/></div>
+                                <label>Other Name(s)</label>
+                                <div className='input'><input type='text' required onChange={handleChange} name='other_names'/></div>
                             </div>
                         </div>
-                        <button type='submit'>Save</button>
-                    </form>
+                        <div style={{display: 'flex', flexFlow: 'row wrap', columnGap:"5rem", marginTop: "5rem"}}>
+                            <div style={{flex: 1}}>
+                                <label>Level</label>
+                                <div className='input'>
+                                    <select name="level" id="level" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">Level 100</option>
+                                        <option value="2">Level 200</option>
+                                        <option value="3">Level 300</option>
+                                        <option value="4">Level 400</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style={{flex: 1}}>
+                                <label>Programme of study</label>
+                                <div className='input'>
+                                    <select name="programme" id="programme" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">BSc. Information Technology</option>
+                                        <option value="2">BSc. Computer Science</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type='submit' onClick={onSaveStudent}>Add User</button>
+                    </div>
                 </article>
             </section>
             <section className='MainContainer'>
             <article className='manageUserContainer'>
-                    <h3 style={{fontSize: '1.2rem', fontFamily: 'Montserrat', marginTop: '2.5rem', textTransform: 'uppercase', textAlign: 'center'}}>Edit User Information</h3>
-                    <form>
+                    <h3 style={{fontSize: '1.2rem', fontFamily: 'Montserrat', marginTop: '2.5rem', textTransform: 'uppercase', textAlign: 'center'}}>Add User Information</h3>
+                    <div className='form'>
                         <div className="formContainer">
                             <div style={{margin: 'auto'}}>
-                                <label>Name</label>
-                                <div className='input'><input type='text' required/></div>
+                                <label>Student Id</label>
+                                <div className='input'><input type='number' required name='student_id' onChange={handleChange}/></div>
                             </div>
                             <div style={{margin: 'auto'}}>
                                 <label>Password</label>
-                                <div className='input' style={{display: 'flex', border: '1px solid #E6E6E6', borderRadius: "4px", alignItems: 'center', paddingRight: "8px"}}><input type={passwordType} required style={{border: 'none'}}/><span><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{fontSize: '1rem', justifySelf: 'center', cursor: 'pointer' }} onClick={()=>setShowPassword(!showPassword)}/></span></div>
+                                <div className='input' style={{display: 'flex', border: '1px solid #E6E6E6', borderRadius: "4px", alignItems: 'center', paddingRight: "8px"}}><input type={passwordType} required style={{border: 'none'}} name='password' onChange={handleChange}/><span><FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{fontSize: '1rem', justifySelf: 'center', cursor: 'pointer' }} onClick={()=>setShowPassword(!showPassword)}/></span></div>
                             </div>
                         </div>
                         <div className="formContainer1">
                             <div style={{margin: 'auto', }}>
-                                <label>E-mail</label>
-                                <div className='input'><input type='email' required/></div>
+                                <label>Last Name</label>
+                                <div className='input'><input type='text' required name='last_name' onChange={handleChange}/></div>
                             </div>
                             <div style={{margin: 'auto'}}>
-                                <label>Phone</label>
-                                <div className='input'><input type='tel' required/></div>
+                                <label>Other Name(s)</label>
+                                <div className='input'><input type='text' required name='other_names' onChange={handleChange}/></div>
                             </div>
                         </div>
-                        <button type='submit'>Save</button>
-                    </form>
+                        <div className="formContainer1">
+                            <div style={{margin: 'auto', }}>
+                                <label>Level</label>
+                                <div className='input'>
+                                    <select name="level" id="level" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">Level 100</option>
+                                        <option value="2">Level 200</option>
+                                        <option value="3">Level 300</option>
+                                        <option value="4">Level 400</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style={{margin: 'auto'}}>
+                                <label>Programme of study</label>
+                                <div className='input'>
+                                    <select name="programme" id="programme" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">BSc. Information Technology</option>
+                                        <option value="2">BSc. Computer Science</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type='submit' onClick={onSaveStudent}>Add User</button>
+                    </div>
                 </article>
             </section>
         </main>

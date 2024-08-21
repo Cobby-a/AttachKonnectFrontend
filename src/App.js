@@ -10,7 +10,6 @@ import ManagerDashboard from './manager/dashboard';
 import CompanyVacancies from './manager/yourVacancies';
 import ManagerApplicants from './manager/applicants';
 import SupervisorDashboard from './supervisor/dashboard';
-import SupervisorRegisterIntern from './supervisor/registerIntern';
 import SupervisorCompany from './supervisor/company';
 import SupervisorManageUsers from './supervisor/manageUsers';
 import StudentCompany from './student/company';
@@ -31,6 +30,10 @@ import ManagerPrivateRoute from './privateRouter/managerPrivateRouter';
 import StudentPrivateRoute from './privateRouter/studentPrivateRouter';
 import SupervisorPrivateRoute from './privateRouter/supervisorPrivateRouter';
 import AdminPrivateRoute from './privateRouter/adminPrivateRouter';
+import SupervisorVacancy from './supervisor/vacancy';
+import SupervisorApplicants from './supervisor/applicants';
+import SupervisorInternAssessment from './supervisor/internAssess';
+import ManagerTemporalPasswordChange from './manager/temporalChangePassword';
 
 function App() {
   const isManagerLoggedIn = localStorage.getItem('managerLoginStatus') ? true : false;
@@ -87,11 +90,14 @@ function App() {
             <Route exact path = "/manager/applicantsboard" element={wrapManagerPrivateRoute(<ManagerApplicants/>, isManagerLoggedIn, '/manager/applicantsboard')}/>
             <Route exact path = "/manager/create-vacancy" element={wrapManagerPrivateRoute(<ManagerCreateVacancy/>, isManagerLoggedIn, '/manager/create-vacancy')}/>
             <Route exact path = "/manager/applicants-offer-status" element={wrapManagerPrivateRoute(<ManagerApplicantsOffer/>, isManagerLoggedIn, '/manager/applicants-offer-status')}/>
+            <Route exact path = "/manager/change-temporal-password" element = {<ManagerTemporalPasswordChange/>}/>
             
-            <Route exact path = "/supervisor/dashboard" element = {<SupervisorDashboard/>}/>
-            <Route exact path = "/supervisor/dashboard/register-intern" element = {<SupervisorRegisterIntern/>}/>
-            <Route exact path = "/supervisor/companyboard" element = {<SupervisorCompany/>}/>
-            <Route exact path = "/supervisor/manage-users" element = {<SupervisorManageUsers/>}/>
+            <Route exact path = "/supervisor/dashboard" element = {wrapSupervisorPrivateRoute(<SupervisorDashboard/>, isSupervisorLoggedIn, '/supervisor/dashboard')}/>
+            <Route exact path = "/supervisor/companyboard" element = {wrapSupervisorPrivateRoute(<SupervisorCompany/>, isSupervisorLoggedIn, '/supervisor/companyboard')}/>
+            <Route exact path = "/supervisor/vacancyboard" element = {wrapSupervisorPrivateRoute(<SupervisorVacancy/>, isSupervisorLoggedIn, '/supervisor/vacancyboard')}/>
+            <Route exact path = "/supervisor/applicantsboard" element = {wrapSupervisorPrivateRoute(<SupervisorApplicants/>, isSupervisorLoggedIn, '/supervisor/applicantsboard')}/>
+            <Route exact path = "/supervisor/manage-users" element = {wrapSupervisorPrivateRoute(<SupervisorManageUsers/>, isSupervisorLoggedIn, '/supervisor/manage-users')}/>
+            <Route exact path = "/supervisor/intern-assessment" element = {wrapSupervisorPrivateRoute(<SupervisorInternAssessment/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
 
             <Route exact path = "/student/dashboard" element = {wrapStudentPrivateRoute(<StudentDashboard/>, isStudentLoggedIn, '/student/dashboard')}/>
             <Route exact path = "/student/companyboard" element = {wrapStudentPrivateRoute(<StudentCompany/>, isStudentLoggedIn, '/student/companyboard')}/>
