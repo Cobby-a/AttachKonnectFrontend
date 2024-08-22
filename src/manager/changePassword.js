@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-import './temporalChangePassword.css'
+import './changePassword.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -12,21 +12,21 @@ const url = 'http://127.0.0.1:8000/manager/'
 const managerId = localStorage.getItem('managerId');
 
 
-const ManagerTemporalPasswordChange = () => {
+const ManagerPasswordChange = () => {
     const [managerData, setManagerData] = useState([])
     const [managerPasswordData, setManagerPasswordData] = useState({
         'password' :'',
         'newPassword' :'',
         'confirmPassword': '',
     })
+    const [buttonEnabled, setButtonEnabled] = useState(true)
+
     const [passwordError, setPasswordError] = useState('')
     const [passwordNewError, setPasswordNewError] = useState('')
     const [passwordConfirmError, setPasswordConfirmError] = useState('')
     const [showPassword, setShowPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-    const [buttonEnabled, setButtonEnabled] = useState(true)
 
     const handleChange=(event)=>{
         setManagerPasswordData({
@@ -35,7 +35,7 @@ const ManagerTemporalPasswordChange = () => {
         })
     }
     useEffect (()=>{
-        document.title = "Manager Temporal Change Password"
+        document.title = "Manager Change Password"
         try{
             axios.get(url+managerId)
             .then((response)=>{
@@ -62,8 +62,8 @@ const ManagerTemporalPasswordChange = () => {
     }
 
     const onChangePassword = () => {
-        const managerTemporalPasswordData = new FormData();
-        managerTemporalPasswordData.append("password", managerPasswordData.newPassword)
+        const managerChangePasswordData = new FormData();
+        managerChangePasswordData.append("password", managerPasswordData.newPassword)
 
         if(managerPasswordData.password !== managerData.password){
             setPasswordError("Invalid Password")
@@ -98,13 +98,14 @@ const ManagerTemporalPasswordChange = () => {
             setButtonEnabled(false)
 
             try{
-                axios.patch(url+managerId, managerTemporalPasswordData, {
+                axios.patch(url+managerId, managerChangePasswordData, {
                     headers: {
                         'content-type': 'multipart/form-data'
                     }
                 })
                 .then((response)=>{
                     console.log(response)
+                    localStorage.removeItem('managerLoginStatus')
                     window.location.href='/portal'
                 })
             }
@@ -115,11 +116,11 @@ const ManagerTemporalPasswordChange = () => {
     }
     return(
         <main>
-        <article className='managerTemporalPasswordChangeBody' >
+        <article className='managerPasswordChangeBody' >
             <section className='manageUserContainer'>
                 <div style={{display: 'flex', justifyContent:'space-between',}}>
-                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Change Temporal Password</p>
-                    <Link to="/portal"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
+                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Change Password</p>
+                    <Link to="/manager/profile"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
                 </div>
                 <div className='form'>
                     <div className="formContainer1">
@@ -144,10 +145,10 @@ const ManagerTemporalPasswordChange = () => {
                         </div>
                     </div>
                     {buttonEnabled &&
-                    <button type='submit' onClick={onChangePassword}>Modify Password</button>
+                    <button type='submit' onClick={onChangePassword}>Change Password</button>
                     }
                     {!buttonEnabled &&
-                    <button type='submit' disabled>Modify Password</button>
+                    <button type='submit' disabled>Change Password</button>
                     }
                 </div>
             </section>
@@ -156,4 +157,4 @@ const ManagerTemporalPasswordChange = () => {
     )
 }
 
-export default ManagerTemporalPasswordChange;
+export default ManagerPasswordChange;

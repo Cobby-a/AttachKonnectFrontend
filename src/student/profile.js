@@ -1,5 +1,3 @@
-import profile from './assets/profile.png'
-import profile1 from './assets/profile1.png'
 import { faBuilding, faHouse, faBriefcase, faRightFromBracket, faBars, faXmark, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'

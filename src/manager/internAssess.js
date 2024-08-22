@@ -1,157 +1,430 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './managerSignUp.css'
+import './internAssess.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'
+
 
 import axios from 'axios';
 
-    const modStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        // width: '100%',
-        bgcolor: 'background.paper',
-        // border: '2px solid #000',
-        boxShadow: 24,
-        borderRadius: 1,
-        p: 4,
-    };
+const baseUrl = 'http://127.0.0.1:8000/'
+const managerId = localStorage.getItem('managerId');
 
-    const baseUrl = 'http://127.0.0.1:8000/manager/'
 
 const ManagerInternAssessment = () => {
-    const [managerData, setManagerData] = useState({
-        'companyName' :'',
-        'email' :'',
-        'location': '',
-        'password': '',
-        'ceo': '',
-        'durationOfExistence': '',
-        'briefInfo': '',
-        'companyLogo': ''
+    const [studentAssessData, setStudentAssessData] = useState({
+            "student": "",
+            "company": "",
+            "email": "",
+            "durationOfInternship": "",
+            "qualityOfWork": "",
+            "abilityToWork": "",
+            "initiativeAndCreativity": "",
+            "characterTraits": "",
+            "dependabilty": "",
+            "attendanceAndPunctuality": "",
+            "organizationalFit": "",
+            "responseToSupervision": "",
+            "suggestionsForImprovement": "",
+            "nameOfSupervisor": "",
+            "positionOfSupervisor": "",
+            "supervisorEmail": "",
+            "supervisorContact": "",
     })
-    console.log(managerData)
+    const [studentData, setStudentData] = useState([])
+
+    const [studentError, setStudentError] = useState('')
+    const [emailError, setEmailError] = useState('')
+    const [durationError, setDurationError] = useState('')
+    const [qualityError, setQualityError] = useState('')
+    const [abilityError, setAbilityError] = useState('')
+    const [initiativeError, setInitiativeError] = useState('')
+    const [characterError, setCharacterError] = useState('')
+    const [dependabiltyError, setDependatbilityError] = useState('')
+    const [attendanceError, setAttendanceError] = useState('')
+    const [orgnizationalError, setOrganizationalError] = useState('')
+    const [responseError, setResponseError] = useState('')
+    const [supervisorNameError, setSupervisorNameError] = useState('')
+
+
     const handleChange=(event)=>{
-        setManagerData({
-            ...managerData,
+        setStudentAssessData({
+            ...studentAssessData,
             [event.target.name]:event.target.value
         })
     }
-    const handleFileChange=(event)=>{
-        setManagerData({
-            ...managerData,
-            [event.target.name]:event.target.files[0]
-        })
-    }
     useEffect (()=>{
-        document.title = "Manager SignUp"
-    })
-
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const onClosed = () => {
-        setModalOpen(false);
-        window.location.href='/manager-apply';
-    }
-
-    const onSubmitApplication = () => {
-        const managerApplicationData = new FormData();
-        managerApplicationData.append("companyName", managerData.companyName)
-        managerApplicationData.append("email", managerData.email)
-        managerApplicationData.append("location", managerData.location)
-        managerApplicationData.append("password", managerData.password)
-        managerApplicationData.append("ceo", managerData.ceo)
-        managerApplicationData.append("durationOfExistence", managerData.durationOfExistence)
-        managerApplicationData.append("briefInfo", managerData.briefInfo)
-        managerApplicationData.append("companyLogo", managerData.companyLogo, managerData.companyLogo.name)
-
+        document.title = "Manager - Intern Assessment"
         try{
-            axios.post(baseUrl, managerApplicationData, {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            })
+            axios.get(baseUrl+'student/managerstudentinternships-list1/'+managerId)
             .then((response)=>{
-                console.log(response.data)
-                setManagerData({
-                    'companyName' :'',
-                    'email' :'',
-                    'location': '',
-                    'password': '',
-                    'ceo': '',
-                    'durationOfExistence': '',
-                    'briefInfo': '',
-                    'companyLogo': '',
-                });
-                setModalOpen(true);
-            })
+                setStudentData(response.data)
+            });
         }
         catch(error){
             console.log(error)
         }
+    },[])
+
+    console.log(studentAssessData)
+    const onSubmitApplication = () => {
+        if(studentAssessData.student.length < 1){
+            setStudentError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.student.length >= 1){
+            setStudentError("")
+        }
+        if(studentAssessData.email.length < 1){
+            setEmailError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.email.length >= 1){
+            setEmailError("")
+        }
+        if(studentAssessData.durationOfInternship.length < 1){
+            setDurationError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.durationOfInternship.length >= 1){
+            setDurationError("")
+        }
+        if(studentAssessData.qualityOfWork.length < 1){
+            setQualityError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.qualityOfWork.length >= 1){
+            setQualityError("")
+        }
+        if(studentAssessData.abilityToWork.length < 1){
+            setAbilityError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.abilityToWork.length >= 1){
+            setAbilityError("")
+        }
+        if(studentAssessData.initiativeAndCreativity.length < 1){
+            setInitiativeError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.initiativeAndCreativity.length >= 1){
+            setInitiativeError("")
+        }
+        if(studentAssessData.characterTraits.length < 1){
+            setCharacterError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.characterTraits.length >= 1){
+            setCharacterError("")
+        }
+        if(studentAssessData.dependabilty.length < 1){
+            setDependatbilityError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.dependabilty.length >= 1){
+            setDependatbilityError("")
+        }
+        if(studentAssessData.attendanceAndPunctuality.length < 1){
+            setAttendanceError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.attendanceAndPunctuality.length >= 1){
+            setAttendanceError("")
+        }
+        if(studentAssessData.organizationalFit.length < 1){
+            setOrganizationalError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.organizationalFit.length >= 1){
+            setOrganizationalError("")
+        }
+        if(studentAssessData.responseToSupervision.length < 1){
+            setResponseError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.responseToSupervision.length >= 1){
+            setResponseError("")
+        }
+        if(studentAssessData.nameOfSupervisor.length < 1){
+            setSupervisorNameError("Field cannot be left empty")
+            return;
+        }
+        else if(studentAssessData.nameOfSupervisor.length >= 1){
+            setSupervisorNameError("")
+        }
+        if(studentAssessData.student.length >= 1 && studentAssessData.email.length >= 1 && studentAssessData.durationOfInternship.length >= 1 && studentAssessData.qualityOfWork.length >= 1 && studentAssessData.abilityToWork.length >= 1 && studentAssessData.initiativeAndCreativity.length >= 1 && studentAssessData.characterTraits.length >= 1 && studentAssessData.dependabilty.length >= 1 && studentAssessData.attendanceAndPunctuality.length >= 1 && studentAssessData.organizationalFit.length >= 1 && studentAssessData.responseToSupervision.length >= 1){
+            const managerAssessmentData = new FormData();
+            managerAssessmentData.append("student", studentAssessData.student)
+            managerAssessmentData.append("company", managerId)
+            managerAssessmentData.append("email", studentAssessData.email)
+            managerAssessmentData.append("durationOfInternship", studentAssessData.durationOfInternship)
+            managerAssessmentData.append("qualityOfWork", studentAssessData.qualityOfWork)
+            managerAssessmentData.append("abilityToWork", studentAssessData.abilityToWork)
+            managerAssessmentData.append("initiativeAndCreativity", studentAssessData.initiativeAndCreativity)
+            managerAssessmentData.append("characterTraits", studentAssessData.characterTraits)
+            managerAssessmentData.append("dependabilty", studentAssessData.dependabilty)
+            managerAssessmentData.append("attendanceAndPunctuality", studentAssessData.attendanceAndPunctuality)
+            managerAssessmentData.append("organizationalFit", studentAssessData.organizationalFit)
+            managerAssessmentData.append("responseToSupervision", studentAssessData.responseToSupervision)
+            managerAssessmentData.append("suggestionsForImprovement", studentAssessData.suggestionsForImprovement)
+            managerAssessmentData.append("nameOfSupervisor", studentAssessData.nameOfSupervisor)
+            managerAssessmentData.append("positionOfSupervisor", studentAssessData.positionOfSupervisor)
+            managerAssessmentData.append("supervisorEmail", studentAssessData.supervisorEmail)
+            managerAssessmentData.append("supervisorContact", studentAssessData.supervisorContact)
+
+            try{
+                axios.post(baseUrl+'student/student-assessment/', managerAssessmentData, {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                })
+                .then((response)=>{
+                    setStudentAssessData({
+                        "student": "",
+                        "company": "",
+                        "email": "",
+                        "durationOfInternship": "",
+                        "qualityOfWork": "",
+                        "abilityToWork": "",
+                        "initiativeAndCreativity": "",
+                        "characterTraits": "",
+                        "dependabilty": "",
+                        "attendanceAndPunctuality": "",
+                        "organizationalFit": "",
+                        "responseToSupervision": "",
+                        "suggestionsForImprovement": "",
+                        "nameOfSupervisor": "",
+                        "positionOfSupervisor": "",
+                        "supervisorEmail": "",
+                        "supervisorContact": "",
+                    });
+                    if(response.status===200){
+                        Swal.fire({
+                            title: 'Intern Assessment form submitted',
+                            icon: 'success',
+                            toast: true,
+                            timer: 3000,
+                            position: 'top-right',
+                            timerProgressBar:true,
+                            showConfirmButton: false,
+                        });
+                    }
+                    const studentAssessmentNotification = new FormData();
+                    let notMessage = "Your have a new intern assessment form for student, " + studentAssessData.student
+                    studentAssessmentNotification.append("notText", notMessage)
+
+                    try{
+                        axios.post(baseUrl+'/supervisor/supervisor-company-notification/', studentAssessmentNotification)
+                        .then((response)=>{
+                            console.log(response)
+                        })
+                    }catch(error){
+                        console.log(error)
+                    }
+                    window.location.reload()
+                })
+            }
+            catch(error){
+                console.log(error)
+            }
+
+    }
     }
     return(
-        <main className= {modalOpen ? "managerSignUp" : "managerSignUp1"} >
-        <article className='managerSignUpBody' >
-            <section className='manageUserContainer' style={{display: modalOpen ? "none" : "block",}}>
+        <article className='internAssessBody' >
+            <section className='manageUserContainer'>
                 <div style={{display: 'flex', justifyContent:'space-between',}}>
-                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Apply</p>
+                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Intern Assessment Form</p>
                     <Link to="/portal"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
                 </div>
                 <div className='form'>
                     <div className="formContainer1">
                         <div style={{flex: 1}}>
-                            <label>Company name</label>
-                            <div className='input'><input type='text' required name='companyName' value={managerData.companyName} onChange={handleChange} /></div>
+                            <label>Student</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                    <div className='input'>
+                                        <select name="student" id="student" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                            <option></option>
+                                        {studentData.map((data)=>{
+                                            const {student, offer} = data;
+                                            if(offer ==="Accepted"){
+                                            return(
+                                                <option value={student.student_id}>{student.student_id} - {student.last_name} {student.other_names}</option>
+                                            )
+                                        }
+                                        return null
+                                        })}
+                                        </select>
+                                    {studentError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{studentError}</p>}
+                                    </div>
+                            {/* <div className='input'><input type='text' required name='companyName' value={managerData.companyName} onChange={handleChange} /></div> */}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Email</label>
-                            <div className='input'><input type='email' required name='email' value={managerData.email} onChange={handleChange}/></div>
+                            <label>Email</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                            <div className='input'><input type='email' required name='email' value={studentAssessData.email} onChange={handleChange}/></div>
+                            {emailError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{emailError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Location</label>
-                            <div className='input'><input type='text' required name='location' value={managerData.location} onChange={handleChange}/></div>
+                            <label>Maximum duration of Internship(weeks)</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                            <div className='input'><input type='text' required name='durationOfInternship' value={studentAssessData.durationOfInternship} onChange={handleChange}/></div>
+                            {durationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{durationError}</p>}
                         </div>
                     </div>
                     <div className="formContainer1">
                         <div style={{flex: 1}}>
-                            <label>Password</label>
-                            <div className='input'><input type='password' required name='password' value={managerData.password} onChange={handleChange} /></div>
+                            <label>Quality of work</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                            <div className='input'>
+                                <select name="qualityOfWork" id="qualityOfWork" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                    <option></option>
+                                    <option value="1">1 (Needs Improvement)</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6 (Excellent)</option>
+                                </select>
+                            </div>
+                            {qualityError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{qualityError}</p>}
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Ability to Learn</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="abilityToWork" id="abilityToWork" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {abilityError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{abilityError}</p>}
+                            </div>
+                        <div style={{flex: 1}}>
+                            <label>Initiative and Creativity</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="initiativeAndCreativity" id="initiativeAndCreativity" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {initiativeError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{initiativeError}</p>}
                         </div>
                     </div>
                     <div className='formContainer2'>
                         <div style={{flex: 1}}>
-                            <label>Name of CEO</label>
-                            <div className='input'><input type='text' required name='ceo' value={managerData.ceo} onChange={handleChange}/></div>
+                            <label>Character Traits</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="characterTraits" id="characterTraits" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {characterError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{characterError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Duration of Comapny's existence</label>
-                            <div className='input'><input type='text' required name='durationOfExistence' value={managerData.durationOfExistence} onChange={handleChange}/></div>
+                            <label>Dependabilty</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="dependabilty" id="dependabilty" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {dependabiltyError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{dependabiltyError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Company's logo (.jpg, .png and .jpeg formats)</label>
-                            <div className='input'><input type='file' accept=".png, .jpg, .jpeg" name='companyLogo' required onChange={handleFileChange}/></div>
+                            <label>Attendance and Punctuality</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="attendanceAndPunctuality" id="attendanceAndPunctuality" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {attendanceError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{attendanceError}</p>}
+                        </div>
+                    </div>
+                    <div className='formContainer2'>
+                        <div style={{flex: 1}}>
+                            <label>Organizational Fit</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="organizationalFit" id="organizationalFit" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {orgnizationalError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{orgnizationalError}</p>}
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Response to Supervision</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                                <div className='input'>
+                                    <select name="responseToSupervision" id="responseToSupervision" onChange={handleChange} style={{cursor: 'pointer'}}>
+                                        <option></option>
+                                        <option value="1">1 (Needs Improvement)</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6 (Excellent)</option>
+                                    </select>
+                                </div>
+                            {responseError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{responseError}</p>}
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Name of Supervisor </label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
+                            <div className='input'><input type='text' required name='nameOfSupervisor' value={studentAssessData.nameOfSupervisor} onChange={handleChange}/></div>
+                            {supervisorNameError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{supervisorNameError}</p>}
+                        </div>
+                    </div>
+                    <div className="formContainer1">
+                        <div style={{flex: 1}}>
+                            <label>Position of Supervisor</label>
+                            <div className='input'><input type='text' required name='positionOfSupervisor' value={studentAssessData.positionOfSupervisor} onChange={handleChange} /></div>
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Supervisor's Email</label>
+                            <div className='input'><input type='email' required name='supervisorEmail' value={studentAssessData.supervisorEmail} onChange={handleChange}/></div>
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Supervisor's Phone Contact</label>
+                            <div className='input'><input type='text' required name='supervisorContact' value={studentAssessData.supervisorContact} onChange={handleChange}/></div>
                         </div>
                     </div>
                     <div className='formContainer3'>
                         <div style={{flex: 1}}>
-                            <p>Brief Intel on company's set objectives and activities</p>
-                            <textarea rows="10" name='briefInfo' onChange={handleChange} value={managerData.briefInfo} required></textarea>
-                        </div>
-                        <div style={{flex: 1}}>
-                            <p>Internship Activities (separate with commas)</p>
-                            <textarea rows="10" name='jobDescription'></textarea>
+                            <p>Suggestions for Improvement</p>
+                            <textarea rows="10" name='suggestionsForImprovement' onChange={handleChange} value={studentAssessData.suggestionsForImprovement} required></textarea>
                         </div>
                     </div>
-                    <button type='submit' onClick={onSubmitApplication}>Submit</button>
+                    <button type='submit' onClick={onSubmitApplication}>Submit Assessment</button>
                 </div>
-                <Modal
+                {/* <Modal
                     open={modalOpen}
                     onClose={()=>onClosed()}
                     aria-labelledby="title"
@@ -162,14 +435,10 @@ const ManagerInternAssessment = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2" style={{fontFamily: 'Montserrat', padding: "1rem 1rem 1rem 1rem"}}>
                         Thank you for signing up your company, our admin will respond to your registration shortly via email.
                     </Typography>
-                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography> */}
                     </Box>
-                </Modal>
+                </Modal> */}
             </section>
         </article>
-        </main>
     )
 }
 

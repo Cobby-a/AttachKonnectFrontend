@@ -36,7 +36,7 @@ const SupervisorDashboard = () => {
             alert(error)
         }
         try{
-            axios.get(url+"supervisor-company-notification-list/"+staffId)
+            axios.get(url+"supervisor-company-notification/")
             .then((response)=>{
                 setSupervisorNotificationData(response.data)
             })
@@ -227,11 +227,11 @@ const SupervisorDashboard = () => {
 const SupervisorNotify = ({id, notText, setSupervisorNotificationData}) =>{
     const onClear = () => {
         try{
-            axios.delete(url+'student-company-notification/'+id+'/')
+            axios.delete(url+'supervisor-company-notification/'+id+'/')
             .then((response)=>{
                 console.log(response)
                 try{
-                    axios.get(url+"student-company-notification-list/"+staffId)
+                    axios.get(url+"supervisor-company-notification/")
                     .then((response)=>{
                         setSupervisorNotificationData(response.data)
                     })

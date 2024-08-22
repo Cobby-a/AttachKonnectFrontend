@@ -34,6 +34,9 @@ import SupervisorVacancy from './supervisor/vacancy';
 import SupervisorApplicants from './supervisor/applicants';
 import SupervisorInternAssessment from './supervisor/internAssess';
 import ManagerTemporalPasswordChange from './manager/temporalChangePassword';
+import ManagerInternAssessment from './manager/internAssess';
+import ManagerProfile from './manager/profile';
+import ManagerPasswordChange from './manager/changePassword';
 
 function App() {
   const isManagerLoggedIn = localStorage.getItem('managerLoginStatus') ? true : false;
@@ -90,6 +93,9 @@ function App() {
             <Route exact path = "/manager/applicantsboard" element={wrapManagerPrivateRoute(<ManagerApplicants/>, isManagerLoggedIn, '/manager/applicantsboard')}/>
             <Route exact path = "/manager/create-vacancy" element={wrapManagerPrivateRoute(<ManagerCreateVacancy/>, isManagerLoggedIn, '/manager/create-vacancy')}/>
             <Route exact path = "/manager/applicants-offer-status" element={wrapManagerPrivateRoute(<ManagerApplicantsOffer/>, isManagerLoggedIn, '/manager/applicants-offer-status')}/>
+            <Route exact path = "/manager/intern-assessment" element={wrapManagerPrivateRoute(<ManagerInternAssessment/>, isManagerLoggedIn, '/manager/intern-assessment')}/>
+            <Route exact path = "/manager/profile" element={wrapManagerPrivateRoute(<ManagerProfile/>, isManagerLoggedIn, '/manager/profile')}/>
+            <Route exact path = "/manager/change-password" element={wrapManagerPrivateRoute(<ManagerPasswordChange/>, isManagerLoggedIn, '/manager/change-password')}/>
             <Route exact path = "/manager/change-temporal-password" element = {<ManagerTemporalPasswordChange/>}/>
             
             <Route exact path = "/supervisor/dashboard" element = {wrapSupervisorPrivateRoute(<SupervisorDashboard/>, isSupervisorLoggedIn, '/supervisor/dashboard')}/>

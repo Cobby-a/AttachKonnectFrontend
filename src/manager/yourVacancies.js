@@ -1,4 +1,4 @@
-import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash, faEnvelopeOpen, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import './company.css'
@@ -25,7 +25,11 @@ const CompanyVacancies = () => {
     const [query, setQuery] = useState('');
     const results = filterItems(vacancyData, query)
 
-    console.log(managerId);
+    const onLogout = () =>{
+        localStorage.removeItem('managerLoginStatus')
+        window.location.href='/portal'
+    }
+
     useEffect(()=>{
         document.title = "Vacancies"
         try{
@@ -92,7 +96,8 @@ const CompanyVacancies = () => {
                                 <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
                                 <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                                <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                                <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
+                                <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
                         </div>
@@ -107,7 +112,8 @@ const CompanyVacancies = () => {
                         <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>YourVacancies</div></Link>
                         <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
-                        <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
+                        <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
+                        <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
                 <article className="mainCompanyBody">

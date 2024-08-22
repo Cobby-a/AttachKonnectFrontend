@@ -1,7 +1,7 @@
 import welcome from './assets/welcome.png'
 import comp from './assets/comp.svg'
 import stats from './assets/stat.svg'
-import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faBell, faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faBell, faEnvelopeOpen, faUser} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
 import './dashboard.css'
@@ -123,6 +123,7 @@ const ManagerDashboard = () => {
                                 <Link to ="/manager/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
                                 <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                                <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                                 <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
                             </article>
@@ -175,6 +176,7 @@ const ManagerDashboard = () => {
                         <Link to ="/manager/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
                         <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                        <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                         <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
                 </article>
@@ -189,8 +191,8 @@ const ManagerDashboard = () => {
                         </div>
                         <div className='mainContainer3' id='mainContainer3'>
                             <div>
-                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>View your vacancies</p>
-                                <Link to ="/manager/vacancyboard" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>Fill an intern assessment form</p>
+                                <Link to ="/manager/intern-assessment" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>
@@ -210,8 +212,8 @@ const ManagerDashboard = () => {
                         </div>
                         <div className='MainContainer3' id='MainContainer3'>
                             <div>
-                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>View your vacancies</p>
-                                <Link to="/manager/vacancyboard" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>Fill an intern assessment form</p>
+                                <Link to="/manager/intern-assessment" target="_blank"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>

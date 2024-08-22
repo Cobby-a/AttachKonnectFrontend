@@ -1,0 +1,158 @@
+.managerSignUp{
+    background-image: url("../assets/bg.svg");
+    /* background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;*/
+    background-size: 100%;
+}
+
+@media screen and (min-width: 0px){
+    .managerProfileBody{
+        margin: 1rem;
+    }
+    .managerProfileBody .profile img{
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .managerProfileBody .profile h2{
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 18px;
+    }
+}
+
+@media screen and (min-width: 600px){
+    .managerProfileBody{
+        margin: 1.5rem;
+    }
+    .managerProfileBody .profile img{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .managerProfileBody .profile h2{
+        font-weight: 400;
+        line-height: 28px;
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1001px){
+    .managerProfileBody{
+        margin: 2rem 3rem 2rem 3rem;
+    }
+    .managerProfileBody .profile img{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .managerProfileBody .profile h2{
+        font-weight: 400;
+        line-height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+.managerProfileBody .profile{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.75rem;
+    align-items: center;
+}
+
+@media screen and (min-width: 1001px){
+    .managerProfileBody .mainContainer{
+        padding: 20px 10px;
+        margin-top: 3rem;
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+    }
+    .managerProfileBody .MainContainer{
+        display: none;
+    }
+    
+}
+
+@media screen and (max-width: 1000px){
+    .managerProfileBody .mainContainer{
+        display: none;
+    }
+    .managerProfileBody .mainContainer1{
+        margin-top: 2rem;
+    }
+}
+
+.managerProfileBody .mainContainer1{
+    display: flex;
+    flex-flow: row wrap;
+    flex: 5;
+    column-gap: 3rem;
+    /* justify-content: center; */
+}
+
+.managerProfileBody .managerDeets1{
+    flex: 1;
+    min-width: 200px;
+}
+.managerProfileBody .managerDeets1{
+    padding: 1.5rem 1rem 2rem 2rem;
+    background-color: #EEEEEE;
+    border-radius: 20px;
+    margin-bottom: 1.6rem;
+}
+.managerProfileBody .pTitle{
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 12px;
+    color: #4C4C4C;
+}
+.managerProfileBody .pBody{
+    font-family: "Montserrat";
+    font-size: 16px;
+    color: #4C4C4C;
+    margin-top: -1rem;
+    font-weight: 600;
+    line-height: 16px;
+    margin-bottom: 1.8rem;
+}
+.managerProfileBody input{
+    font-family: "Montserrat";
+    font-size: 16px;
+    /* color: #4C4C4C; */
+    /* font-weight: 600; */
+    line-height: 16px;
+    margin-bottom: 1.8rem;
+    border: none;
+    background-color: #FAFAFA;
+    border: 1px solid #E6E6E6;
+    border-radius: 4px;
+}
+.managerProfileBody input:focus{
+    outline: none;
+}
+.managerProfileBody input::file-selector-button {
+    font-weight: bold;
+    /* color: #111111; */
+    padding: 6px 8px 6px 8px;
+    border: 0;
+    border-radius: 3px;
+    font-family: "Montserrat";
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 100;
+  }
+  .managerProfileBody input[type="file"] {
+      padding: 0;
+  }
+  .managerProfileBody button:disabled{
+    background-color: #7c8388;
+    cursor: not-allowed;
+}
