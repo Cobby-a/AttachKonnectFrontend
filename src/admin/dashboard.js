@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import defaultProf from './assets/defaultProf.jpg'
 
+import Swal from 'sweetalert2'
 
 // const adminId = localStorage.getItem('managerId');
 const adminUserName = localStorage.getItem('adminUserName');
@@ -32,6 +33,51 @@ const AdminDashboard = () => {
             axios.get(url)
             .then((response)=>{
                 setSupervisorData(response.data)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request adding or updating the data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    // Something happened in setting up the request that triggered an Error
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){
