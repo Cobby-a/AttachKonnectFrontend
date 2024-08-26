@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
-
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
     const modStyle = {
@@ -149,7 +149,6 @@ const ManagerSignUp = () => {
                     }
                 })
                 .then((response)=>{
-                    console.log(response.data)
                     setManagerData({
                         'companyName' :'',
                         'email' :'',
@@ -159,8 +158,51 @@ const ManagerSignUp = () => {
                         'briefInfo': '',
                         'companyLogo': '',
                         'companyCertificate': '',
-                    });
+                    })
                     setModalOpen(true);
+                })
+                .catch((error)=>{
+                    if (error.response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `There was a ${error.response.status} bad request adding or updating the data`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                          .then((result)=>{
+                            // result.dismiss && window.location.reload()
+                            result.dismiss && setButtonEnabled(true)
+                          })
+                      } else if (error.request) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `No response was received from the server.`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          }).then((result)=>{
+                            // result.dismiss && window.location.reload()
+                            setButtonEnabled(true)
+                          })
+                      } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `Error!`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          }).then((result)=>{
+                            result.dismiss && window.location.reload()
+                            setButtonEnabled(true)
+                          })
+                      }
                 })
             }
             catch(error){
