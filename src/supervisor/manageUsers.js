@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import './manageUsers.css'
 import './sidebar.css'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const url = "http://127.0.0.1:8000/"
 
@@ -24,7 +25,6 @@ const SupervisorManageUsers = () => {
             'level': '',
             'programme': '',
         })
-        console.log(studentData)
         const handleChange=(event)=>{
             setStudentData({
                 ...studentData,
@@ -57,6 +57,45 @@ const SupervisorManageUsers = () => {
                             'programme': '',
                         });
                         window.location.href='/supervisor/applicantsboard'
+                    })
+                    .catch((error)=>{
+                        if (error.response) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `There was a ${error.response.status} bad request adding or updating the data`,
+                                icon: 'error',
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonText: 'Try Again',
+                                cancelButtonColor: '#ff3333'
+                              }).then((result)=>{
+                                result.dismiss && window.location.reload()
+                              })
+                          } else if (error.request) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `No response was received from the server.`,
+                                icon: 'error',
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonText: 'Try Again',
+                                cancelButtonColor: '#ff3333'
+                              }).then((result)=>{
+                                result.dismiss && window.location.reload()
+                              })
+                          } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `Error!`,
+                                icon: 'error',
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonText: 'Try Again',
+                                cancelButtonColor: '#ff3333'
+                              }).then((result)=>{
+                                result.dismiss && window.location.reload()
+                              })
+                          }
                     })
                 }catch(error){
                     console.log(error)
