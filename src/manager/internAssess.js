@@ -61,14 +61,52 @@ const ManagerInternAssessment = () => {
             axios.get(baseUrl+'student/managerstudentinternships-list1/'+managerId)
             .then((response)=>{
                 setStudentData(response.data)
-            });
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
         }
     },[])
 
-    console.log(studentAssessData)
     const onSubmitApplication = () => {
         if(studentAssessData.student.length < 1){
             setStudentError("Field cannot be left empty")
@@ -155,88 +193,136 @@ const ManagerInternAssessment = () => {
             setSupervisorNameError("")
         }
         if(studentAssessData.student.length >= 1 && studentAssessData.email.length >= 1 && studentAssessData.durationOfInternship.length >= 1 && studentAssessData.qualityOfWork.length >= 1 && studentAssessData.abilityToWork.length >= 1 && studentAssessData.initiativeAndCreativity.length >= 1 && studentAssessData.characterTraits.length >= 1 && studentAssessData.dependabilty.length >= 1 && studentAssessData.attendanceAndPunctuality.length >= 1 && studentAssessData.organizationalFit.length >= 1 && studentAssessData.responseToSupervision.length >= 1){
-            const managerAssessmentData = new FormData();
-            managerAssessmentData.append("student", studentAssessData.student)
-            managerAssessmentData.append("company", managerId)
-            managerAssessmentData.append("email", studentAssessData.email)
-            managerAssessmentData.append("durationOfInternship", studentAssessData.durationOfInternship)
-            managerAssessmentData.append("qualityOfWork", studentAssessData.qualityOfWork)
-            managerAssessmentData.append("abilityToWork", studentAssessData.abilityToWork)
-            managerAssessmentData.append("initiativeAndCreativity", studentAssessData.initiativeAndCreativity)
-            managerAssessmentData.append("characterTraits", studentAssessData.characterTraits)
-            managerAssessmentData.append("dependabilty", studentAssessData.dependabilty)
-            managerAssessmentData.append("attendanceAndPunctuality", studentAssessData.attendanceAndPunctuality)
-            managerAssessmentData.append("organizationalFit", studentAssessData.organizationalFit)
-            managerAssessmentData.append("responseToSupervision", studentAssessData.responseToSupervision)
-            managerAssessmentData.append("suggestionsForImprovement", studentAssessData.suggestionsForImprovement)
-            managerAssessmentData.append("nameOfSupervisor", studentAssessData.nameOfSupervisor)
-            managerAssessmentData.append("positionOfSupervisor", studentAssessData.positionOfSupervisor)
-            managerAssessmentData.append("supervisorEmail", studentAssessData.supervisorEmail)
-            managerAssessmentData.append("supervisorContact", studentAssessData.supervisorContact)
-
-            try{
-                axios.post(baseUrl+'student/student-assessment/', managerAssessmentData, {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                })
-                .then((response)=>{
-                    setStudentAssessData({
-                        "student": "",
-                        "company": "",
-                        "email": "",
-                        "durationOfInternship": "",
-                        "qualityOfWork": "",
-                        "abilityToWork": "",
-                        "initiativeAndCreativity": "",
-                        "characterTraits": "",
-                        "dependabilty": "",
-                        "attendanceAndPunctuality": "",
-                        "organizationalFit": "",
-                        "responseToSupervision": "",
-                        "suggestionsForImprovement": "",
-                        "nameOfSupervisor": "",
-                        "positionOfSupervisor": "",
-                        "supervisorEmail": "",
-                        "supervisorContact": "",
-                    });
-                    if(response.status===200){
-                        Swal.fire({
-                            title: 'Intern Assessment form submitted',
-                            icon: 'success',
-                            toast: true,
-                            timer: 3000,
-                            position: 'top-right',
-                            timerProgressBar:true,
-                            showConfirmButton: false,
-                        });
-                    }
-                    const studentAssessmentNotification = new FormData();
-                    let notMessage = "Your have a new intern assessment form for student, " + studentAssessData.student
-                    studentAssessmentNotification.append("notText", notMessage)
+            Swal.fire({
+                title: 'Confirm',
+                text: `Make an assessment form?`,
+                icon: 'info',
+                confirmButtonText: 'Yes, Continue',
+                showCancelButton: true
+            })
+            .then((result)=>{
+                if(result.isConfirmed){
+                    const managerAssessmentData = new FormData();
+                    managerAssessmentData.append("student", studentAssessData.student)
+                    managerAssessmentData.append("company", managerId)
+                    managerAssessmentData.append("email", studentAssessData.email)
+                    managerAssessmentData.append("durationOfInternship", studentAssessData.durationOfInternship)
+                    managerAssessmentData.append("qualityOfWork", studentAssessData.qualityOfWork)
+                    managerAssessmentData.append("abilityToWork", studentAssessData.abilityToWork)
+                    managerAssessmentData.append("initiativeAndCreativity", studentAssessData.initiativeAndCreativity)
+                    managerAssessmentData.append("characterTraits", studentAssessData.characterTraits)
+                    managerAssessmentData.append("dependabilty", studentAssessData.dependabilty)
+                    managerAssessmentData.append("attendanceAndPunctuality", studentAssessData.attendanceAndPunctuality)
+                    managerAssessmentData.append("organizationalFit", studentAssessData.organizationalFit)
+                    managerAssessmentData.append("responseToSupervision", studentAssessData.responseToSupervision)
+                    managerAssessmentData.append("suggestionsForImprovement", studentAssessData.suggestionsForImprovement)
+                    managerAssessmentData.append("nameOfSupervisor", studentAssessData.nameOfSupervisor)
+                    managerAssessmentData.append("positionOfSupervisor", studentAssessData.positionOfSupervisor)
+                    managerAssessmentData.append("supervisorEmail", studentAssessData.supervisorEmail)
+                    managerAssessmentData.append("supervisorContact", studentAssessData.supervisorContact)
 
                     try{
-                        axios.post(baseUrl+'/supervisor/supervisor-company-notification/', studentAssessmentNotification)
-                        .then((response)=>{
-                            console.log(response)
+                        axios.post(baseUrl+'student/student-assessment/', managerAssessmentData, {
+                            headers: {
+                                'content-type': 'multipart/form-data'
+                            }
                         })
-                    }catch(error){
+                        .then((response)=>{
+                            setStudentAssessData({
+                                "student": "",
+                                "company": "",
+                                "email": "",
+                                "durationOfInternship": "",
+                                "qualityOfWork": "",
+                                "abilityToWork": "",
+                                "initiativeAndCreativity": "",
+                                "characterTraits": "",
+                                "dependabilty": "",
+                                "attendanceAndPunctuality": "",
+                                "organizationalFit": "",
+                                "responseToSupervision": "",
+                                "suggestionsForImprovement": "",
+                                "nameOfSupervisor": "",
+                                "positionOfSupervisor": "",
+                                "supervisorEmail": "",
+                                "supervisorContact": "",
+                            });
+                            const studentAssessmentNotification = new FormData();
+                            let notMessage = "Your have a new intern assessment form for student, " + studentAssessData.student
+                            studentAssessmentNotification.append("notText", notMessage)
+
+                            try{
+                                axios.post(baseUrl+'/supervisor/supervisor-company-notification/', studentAssessmentNotification)
+                                .then((response)=>{
+                                    console.log(response)
+                                })
+                            }catch(error){
+                                console.log(error)
+                            }
+                            window.location.reload()
+                        })
+                        .catch((error)=>{
+                            console.log(error.response.data.student[0])
+                            if (error.response.data.student[0] === 'student assessment with this student already exists.') {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `Student assessment with this student already exists.`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                })
+                            }
+                            else if (error.response) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `There was a ${error.response.status} bad request adding or updating the data`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                })
+                            } else if (error.request) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `No response was received from the server.`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                }).then((result)=>{
+                                    result.dismiss && window.location.reload()
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `Error!`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                }).then((result)=>{
+                                    result.dismiss && window.location.reload()
+                                })
+                            }
+                        })
+                    }
+                    catch(error){
                         console.log(error)
                     }
-                    window.location.reload()
-                })
-            }
-            catch(error){
-                console.log(error)
-            }
-
-    }
+                }
+            })        
+        }
     }
     return(
         <article className='internAssessBody' >
             <section className='manageUserContainer'>
                 <div style={{display: 'flex', justifyContent:'space-between',}}>
-                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Intern Assessment Form</p>
+                    <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Intern Assessment</p>
                     <Link to="/portal"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
                 </div>
                 <div className='form'>

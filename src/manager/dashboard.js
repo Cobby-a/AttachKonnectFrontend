@@ -9,7 +9,7 @@ import './sidebar.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import defaultProf from './assets/defaultProf.jpg'
-
+import Swal from 'sweetalert2'
 
 const url = "http://127.0.0.1:8000/manager/"
 const managerId = localStorage.getItem('managerId');
@@ -31,6 +31,45 @@ const ManagerDashboard = () => {
             .then((response)=>{
                 setManagerData(response.data)
             })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             alert(error)
@@ -39,6 +78,45 @@ const ManagerDashboard = () => {
             axios.get(url+"company-student-notification-list/"+managerId)
             .then((response)=>{
                 setManagerNotificationData(response.data)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){
@@ -248,7 +326,7 @@ const ManagerNotify = ({id, notText, setManagerNotificationData}) =>{
     }
     return(
         <div style={{width: "100%", backgroundColor: "#DFCFF7",  borderRadius: '2px', padding: '0.3rem', fontSize: '13px', fontFamily: 'Montserrat', boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", }}>
-            <span onClick={()=>window.open('/manager/applicants-offer-status')} style={{cursor: 'pointer'}}>{notText}</span>
+            <span onClick={()=>window.open('/manager/applicants-offer-status')} style={{cursor: 'pointer', fontSize: '13px', fontFamily: 'Montserrat',}}>{notText}</span>
             <br/>
             <span style={{cursor: 'pointer', textDecoration: 'underline', fontFamily: 'Montserrat', fontWeight: '600', fontSize: '12px', color: "#002D5D"}} onClick={onClear}>Clear</span>
         </div>

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const url = 'http://127.0.0.1:8000/manager/'
 const managerId = localStorage.getItem('managerId');
@@ -40,7 +41,46 @@ const ManagerPasswordChange = () => {
             axios.get(url+managerId)
             .then((response)=>{
                 setManagerData(response.data)
-            });
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
@@ -107,6 +147,39 @@ const ManagerPasswordChange = () => {
                     console.log(response)
                     localStorage.removeItem('managerLoginStatus')
                     window.location.href='/portal'
+                })
+                .catch((error)=>{
+                    if (error.response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `There was a ${error.response.status} bad request updating the data`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      } else if (error.request) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `No response was received from the server.`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `Error!`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      }
                 })
             }
             catch(error){

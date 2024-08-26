@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import { useEffect, useState } from 'react';
-
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
     const baseUrl = 'http://127.0.0.1:8000/manager/roles'
@@ -107,6 +107,39 @@ const ManagerCreateVacancy = () => {
                         'moreInfo': '',
                     });
                     setModalOpen(true);
+                })
+                .catch((error)=>{
+                    if (error.response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `There was a ${error.response.status} bad request adding or updating the data`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      } else if (error.request) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `No response was received from the server.`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `Error!`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      }
                 })
             }catch(error){
                 console.log(error)

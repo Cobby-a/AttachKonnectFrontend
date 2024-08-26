@@ -6,7 +6,7 @@ import './sidebar1.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import defaultProf from './assets/defaultProf.jpg'
-
+import Swal from 'sweetalert2'
 
 const url = 'http://127.0.0.1:8000/'
 
@@ -29,7 +29,46 @@ const ManagerApplicantsOffer = () => {
                 setApplicantsOfferData(response.data.results)
                 setNextUrl(response.data.next)
                 setPreviousUrl(response.data.previous)
-            });
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
@@ -38,6 +77,45 @@ const ManagerApplicantsOffer = () => {
             axios.get(url+"manager/"+managerId)
             .then((response)=>{
                 setManagerData(response.data)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){

@@ -26,12 +26,52 @@ const ManagerApplicants = () => {
     useEffect (()=>{
         document.title = "Applicants"
         try{
-            axios.get(url+'student/student-roles-applied1/')
+            // axios.get(url+'student/student-roles-applied1/')
+            axios.get(url+'student/managerstudentapplications-list/'+managerId+'/')
             .then((response)=>{
                 setApplicantsData(response.data.results)
                 setNextUrl(response.data.next)
                 setPreviousUrl(response.data.previous)
-            });
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
@@ -40,6 +80,45 @@ const ManagerApplicants = () => {
             axios.get(url+"manager/"+managerId)
             .then((response)=>{
                 setManagerData(response.data)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){
@@ -120,14 +199,14 @@ const ManagerApplicants = () => {
                     </thead>
                     {applicantsData.map((data)=>{
                         const {id, student, role, applicationDate, applicationFile} = data;
-                        if(role.company.id == managerId){
+                        // if(role.company.id == managerId){
                             return(
                                 <Applicants key={id} id={id} role={role} student={student} applicationDate={applicationDate} applicationFile={applicationFile}/>
                             )
-                        }
-                        return(
-                            null
-                        )
+                        // }
+                        // return(
+                        //     null
+                        // )
                     })}
                     <tbody>
                     <tr >
@@ -166,14 +245,14 @@ const ManagerApplicants = () => {
                     {applicantsData.map((data)=>{
                         const {id, student, role, applicationDate, applicationFile} = data;
                         // if(role.company.id == managerId && approval === ""){
-                            if(role.company.id == managerId){
+                            // if(role.company.id == managerId){
                                 return(
                                     <Applicants key={id} id={id} role={role} student={student} applicationDate={applicationDate} applicationFile={applicationFile}/>
                             )
-                        }
-                        return(
-                            null
-                        )
+                        // }
+                        // return(
+                        //     null
+                        // )
                     })}
                     <tbody>
                     <tr >
@@ -246,11 +325,42 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                 try{
                     axios.post(url+'/student/student-applied-internships/', studentInternshipData)
                     .then((response)=>{
-                        console.log(response)
                         try{
                             axios.delete(url+'/student/student-roles-applied/'+id)
                             .then((response)=>{
-                                console.log(response)
+                            })
+                            .catch((error)=>{
+                                if (error.response) {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `There was a ${error.response.status} bad request adding or updating the data`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  } else if (error.request) {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `No response was received from the server.`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `Error!`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  }
                             })
                             window.location.href='/manager/applicantsboard'
                         }
@@ -269,7 +379,6 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                     try{
                         axios.post(url+'/student/student-company-notification/', studentNotification)
                         .then((response)=>{
-                            console.log(response)
                         })
                     }catch(error){
                         console.log(error)
@@ -310,11 +419,42 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                             }
                         })
                         .then((response)=>{
-                            console.log(response)
                             try{
                                 axios.delete(url+'/student/student-roles-applied/'+id)
                                 .then((response)=>{
-                                    console.log(response)
+                                })
+                                .catch((error)=>{
+                                    if (error.response) {
+                                        Swal.fire({
+                                            title: 'Error',
+                                            text: `There was a ${error.response.status} bad request adding or updating the data`,
+                                            icon: 'error',
+                                            showCancelButton: true,
+                                            showConfirmButton: false,
+                                            cancelButtonText: 'Try Again',
+                                            cancelButtonColor: '#ff3333'
+                                          })
+                                      } else if (error.request) {
+                                        Swal.fire({
+                                            title: 'Error',
+                                            text: `No response was received from the server.`,
+                                            icon: 'error',
+                                            showCancelButton: true,
+                                            showConfirmButton: false,
+                                            cancelButtonText: 'Try Again',
+                                            cancelButtonColor: '#ff3333'
+                                          })
+                                      } else {
+                                        Swal.fire({
+                                            title: 'Error',
+                                            text: `Error!`,
+                                            icon: 'error',
+                                            showCancelButton: true,
+                                            showConfirmButton: false,
+                                            cancelButtonText: 'Try Again',
+                                            cancelButtonColor: '#ff3333'
+                                          })
+                                      }
                                 })
                                 window.location.href='/manager/applicantsboard'
                             }
@@ -333,7 +473,6 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                     try{
                         axios.post(url+'/student/student-company-notification/', studentNotification)
                         .then((response)=>{
-                            console.log(response)
                         })
                     }catch(error){
                         console.log(error)
