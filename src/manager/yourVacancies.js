@@ -40,6 +40,45 @@ const CompanyVacancies = () => {
                 setPreviousUrl(response.data.previous)
                 setVacancyData(response.data.results)
             })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
@@ -48,6 +87,45 @@ const CompanyVacancies = () => {
             axios.get(url+managerId)
             .then((response)=>{
                 setManagerData(response.data)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){
@@ -327,6 +405,39 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
                                 setShowInfo(false)
                                 setEdit(false)
                             })
+                            .catch((error)=>{
+                                if (error.response) {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `There was a ${error.response.status} bad request adding or updating the data`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  } else if (error.request) {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `No response was received from the server.`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `Error!`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  }
+                            })
                         }
                         catch(error){
                             console.log(error)
@@ -359,6 +470,39 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
                             axios.get(url+'companyroles-list/'+managerId)
                             .then((response)=>{
                                 setVacancyData(response.data)
+                            })
+                            .catch((error)=>{
+                                if (error.response) {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `There was a ${error.response.status} bad request deleting the data`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  } else if (error.request) {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `No response was received from the server.`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: `Error!`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        showConfirmButton: false,
+                                        cancelButtonText: 'Try Again',
+                                        cancelButtonColor: '#ff3333'
+                                      })
+                                  }
                             })
                         }
                         catch(error){
