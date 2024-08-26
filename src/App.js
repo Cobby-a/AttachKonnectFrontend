@@ -14,7 +14,6 @@ import SupervisorCompany from './supervisor/company';
 import SupervisorManageUsers from './supervisor/manageUsers';
 import StudentCompany from './student/company';
 import StudentVacancy from './student/vacancy';
-import StudentApply from './student/apply';
 import StudentDashboard from './student/dashboard';
 import ManagerApplicantsOffer from './manager/applicantsOfferStatus';
 
@@ -33,6 +32,7 @@ import AdminPrivateRoute from './privateRouter/adminPrivateRouter';
 import SupervisorVacancy from './supervisor/vacancy';
 import SupervisorApplicants from './supervisor/applicants';
 import SupervisorInternAssessment from './supervisor/internAssess';
+import StudentAssessmentDeets from './supervisor/internAssessdeets';
 import ManagerTemporalPasswordChange from './manager/temporalChangePassword';
 import ManagerInternAssessment from './manager/internAssess';
 import ManagerProfile from './manager/profile';
@@ -104,12 +104,12 @@ function App() {
             <Route exact path = "/supervisor/applicantsboard" element = {wrapSupervisorPrivateRoute(<SupervisorApplicants/>, isSupervisorLoggedIn, '/supervisor/applicantsboard')}/>
             <Route exact path = "/supervisor/manage-users" element = {wrapSupervisorPrivateRoute(<SupervisorManageUsers/>, isSupervisorLoggedIn, '/supervisor/manage-users')}/>
             <Route exact path = "/supervisor/intern-assessment" element = {wrapSupervisorPrivateRoute(<SupervisorInternAssessment/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
+            <Route exact path="/supervisor/intern-assessment/:id" element = {wrapStudentPrivateRoute(<StudentAssessmentDeets/>, isStudentLoggedIn, '//supervisor/intern-assessment')}/>
 
             <Route exact path = "/student/dashboard" element = {wrapStudentPrivateRoute(<StudentDashboard/>, isStudentLoggedIn, '/student/dashboard')}/>
             <Route exact path = "/student/companyboard" element = {wrapStudentPrivateRoute(<StudentCompany/>, isStudentLoggedIn, '/student/companyboard')}/>
             <Route exact path = "/student/vacancyboard" element = {wrapStudentPrivateRoute(<StudentVacancy/>, isStudentLoggedIn, '/student/vacancyboard')}/>
-            <Route exact path = "/student/vacancyboard/apply" element = {wrapStudentPrivateRoute(<StudentApply/>, isStudentLoggedIn, '/student/vacancyboard/apply')}/>
-            <Route exact path="/student/company/:id/:companyName" element = {wrapStudentPrivateRoute(<CompanyDeets/>, isStudentLoggedIn, '/student/dashboard')}/>
+            <Route exact path="/student/company/:id/:companyName" element = {wrapStudentPrivateRoute(<CompanyDeets/>, isStudentLoggedIn, '/student/companyboard')}/>
             <Route exact path = "/student/your-applied-internships" element = {wrapStudentPrivateRoute(<AppliedInternships/>, isStudentLoggedIn, '/student/your-applied-internships')}/>
             <Route exact path = "/student/your-internships" element = {wrapStudentPrivateRoute(<YourInternships/>, isStudentLoggedIn, '/student/your-internships')}/>
             <Route exact path = "/student/profile" element = {wrapStudentPrivateRoute(<StudentProfile/>, isStudentLoggedIn, '/student/profile')}/>
