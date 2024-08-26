@@ -9,7 +9,7 @@ import defaultProf from './assets/defaultProf.jpg'
 import Swal from 'sweetalert2'
 
 
-const baseUrl = 'http://127.0.0.1:8000/'
+const baseUrl = 'https://attachmentkonnect.pythonanywhere.com/'
 const studentId = localStorage.getItem('studentId');
 
 const StudentCompany = () => {

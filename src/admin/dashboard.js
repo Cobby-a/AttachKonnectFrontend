@@ -15,7 +15,7 @@ import Swal from 'sweetalert2'
 
 // const adminId = localStorage.getItem('managerId');
 const adminUserName = localStorage.getItem('adminUserName');
-const url = "http://127.0.0.1:8000/supervisor/"
+const url = "https://attachmentkonnect.pythonanywhere.com/supervisor/"
 
 const AdminDashboard = () => {
     const [supervisorData, setSupervisorData] = useState([])

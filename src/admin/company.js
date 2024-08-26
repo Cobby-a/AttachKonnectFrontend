@@ -27,7 +27,7 @@ const AdminCompany = () => {
     const [query, setQuery] = useState('');
     const results = filterItems(companyData, query)
 
-    const baseUrl = 'http://127.0.0.1:8000/manager'
+    const baseUrl = 'https://attachmentkonnect.pythonanywhere.com/manager'
 
     useEffect (()=>{
         document.title = "Companies"

@@ -23,7 +23,7 @@ import axios from 'axios';
         p: 4,
     };
 
-    const baseUrl = 'http://127.0.0.1:8000/manager/'
+    const baseUrl = 'https://attachmentkonnect.pythonanywhere.com/manager/'
 
 const ManagerSignUp = () => {
     const [managerData, setManagerData] = useState({

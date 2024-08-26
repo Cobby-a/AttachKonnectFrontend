@@ -45,7 +45,7 @@ const ManagerSignIn = () => {
         loginFormData.append('password', loginData.password)
         if(forAdmin === true){
             try{
-                axios.post("http://127.0.0.1:8000/admin-page/admin-login/", loginFormData)
+                axios.post("https://attachmentkonnect.pythonanywhere.com/admin-page/admin-login/", loginFormData)
                 .then((response)=>{
                     if(response.data.bool === true){
                         localStorage.setItem('adminLoginStatus', true)
@@ -63,7 +63,7 @@ const ManagerSignIn = () => {
         }
         if(forManager === true){
             try{
-                axios.post("http://127.0.0.1:8000/manager/manager-login/", loginFormData)
+                axios.post("https://attachmentkonnect.pythonanywhere.com/manager/manager-login/", loginFormData)
                 .then((response)=>{
                     if(response.data.bool === true && response.data.pp === 'attachmentkonnect'){
                         // localStorage.setItem('managerLoginStatus', true)
@@ -87,7 +87,7 @@ const ManagerSignIn = () => {
         }
         if(forStudent === true){
             try{
-                axios.post("http://127.0.0.1:8000/student/student-login/", loginFormData)
+                axios.post("https://attachmentkonnect.pythonanywhere.com/student/student-login/", loginFormData)
                 .then((response)=>{
                     if(response.data.bool === true){
                         localStorage.setItem('studentLoginStatus', true)
@@ -105,7 +105,7 @@ const ManagerSignIn = () => {
         }
         if(forSupervisor === true){
             try{
-                axios.post("http://127.0.0.1:8000/supervisor/supervisor-login/", loginFormData)
+                axios.post("https://attachmentkonnect.pythonanywhere.com/supervisor/supervisor-login/", loginFormData)
                 .then((response)=>{
                     if(response.data.bool === true){
                         localStorage.setItem('supervisorLoginStatus', true)
@@ -177,7 +177,7 @@ const ManagerSignIn = () => {
     // }
     // else if(forManager === true){
     //     accountType = "Manager"
-    //     url = "http://127.0.0.1:8000/manager/manager-login"
+    //     url = "https://attachmentkonnect.pythonanywhere.com/manager/manager-login"
     // }
     // else if(forSupervisor === true){
     //     accountType = "Supervisor"

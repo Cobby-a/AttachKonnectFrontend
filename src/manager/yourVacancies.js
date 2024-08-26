@@ -1,4 +1,4 @@
-import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash, faEnvelopeOpen, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBriefcase, faUserTie, faRightFromBracket, faBars, faXmark, faMagnifyingGlass, faTrash, faEnvelopeOpen, faUser, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import './company.css'
@@ -13,7 +13,7 @@ import defaultProf from './assets/defaultProf.jpg'
 
 
 const managerId = localStorage.getItem('managerId');
-const url = "http://127.0.0.1:8000/manager/"
+const url = "https://attachmentkonnect.pythonanywhere.com/manager/"
 
 const CompanyVacancies = () => {
     const [menu, setMenu] = useState(false);
@@ -172,8 +172,8 @@ const CompanyVacancies = () => {
                             <div className='SidebarIcons'>
                                 <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
-                                <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                                <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                                 <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                             </div>
@@ -188,8 +188,8 @@ const CompanyVacancies = () => {
                     <div className='sidebarIcons'>
                         <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/manager/vacancyboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>YourVacancies</div></Link>
-                        <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                        <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                         <div onClick={()=>onLogout()}><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div>
                     </div>
@@ -216,6 +216,15 @@ const CompanyVacancies = () => {
                         <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
+                    {results < 1 &&
+                    <tbody>
+                        <tr>
+                            <td colSpan='6' style={{textAlign: 'center', fontFamily: 'Montserrat', fontSize: '1rem', color: '#002D5D', borderTop: '0'}}>
+                                You have not created any vacancy slots for your company
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
                     {results.map((data)=>{
                         const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 
@@ -264,6 +273,15 @@ const CompanyVacancies = () => {
                         <th style={{paddingRight: "4rem"}}></th>
                     </tr>
                     </thead>
+                    {results < 1 &&
+                    <tbody>
+                        <tr>
+                            <td colSpan='6' style={{textAlign: 'center', fontFamily: 'Montserrat', fontSize: '1rem', color: '#002D5D', borderTop: '0'}}>
+                                You have not created any vacancy slots for your company
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
                     {results.map((data)=>{
                         const {id, role, numberOfInterns, deadline, moreInfo, total_accepted_students} = data;
 

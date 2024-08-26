@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const url = "http://127.0.0.1:8000/supervisor/"
+const url = "https://attachmentkonnect.pythonanywhere.com/supervisor/"
 const staffId = localStorage.getItem('staffId');
 
 const SupervisorCompany = () => {
@@ -30,7 +30,7 @@ const SupervisorCompany = () => {
     const [query, setQuery] = useState('');
     const results = filterItems(companyData, query)
 
-    const baseUrl = 'http://127.0.0.1:8000/manager'
+    const baseUrl = 'https://attachmentkonnect.pythonanywhere.com/manager'
 
     useEffect (()=>{
         document.title = "Companies"

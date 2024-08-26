@@ -8,7 +8,7 @@ import axios from 'axios'
 import defaultProf from './assets/defaultProf.jpg'
 import Swal from 'sweetalert2'
 
-const url = 'http://127.0.0.1:8000/'
+const url = 'https://attachmentkonnect.pythonanywhere.com/'
 
 const managerId = localStorage.getItem('managerId');
 
@@ -158,8 +158,8 @@ const ManagerApplicantsOffer = () => {
                             <div className='applicantsSidebarIcons'>
                                 <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/manager/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
-                                <Link to ="/manager/applicants-offer-status"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                                <Link to ="/manager/applicants-offer-status"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                                 <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                             </div>
@@ -174,8 +174,8 @@ const ManagerApplicantsOffer = () => {
                     <div className='applicantssidebarIcons'>
                         <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/manager/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
-                        <Link to ="/manager/applicants-offer-status"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/applicantsboard"><div><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                        <Link to ="/manager/applicants-offer-status"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                         <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                     </div>
@@ -192,6 +192,15 @@ const ManagerApplicantsOffer = () => {
                         <th style={{borderTopRightRadius: "6px", borderBottomRightRadius: "6px", border: 'none', paddingRight: '1rem'}}>Offer Status</th>
                     </tr>
                     </thead>
+                    {applicantsOfferData < 1 &&
+                    <tbody>
+                        <tr>
+                            <td colSpan='4' style={{textAlign: 'center', fontFamily: 'Montserrat', fontSize: '1rem', color: '#002D5D', borderTop: '0'}}>
+                                No applicant has specified their offer status
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
                     {applicantsOfferData.map((data)=>{
                         const {id, student, role, company, offer} = data;
                             return(
@@ -230,6 +239,15 @@ const ManagerApplicantsOffer = () => {
                         <th style={{borderTopRightRadius: "6px", borderBottomRightRadius: "6px", border: 'none', paddingRight: '1rem'}}>Offer Status</th>
                     </tr>
                     </thead>
+                    {applicantsOfferData < 1 &&
+                    <tbody>
+                        <tr>
+                            <td colSpan='4' style={{textAlign: 'center', fontFamily: 'Montserrat', fontSize: '1rem', color: '#002D5D', borderTop: '0'}}>
+                                No applicant has specified their offer status
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
                     {applicantsOfferData.map((data)=>{
                         const {id, student, role, company, offer} = data;
                                 return(

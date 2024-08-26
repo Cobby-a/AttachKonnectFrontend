@@ -10,7 +10,7 @@ import defaultProf from './assets/defaultProf.jpg'
 import Swal from 'sweetalert2'
 
 
-const url = 'http://127.0.0.1:8000/'
+const url = 'https://attachmentkonnect.pythonanywhere.com/'
 
 const managerId = localStorage.getItem('managerId');
 
@@ -161,8 +161,8 @@ const ManagerApplicants = () => {
                             <div className='applicantsSidebarIcons'>
                                 <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                                 <Link to ="/manager/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
-                                <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/applicantsboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                                <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                                 <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                                 <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                             </div>
@@ -177,8 +177,8 @@ const ManagerApplicants = () => {
                     <div className='applicantssidebarIcons'>
                         <Link to ="/manager/dashboard"><div><FontAwesomeIcon icon={faHouse} style={{paddingRight: '1rem', width: '10%', }}/>Dashboard</div></Link>
                         <Link to ="/manager/vacancyboard"><div><FontAwesomeIcon icon={faBriefcase} style={{paddingRight: '1rem', width: '10%'}}/>Your Vacancies</div></Link>
-                        <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/applicantsboard"><div style={{color: '#9FD9B7'}}><FontAwesomeIcon icon={faUserTie} style={{paddingRight: '1rem', width: '10%'}}/>Applicants</div></Link>
+                        <Link to ="/manager/applicants-offer-status"><div><FontAwesomeIcon icon={faEnvelopeOpen} style={{paddingRight: '1rem', width: '10%'}}/>Applicants Status</div></Link>
                         <Link to ="/manager/profile"><div><FontAwesomeIcon icon={faUser} style={{paddingRight: '1rem', width: '10%'}}/>Profile</div></Link>
                         <Link to ="/portal"><div><FontAwesomeIcon icon={faRightFromBracket} style={{paddingRight: '1rem', width: '10%'}}/>Logout</div></Link>
                     </div>
@@ -197,6 +197,15 @@ const ManagerApplicants = () => {
                         <th style={{borderTopRightRadius: "6px", borderBottomRightRadius: "6px", border: 'none', paddingRight: '1rem'}}>Approval</th>
                     </tr>
                     </thead>
+                    {applicantsData.length < 1 &&
+                    <tbody>
+                        <tr>
+                            <td colSpan='6' style={{textAlign: 'center', fontFamily: 'Montserrat', fontSize: '1rem', color: '#002D5D', borderTop: '0'}}>
+                                No applicant has applied for any of your vacancy slots.
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
                     {applicantsData.map((data)=>{
                         const {id, student, role, applicationDate, applicationFile} = data;
                         // if(role.company.id == managerId){
@@ -242,6 +251,15 @@ const ManagerApplicants = () => {
                         <th style={{borderTopRightRadius: "6px", borderBottomRightRadius: "6px", border: 'none', paddingRight: '1rem'}}>Approval</th>
                     </tr>
                     </thead>
+                    {applicantsData < 1 &&
+                    <tbody>
+                        <tr>
+                            <td colSpan='6' style={{textAlign: 'center', fontFamily: 'Montserrat', fontSize: '1rem', color: '#002D5D', borderTop: '0'}}>
+                                No applicant has applied for any of your vacancy slots.
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
                     {applicantsData.map((data)=>{
                         const {id, student, role, applicationDate, applicationFile} = data;
                         // if(role.company.id == managerId && approval === ""){
@@ -325,43 +343,9 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                 try{
                     axios.post(url+'/student/student-applied-internships/', studentInternshipData)
                     .then((response)=>{
+                        console.log(response)
                         try{
                             axios.delete(url+'/student/student-roles-applied/'+id)
-                            .then((response)=>{
-                            })
-                            .catch((error)=>{
-                                if (error.response) {
-                                    Swal.fire({
-                                        title: 'Error',
-                                        text: `There was a ${error.response.status} bad request adding or updating the data`,
-                                        icon: 'error',
-                                        showCancelButton: true,
-                                        showConfirmButton: false,
-                                        cancelButtonText: 'Try Again',
-                                        cancelButtonColor: '#ff3333'
-                                      })
-                                  } else if (error.request) {
-                                    Swal.fire({
-                                        title: 'Error',
-                                        text: `No response was received from the server.`,
-                                        icon: 'error',
-                                        showCancelButton: true,
-                                        showConfirmButton: false,
-                                        cancelButtonText: 'Try Again',
-                                        cancelButtonColor: '#ff3333'
-                                      })
-                                  } else {
-                                    Swal.fire({
-                                        title: 'Error',
-                                        text: `Error!`,
-                                        icon: 'error',
-                                        showCancelButton: true,
-                                        showConfirmButton: false,
-                                        cancelButtonText: 'Try Again',
-                                        cancelButtonColor: '#ff3333'
-                                      })
-                                  }
-                            })
                             window.location.href='/manager/applicantsboard'
                         }
                         catch(error){
@@ -378,8 +362,6 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
 
                     try{
                         axios.post(url+'/student/student-company-notification/', studentNotification)
-                        .then((response)=>{
-                        })
                     }catch(error){
                         console.log(error)
                     }
@@ -419,43 +401,9 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                             }
                         })
                         .then((response)=>{
+                            console.log(response)
                             try{
                                 axios.delete(url+'/student/student-roles-applied/'+id)
-                                .then((response)=>{
-                                })
-                                .catch((error)=>{
-                                    if (error.response) {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: `There was a ${error.response.status} bad request adding or updating the data`,
-                                            icon: 'error',
-                                            showCancelButton: true,
-                                            showConfirmButton: false,
-                                            cancelButtonText: 'Try Again',
-                                            cancelButtonColor: '#ff3333'
-                                          })
-                                      } else if (error.request) {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: `No response was received from the server.`,
-                                            icon: 'error',
-                                            showCancelButton: true,
-                                            showConfirmButton: false,
-                                            cancelButtonText: 'Try Again',
-                                            cancelButtonColor: '#ff3333'
-                                          })
-                                      } else {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: `Error!`,
-                                            icon: 'error',
-                                            showCancelButton: true,
-                                            showConfirmButton: false,
-                                            cancelButtonText: 'Try Again',
-                                            cancelButtonColor: '#ff3333'
-                                          })
-                                      }
-                                })
                                 window.location.href='/manager/applicantsboard'
                             }
                             catch(error){
@@ -472,8 +420,6 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
 
                     try{
                         axios.post(url+'/student/student-company-notification/', studentNotification)
-                        .then((response)=>{
-                        })
                     }catch(error){
                         console.log(error)
                     }
@@ -497,7 +443,7 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
             <td style={{}}>{student.other_names}</td>
             <td>{role.role}</td>
             <td>{applicationDate}</td>
-            <td style={{cursor: 'pointer'}}><a href={applicationFile} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '8px'}}/>{applicationFile.substr(28)}</a></td>
+            <td style={{cursor: 'pointer'}}><a href={applicationFile} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '8px'}}/>{applicationFile.substr(51)}</a></td>
             <td style={{cursor: 'pointer'}}>
                 <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginRight: '0.5rem', display: showAcceptBtn1}} onClick={()=>setAcceptInfo(true)}>Accept</button>
                 <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat'}} onClick={()=>handleReject(id, student.other_names, role.role, student.student_id, role.id, role.company.companyName)}>Reject</button>

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Swal from 'sweetalert2'
 
-const url = 'http://127.0.0.1:8000/'
+const url = 'https://attachmentkonnect.pythonanywhere.com/'
 const studentId = localStorage.getItem('studentId');
 
 

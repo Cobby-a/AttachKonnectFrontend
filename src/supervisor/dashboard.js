@@ -11,7 +11,7 @@ import axios from 'axios'
 import defaultProf from './assets/defaultProf.jpg'
 import Swal from 'sweetalert2'
 
-const url = "http://127.0.0.1:8000/supervisor/"
+const url = "https://attachmentkonnect.pythonanywhere.com/supervisor/"
 const staffId = localStorage.getItem('staffId');
 
 

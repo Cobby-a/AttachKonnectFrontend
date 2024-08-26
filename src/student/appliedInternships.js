@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 
 import axios from 'axios';
 
-    const url = 'http://127.0.0.1:8000/'
+    const url = 'https://attachmentkonnect.pythonanywhere.com/'
     const studentId = localStorage.getItem('studentId');
 
 
@@ -170,7 +170,7 @@ const CompanyDeet = ({role, approval, applicationFile}) => {
                 <p>Deadline for submission:  <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{deadline}</span></p>
             </div> */}
             <div style={{flex: 1, width:"100%",}}>
-                <p>Your Attachment File: <a href={applicationFile} target="_blank" rel="noreferrer" style={{fontSize: '14px', color: '#002D5D', fontFamily: "Montserrat", cursor: 'pointer'}}><FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '4px', paddingLeft :'6px'}}/>{applicationFile.substr(28)}</a></p>
+                <p>Your Attachment File: <a href={applicationFile} target="_blank" rel="noreferrer" style={{fontSize: '14px', color: '#002D5D', fontFamily: "Montserrat", cursor: 'pointer'}}><FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '4px', paddingLeft :'6px'}}/>{applicationFile.substr(51)}</a></p>
             </div>
             <div style={{flex: 1, width:"100%",}}>
                 <p>Approval: <span style={{fontSize: '14px', color: '#002D5D', fontFamily: "Montserrat", }}>{approval}</span></p>
@@ -386,7 +386,7 @@ const StudentInternship = ({id, role, approval, smallInfo, optionalFile, student
             {approval === "Accepted" &&
                 <>
                 <div style={{flex: 1, width:"100%",}}>
-                    <p>Attachment File on your accepted role (if any): <a href={optionalFile} target="_blank" rel="noreferrer" style={{fontSize: '14px', color: '#002D5D', fontFamily: "Montserrat", cursor: 'pointer'}}>{optionalFile !== null && <FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '4px', paddingLeft :'6px'}}/>}{optionalFile !== null && optionalFile.substr(28)}</a></p>
+                    <p>Attachment File on your accepted role (if any): <a href={optionalFile} target="_blank" rel="noreferrer" style={{fontSize: '14px', color: '#002D5D', fontFamily: "Montserrat", cursor: 'pointer'}}>{optionalFile !== null && <FontAwesomeIcon icon={faPaperclip} style={{paddingRight: '4px', paddingLeft :'6px'}}/>}{optionalFile !== null && optionalFile.substr(51)}</a></p>
                 </div>
                 <div style={{flex: 1, width:"100%",}}>
                     <p>Info about your accepted role (if any): <span style={{fontSize: '14px', color: '#002D5D', fontFamily: "Montserrat", }}>{smallInfo}</span></p>

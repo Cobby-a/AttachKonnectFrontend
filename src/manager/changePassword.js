@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const url = 'http://127.0.0.1:8000/manager/'
+const url = 'https://attachmentkonnect.pythonanywhere.com/manager/'
 const managerId = localStorage.getItem('managerId');
 
 

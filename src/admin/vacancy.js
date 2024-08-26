@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 
 const adminUserName = localStorage.getItem('adminUserName');
 
-const url = "http://127.0.0.1:8000/manager/"
+const url = "https://attachmentkonnect.pythonanywhere.com/manager/"
 
 const AdminVacancy = () => {
     const [menu, setMenu] = useState(false);
