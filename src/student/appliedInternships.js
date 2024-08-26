@@ -26,7 +26,46 @@ const AppliedInternships = () => {
             axios.get(url+'student/studentapplication-list/'+studentId)
             .then((response)=>{
                 setstudentApplicationsData(response.data)
-            });
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for the data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
@@ -35,7 +74,46 @@ const AppliedInternships = () => {
             axios.get(url+'student/studentinternship-list/'+studentId)
             .then((response)=>{
                 setStudentInternshipData(response.data)
-            });
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for the data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             console.log(error)
@@ -151,6 +229,39 @@ const StudentInternship = ({id, role, approval, smallInfo, optionalFile, student
                             console.log(error)
                         }
                     })
+                    .catch((error)=>{
+                        if (error.response) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `There was a ${error.response.status} bad request adding or updating the data`,
+                                icon: 'error',
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonText: 'Try Again',
+                                cancelButtonColor: '#ff3333'
+                              })
+                          } else if (error.request) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `No response was received from the server.`,
+                                icon: 'error',
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonText: 'Try Again',
+                                cancelButtonColor: '#ff3333'
+                              })
+                          } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: `Error!`,
+                                icon: 'error',
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonText: 'Try Again',
+                                cancelButtonColor: '#ff3333'
+                              })
+                          }
+                    })
                 }catch(error){
                     console.log(error)
                 }
@@ -165,6 +276,39 @@ const StudentInternship = ({id, role, approval, smallInfo, optionalFile, student
                         axios.post(url+'/manager/company-student-notification/', managerNotification)
                         .then((response)=>{
                             console.log(response)
+                        })
+                        .catch((error)=>{
+                            if (error.response) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `There was a ${error.response.status} bad request requesting for the data`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                  })
+                              } else if (error.request) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `No response was received from the server.`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                  })
+                              } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: `Error!`,
+                                    icon: 'error',
+                                    showCancelButton: true,
+                                    showConfirmButton: false,
+                                    cancelButtonText: 'Try Again',
+                                    cancelButtonColor: '#ff3333'
+                                  })
+                              }
                         })
                     }catch(error){
                         console.log(error)

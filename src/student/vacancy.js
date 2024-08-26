@@ -10,6 +10,7 @@ import defaultProf from './assets/defaultProf.jpg'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Swal from 'sweetalert2'
 
 const url = 'http://127.0.0.1:8000/'
 const studentId = localStorage.getItem('studentId');
@@ -51,6 +52,45 @@ const StudentVacancy = () => {
             .then((response)=>{
                 setStudentData(response.data)
             })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
+            })
         }
         catch(error){
             alert(error)
@@ -61,6 +101,45 @@ const StudentVacancy = () => {
                 setVacancyData(response.data.results)
                 setNextUrl(response.data.next)
                 setPreviousUrl(response.data.previous)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){
@@ -260,7 +339,7 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
         window.location.href='/student/your-applied-internships';
     }
 
-    const onSubmitApplication = (roleId, setModalOpen) => {
+    const onSubmitApplication = (roleId, companyId, setModalOpen) => {
         if(studentApplyData.applicationFile === ""){
             setApplicationError("Please provide the necessary file to proceed")
             return;
@@ -272,6 +351,7 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
             const studentApplicationData = new FormData();
             studentApplicationData.append("student", studentId)
             studentApplicationData.append("role", roleId)
+            studentApplicationData.append("company", companyId)
             studentApplicationData.append("applicationFile", studentApplyData.applicationFile, studentApplyData.applicationFile.name)
 
             try{
@@ -281,8 +361,44 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
                     }
                 })
                 .then((response)=>{
-                    console.log(response.data);
                     setModalOpen(true);
+                })
+                .catch((error)=>{
+                    if (error.response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `There was a ${error.response.status} bad request adding or updating the data`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          })
+                      } else if (error.request) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `No response was received from the server.`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          }).then((result)=>{
+                            result.dismiss && window.location.reload()
+                          })
+                      } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `Error!`,
+                            icon: 'error',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonText: 'Try Again',
+                            cancelButtonColor: '#ff3333'
+                          }).then((result)=>{
+                            result.dismiss && window.location.reload()
+                          })
+                      }
                 })
             }
             catch(error){
@@ -302,7 +418,45 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
                 if(response.data.bool === true){
                     setAppliedStatus(true)
                 }
-                console.log(response.data.bool)
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `There was a ${error.response.status} bad request requesting for the data`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else if (error.request) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `No response was received from the server.`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error!`,
+                        icon: 'error',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonText: 'Try Again',
+                        cancelButtonColor: '#ff3333'
+                      }).then((result)=>{
+                        result.dismiss && window.location.reload()
+                      })
+                  }
             })
         }
         catch(error){
@@ -331,7 +485,7 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
             <td style={{paddingRight: '2rem'}}>
                 {!appliedStatus ? 
                     (numberReached ? 
-                        <span style={{opacity: '0.4', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff", cursor: 'default'}}>Apply</span>
+                        <span style={{opacity: '0.4', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff", cursor: 'not-allowed'}}>Apply</span>
                             : 
                         (onFirstApply &&
                             <span style={{cursor: 'pointer', padding: "4px 10px", backgroundColor: "#1A7AE0", borderRadius: "12px", color: "#ffffff"}} onClick={()=>onApply()}>Apply</span>
@@ -349,7 +503,7 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
                 <td style={{borderTop: 'none'}} colSpan='4'>
                 {applicationError && <p style={{ marginLeft: '8px', fontSize: '12.5px', color: "#ff3333", marginBottom: '0', marginTop: '-10px'}}>{applicationError}</p>}
                     <span style={{marginLeft: '8px', fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Submit file for application: </span><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' onChange={handleFileChange}/>
-                    <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: "10px"}} onClick={()=>onSubmitApplication(roleId, setModalOpen)}>Apply</button>
+                    <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: "10px"}} onClick={()=>onSubmitApplication(roleId, company.id, setModalOpen)}>Apply</button>
                     <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginRight: '0.5rem', marginLeft: "10px"}} onClick={()=>onCancel()}>Cancel</button>
                 </td>
                 </>
