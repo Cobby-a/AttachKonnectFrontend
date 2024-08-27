@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-    const baseUrl = 'https://attachmentkonnect.pythonanywhere.com/manager/roles'
+    const baseUrl = 'https://attachmentkonnect.pythonanywhere.com/manager/roles/'
 
     const modStyle = {
         position: 'absolute',
@@ -33,7 +33,6 @@ const ManagerCreateVacancy = () => {
         'deadline': '',
         'moreInfo': '',
     })
-    console.log(vacancyData)
     const handleChange=(event)=>{
         setVacancyData({
             ...vacancyData,
@@ -149,7 +148,7 @@ const ManagerCreateVacancy = () => {
     }
     const onClosed = () => {
         setModalOpen(false);
-        window.location.href='/manager/dashboard';
+        window.location.href='/manager/vacancyboard';
     }
     return(
         <article className='managerVacancyBody' >

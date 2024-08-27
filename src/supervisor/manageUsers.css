@@ -37,7 +37,7 @@
 }
 
 .supervisorManageUsersBody .manageUserContainer{
-    margin: 5rem auto;
+    margin: 4rem auto;
 }
 .supervisorManageUsersBody .manageUserContainer .form{
     display: grid;
@@ -54,7 +54,7 @@
     font-family: "Poppins";
 }
 
-.supervisorManageUsersBody input, .supervisorManageUsersBody .form select{
+.supervisorManageUsersBody input, .supervisorManageUsersBody select{
     border: none;
     font-family: 'Poppins';
     background-color: #FAFAFA;

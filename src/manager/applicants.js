@@ -343,10 +343,11 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                 try{
                     axios.post(url+'/student/student-applied-internships/', studentInternshipData)
                     .then((response)=>{
-                        console.log(response)
                         try{
                             axios.delete(url+'/student/student-roles-applied/'+id)
-                            window.location.href='/manager/applicantsboard'
+                            .then((response)=>{
+                                window.location.href='/manager/applicantsboard'
+                            })
                         }
                         catch(error){
                             console.log(error)
@@ -401,10 +402,11 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
                             }
                         })
                         .then((response)=>{
-                            console.log(response)
                             try{
                                 axios.delete(url+'/student/student-roles-applied/'+id)
-                                window.location.href='/manager/applicantsboard'
+                                .then((response)=>{
+                                    window.location.href='/manager/applicantsboard'
+                                })
                             }
                             catch(error){
                                 console.log(error)
@@ -453,8 +455,8 @@ const Applicants = ({id, student, role, applicationDate, applicationFile}) => {
             <td style={{paddingLeft: '1rem', border: 'none'}}></td>
             <td style={{borderTop: 'none'}} colSpan='6'>
             {acceptError && <p style={{ fontSize: '12.5px', color: "#ff3333", marginBottom: '0', marginTop: '-10px'}}>{acceptError}</p>}
-                <span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Provide Short Info on the role for the user: </span><input style={{padding: "1px 5px 1px 5px", width: '200px',}} value={acceptData.smallInfo} onChange={handleChange} name='smallInfo'/>
-                <span style={{marginLeft: '8px', fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Or submit a doc file for the user: </span><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='optionalFile' onChange={handleFileChange}/>
+                <span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C', fontSize: '12px'}}>Provide Short Info on the role for the user: </span><input style={{padding: "1px 5px 1px 5px", width: '200px',}} value={acceptData.smallInfo} onChange={handleChange} name='smallInfo'/>
+                <span style={{marginLeft: '8px', fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C', fontSize: '12px'}}>Or submit a doc file for the user: </span><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='optionalFile' onChange={handleFileChange}/>
                 <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: "10px"}} onClick={()=>handleAccept(id, student.other_names, role.role, student.student_id, role.id, role.company.companyName)}>Accept</button>
                 <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginRight: '0.5rem', marginLeft: "10px"}} onClick={()=>onCancel()}>Cancel</button>
             </td>

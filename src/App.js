@@ -37,6 +37,7 @@ import ManagerTemporalPasswordChange from './manager/temporalChangePassword';
 import ManagerInternAssessment from './manager/internAssess';
 import ManagerProfile from './manager/profile';
 import ManagerPasswordChange from './manager/changePassword';
+import NotFound from './notFound';
 
 function App() {
   const isManagerLoggedIn = localStorage.getItem('managerLoginStatus') ? true : false;
@@ -104,7 +105,7 @@ function App() {
             <Route exact path = "/supervisor/applicantsboard" element = {wrapSupervisorPrivateRoute(<SupervisorApplicants/>, isSupervisorLoggedIn, '/supervisor/applicantsboard')}/>
             <Route exact path = "/supervisor/manage-users" element = {wrapSupervisorPrivateRoute(<SupervisorManageUsers/>, isSupervisorLoggedIn, '/supervisor/manage-users')}/>
             <Route exact path = "/supervisor/intern-assessment" element = {wrapSupervisorPrivateRoute(<SupervisorInternAssessment/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
-            <Route exact path="/supervisor/intern-assessment/:id" element = {wrapStudentPrivateRoute(<StudentAssessmentDeets/>, isStudentLoggedIn, '//supervisor/intern-assessment')}/>
+            <Route exact path="/supervisor/intern-assessment/:id" element = {wrapStudentPrivateRoute(<StudentAssessmentDeets/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
 
             <Route exact path = "/student/dashboard" element = {wrapStudentPrivateRoute(<StudentDashboard/>, isStudentLoggedIn, '/student/dashboard')}/>
             <Route exact path = "/student/companyboard" element = {wrapStudentPrivateRoute(<StudentCompany/>, isStudentLoggedIn, '/student/companyboard')}/>
@@ -114,7 +115,7 @@ function App() {
             <Route exact path = "/student/your-internships" element = {wrapStudentPrivateRoute(<YourInternships/>, isStudentLoggedIn, '/student/your-internships')}/>
             <Route exact path = "/student/profile" element = {wrapStudentPrivateRoute(<StudentProfile/>, isStudentLoggedIn, '/student/profile')}/>
 
-            <Route exact path="*" element={<Navigate to="portal" replace />} />
+            <Route exact path="*" element={<NotFound/>} />
           </Route>
         </Routes>
       </BrowserRouter>

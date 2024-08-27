@@ -304,7 +304,7 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
             <td onClick={()=>setShowInfo(!showInfo)} style={{paddingRight: '2rem'}}>{company.companyName}</td>
         </tr>
         <tr style={{borderTop: '0', }} className={showInfo ? 'showInfo1' : 'showInfo'}>
-            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0',paddingRight: "1.5rem" }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Short info on the role: </span>{moreInfo}</td>
+            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0',paddingRight: "1.5rem", fontSize: '12px' }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C', fontSize: '12px'}}>Short info on the role: </span>{moreInfo}</td>
         </tr>
         </tbody>
     )

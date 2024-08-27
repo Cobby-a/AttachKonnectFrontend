@@ -37,7 +37,7 @@
 }
 
 .adminManageUsersBody .manageUserContainer{
-    margin: 5rem auto;
+    margin: 4rem auto;
 }
 .adminManageUsersBody .manageUserContainer .form{
     display: grid;
@@ -54,7 +54,7 @@
     font-family: "Poppins";
 }
 
-.adminManageUsersBody input, .adminManageUsersBody .form select{
+.adminManageUsersBody input, .adminManageUsersBody select{
     border: none;
     font-family: 'Poppins';
     background-color: #FAFAFA;

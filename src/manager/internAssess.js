@@ -323,7 +323,7 @@ const ManagerInternAssessment = () => {
             <section className='manageUserContainer'>
                 <div style={{display: 'flex', justifyContent:'space-between',}}>
                     <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center'}}>Intern Assessment</p>
-                    <Link to="/portal"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
+                    <Link to="/manager/dashboard"><FontAwesomeIcon icon={faXmark} style={{fontSize: "32px", color: "#8F8F8F", cursor:'pointer',marginTop: "-0.5rem"}}/></Link>
                 </div>
                 <div className='form'>
                     <div className="formContainer1">

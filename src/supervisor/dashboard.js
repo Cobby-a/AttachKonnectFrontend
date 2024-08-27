@@ -1,5 +1,5 @@
 import welcome from './assets/welcome.png'
-import comp from './assets/comp.svg'
+import comp from './assets/comp1.svg'
 import stats from './assets/stat.svg'
 import { faHouse, faBriefcase, faBuilding, faRightFromBracket, faBars, faXmark, faBell, faUserTie, faSquarePollVertical} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

@@ -123,10 +123,23 @@ const ManagerSignIn = () => {
         }
     }
 
-    // const managerLoginStatus = localStorage.getItem('managerLoginStatus')
-    // if(managerLoginStatus === 'true'){
-    //     window.location.href='/manager/dashboard';
-    // }
+    const managerLoginStatus = localStorage.getItem('managerLoginStatus')
+    if(managerLoginStatus === 'true'){
+        window.location.href='/manager/dashboard';
+    }
+    const studentLoginStatus = localStorage.getItem('studentLoginStatus')
+    if(studentLoginStatus === 'true'){
+        window.location.href='/student/dashboard';
+    }
+    const adminLoginStatus = localStorage.getItem('adminLoginStatus')
+    if(adminLoginStatus === 'true'){
+        window.location.href='/admin/dashboard';
+    }
+    const supervisorLoginStatus = localStorage.getItem('supervisorLoginStatus')
+    if(supervisorLoginStatus === 'true'){
+        window.location.href='/supervisor/dashboard';
+    }
+
     const Admin = () =>{
         setForAdmin(true);
         setForManager(false);

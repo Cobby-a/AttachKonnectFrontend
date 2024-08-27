@@ -416,7 +416,6 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
                         try{
                             axios.get(url+"companyroles-list/"+managerId)
                             .then((response)=>{
-                                console.log(response.data);
                                 setNextUrl(response.data.next)
                                 setPreviousUrl(response.data.previous)
                                 setVacancyData(response.data.results)
@@ -487,7 +486,9 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
                         try{
                             axios.get(url+'companyroles-list/'+managerId)
                             .then((response)=>{
-                                setVacancyData(response.data)
+                                setNextUrl(response.data.next)
+                                setPreviousUrl(response.data.previous)
+                                setVacancyData(response.data.results)
                             })
                             .catch((error)=>{
                                 if (error.response) {
@@ -559,7 +560,7 @@ const Vac1 = ({id, role, numberOfInterns, deadline, moreInfo, setVacancyData, to
             </td>
         </tr>
         <tr style={{borderTop: '0', }} className={showInfo ? 'showInfo1' : 'showInfo'}>
-            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0',paddingRight: "1.5rem" }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Short info on the role: </span>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '100%',}} value={vacancy1Data.moreInfo} onChange={handleChange} name='moreInfo'/>:moreInfo}</td>
+            <td colSpan='4' style={{paddingLeft: '1rem', borderTop: '0',paddingRight: "1.5rem", fontSize: '12px' }}><span style={{fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C', fontSize: '12px'}}>Short info on the role: </span>{edit ? <input style={{padding: "1px 5px 1px 5px", width: '100%',}} value={vacancy1Data.moreInfo} onChange={handleChange} name='moreInfo'/>:moreInfo}</td>
         </tr>
         </tbody>
     )
