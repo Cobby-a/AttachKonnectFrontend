@@ -181,21 +181,18 @@ const ManagerSignIn = () => {
     if(forPassword === true){
         passwordType = "text"
     }
-    // if(forAdmin === true){
-    //     url = "/admin/dashboard"
-    // }
-    // else if(forStudent === true){
-    //     accountType = "Student"
-    //     url = "/student/dashboard"
-    // }
-    // else if(forManager === true){
-    //     accountType = "Manager"
-    //     url = "https://attachmentkonnect.pythonanywhere.com/manager/manager-login"
-    // }
-    // else if(forSupervisor === true){
-    //     accountType = "Supervisor"
-    //     url = "/manager/dashboard"
-    // }
+    if(forAdmin === true){
+        accountType = "Admin"
+    }
+    else if(forStudent === true){
+        accountType = "Student"
+    }
+    else if(forManager === true){
+        accountType = "Manager"
+    }
+    else if(forSupervisor === true){
+        accountType = "Supervisor"
+    }
     return(
         <article className='authContainer'>
             <section>

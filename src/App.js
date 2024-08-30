@@ -105,7 +105,7 @@ function App() {
             <Route exact path = "/supervisor/applicantsboard" element = {wrapSupervisorPrivateRoute(<SupervisorApplicants/>, isSupervisorLoggedIn, '/supervisor/applicantsboard')}/>
             <Route exact path = "/supervisor/manage-users" element = {wrapSupervisorPrivateRoute(<SupervisorManageUsers/>, isSupervisorLoggedIn, '/supervisor/manage-users')}/>
             <Route exact path = "/supervisor/intern-assessment" element = {wrapSupervisorPrivateRoute(<SupervisorInternAssessment/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
-            <Route exact path="/supervisor/intern-assessment/:id" element = {wrapStudentPrivateRoute(<StudentAssessmentDeets/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
+            <Route exact path="/supervisor/intern-assessment/:id" element = {wrapSupervisorPrivateRoute(<StudentAssessmentDeets/>, isSupervisorLoggedIn, '/supervisor/intern-assessment')}/>
 
             <Route exact path = "/student/dashboard" element = {wrapStudentPrivateRoute(<StudentDashboard/>, isStudentLoggedIn, '/student/dashboard')}/>
             <Route exact path = "/student/companyboard" element = {wrapStudentPrivateRoute(<StudentCompany/>, isStudentLoggedIn, '/student/companyboard')}/>
