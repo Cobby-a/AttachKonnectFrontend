@@ -1,18 +1,18 @@
 ## Logins
 ### Admin Login
-username: testadmin
+username: testadmin\
 password: 1234
 
 ### Supervisor Login
-staffid: 10917664
+staffid: 10917664\
 password: 1234
 
 ### Student Login
-studentId: 10101010
+studentId: 10101010\
 password: 1234
 
 ### Manager Login
-email: cobbboat@gmail.com
+email: cobbboat@gmail.com\
 password: 1234
 
 # Getting Started with Create React App
