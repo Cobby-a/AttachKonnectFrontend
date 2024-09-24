@@ -119,7 +119,7 @@ const AdminDashboard = () => {
                 <div className='welcome'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {adminUserName}!</h3>
+                        <h3>Welcome, {adminUserName}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
                 <div className='welcome1'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {adminUserName}!</h3>
+                        <h3>Welcome, {adminUserName}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
