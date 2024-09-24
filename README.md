@@ -1,3 +1,20 @@
+## Logins
+### Admin Login
+username: testadmin\
+password: 1234
+
+### Supervisor Login
+staffid: 10917664\
+password: 1234
+
+### Student Login
+studentId: 10101010\
+password: 1234
+
+### Manager Login
+email: cobbboat@gmail.com\
+password: 1234
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
