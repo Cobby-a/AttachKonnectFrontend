@@ -151,6 +151,7 @@ const AdminCompany = () => {
                         <form action="javascript:void(0);">
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company' value={query} onChange={handleSearchChange}/>
                         </form>
+                        <Link to="/admin/manage-companies" target="_blank" rel="noopener noreferrer"><button>Register Company</button></Link>
                     </div>
                     <div className='table'>
                     <table className="companydeets">
@@ -211,6 +212,7 @@ const AdminCompany = () => {
                         <form action="javascript:void(0);">
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} style={{fontSize: '1.2rem', padding: "10px 10px 10px 14px", color: '#4C4C4C' }}/></span><input type='search' name='searchCompany' placeholder='Search Company' value={query} onChange={handleSearchChange}/>
                         </form>
+                        <Link to="/admin/manage-companies"><button>Register Company</button></Link>
                     </div>
                     
                 </article>

@@ -33,6 +33,10 @@ const ManagerSignUp = () => {
         'ceo': '',
         'durationOfExistence': '',
         'briefInfo': '',
+        'twitter': '',
+        'instagram': '',
+        'facebook': '',
+        'website': '',
         'companyLogo': '',
         'companyCertificate': '',
     })
@@ -137,6 +141,12 @@ const ManagerSignUp = () => {
             managerApplicationData.append("ceo", managerData.ceo)
             managerApplicationData.append("durationOfExistence", managerData.durationOfExistence)
             managerApplicationData.append("briefInfo", managerData.briefInfo)
+            managerApplicationData.append("contractStatus", "Pending")
+            managerApplicationData.append("reportStatus", "Pending")
+            managerApplicationData.append("twitter", managerData.twitter)
+            managerApplicationData.append("instagram", managerData.instagram)
+            managerApplicationData.append("facebook", managerData.facebook)
+            managerApplicationData.append("website", managerData.website)
             managerApplicationData.append("companyLogo", managerData.companyLogo, managerData.companyLogo.name)
             managerApplicationData.append("companyCertificate", managerData.companyCertificate, managerData.companyCertificate.name)
 
@@ -221,17 +231,17 @@ const ManagerSignUp = () => {
                 <div className='form'>
                     <div className="formContainer1">
                         <div style={{flex: 1}}>
-                            <label>Company name</label>
+                            <label>Company name</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
                             <div className='input'><input type='text' required name='companyName' value={managerData.companyName} onChange={handleChange} /></div>
                             {nameError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{nameError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Email</label>
+                            <label>Email</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
                             <div className='input'><input type='email' required name='email' value={managerData.email} onChange={handleChange}/></div>
                             {emailError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{emailError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Location</label>
+                            <label>Location</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
                             <div className='input'><input type='text' required name='location' value={managerData.location} onChange={handleChange}/></div>
                             {locationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{locationError}</p>}
                         </div>
@@ -244,40 +254,64 @@ const ManagerSignUp = () => {
                     </div> */}
                     <div className='formContainer2'>
                         <div style={{flex: 1}}>
-                            <label>Name of CEO</label>
+                            <label>Name of CEO</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
                             <div className='input'><input type='text' required name='ceo' value={managerData.ceo} onChange={handleChange}/></div>
                             {ceoError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{ceoError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Duration of Comapny's existence</label>
+                            <label>Duration of Company's existence</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
                             <div className='input'><input type='text' required name='durationOfExistence' value={managerData.durationOfExistence} onChange={handleChange}/></div>
                             {durationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{durationError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <label>Company's logo (.jpg, .png and .jpeg formats)</label>
+                            <label>Company's logo (.jpg, .png and .jpeg formats)</label><span style={{ fontSize: '15px', color: "#ff3333", }}>*</span>
                             <div className='input'><input type='file' accept=".png, .jpg, .jpeg" name='companyLogo' required onChange={handleFileChange}/></div>
                             {logoError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{logoError}</p>}
                         </div>
                     </div>
                     <div className='formContainer3'>
                         <div style={{flex: 1}}>
-                            <p>Brief Intel on company's set objectives and activities</p>
+                            <p>Company's missions, visions, and values.<span style={{ fontSize: '15px', color: "#ff3333", }}>*</span></p>
                             <textarea rows="10" name='briefInfo' onChange={handleChange} value={managerData.briefInfo} required></textarea>
                             {briefInfoError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{briefInfoError}</p>}
                         </div>
                         <div style={{flex: 1}}>
-                            <p>Company’s Registration Certificate</p>
+                            <p>Company’s Registration Certificate<span style={{ fontSize: '15px', color: "#ff3333", }}>*</span></p>
                             <div className='input'><input type='file' name='companyCertificate' required onChange={handleFileChange}/></div>
                             {certificateError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{certificateError}</p>}
                             {/* <textarea rows="10" name='jobDescription'></textarea> */}
                         </div>
                     </div>
+                    <div className="formContainer2" style={{marginTop: '1rem'}}>
+                        <div style={{flex: 1}}>
+                            <label>Company's website (if any)</label>
+                            <div className='input'><input type='text' required name='website' value={managerData.website} onChange={handleChange} /></div>
+                        </div>
+                    </div>
+                        <p style={{fontSize: '13px', marginTop: '1rem',}}>Company's social media handles (if any)</p>
+                    <div className="formContainer2">
+                        <div style={{flex: 1}}>
+                            <label>Facebook</label>
+                            <div className='input'><input type='text' required name='facebook' value={managerData.facebook} onChange={handleChange} /></div>
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Twitter</label>
+                            <div className='input'><input type='text' required name='twitter' value={managerData.twitter} onChange={handleChange}/></div>
+                        </div>
+                        <div style={{flex: 1}}>
+                            <label>Instagram</label>
+                            <div className='input'><input type='text' required name='instagram' value={managerData.instagram} onChange={handleChange}/></div>
+                        </div>
+                    </div>
+                    
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
                     {buttonEnabled &&
                     <button type='submit' onClick={onSubmitApplication}>Submit</button>
                     }
                     {!buttonEnabled &&
                     <button type='submit' disabled onClick={onSubmitApplication}>Submit</button>
                     }
+                    </div>
                 </div>
                 <Modal
                     open={modalOpen}

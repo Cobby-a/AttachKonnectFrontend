@@ -211,7 +211,7 @@ const StudentDashboard = () => {
                 <div className='welcome'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {studentData.last_name}!</h3>
+                        <h3>Welcome, {studentData.last_name}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
@@ -240,7 +240,7 @@ const StudentDashboard = () => {
                 <div className='welcome1'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {studentData.last_name}!</h3>
+                        <h3>Welcome, {studentData.last_name}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />

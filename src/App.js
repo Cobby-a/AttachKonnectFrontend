@@ -20,6 +20,7 @@ import ManagerApplicantsOffer from './manager/applicantsOfferStatus';
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ManagerSignUp from './authentication/managerSignUp';
 import ManagerCreateVacancy from './manager/createVacancy';
+import AdminManagerCompanies from './admin/manageCompanies';
 
 import CompanyDeets from './student/comapanyDeets';
 import AppliedInternships from './student/appliedInternships';
@@ -88,6 +89,7 @@ function App() {
             <Route exact path = "/admin/vacancyboard" element = {wrapAdminPrivateRoute(<AdminVacancy/>, isAdminLoggedIn, '/admin/vacancyboard')}/>
             <Route exact path = "/admin/applicantsboard" element = {wrapAdminPrivateRoute(<AdminApplicants/>, isAdminLoggedIn, '/admin/applicantsboard')}/>
             <Route exact path = "/admin/manage-users" element = {wrapAdminPrivateRoute(<AdminManageUsers/>, isAdminLoggedIn, '/admin/manage-users')}/>
+            <Route exact path = "/admin/manage-companies" element = {wrapAdminPrivateRoute(<AdminManagerCompanies/>, isAdminLoggedIn, '/admin/manage-companies')}/>
 
             <Route exact path = "/manager/dashboard" element={wrapManagerPrivateRoute(<ManagerDashboard/>, isManagerLoggedIn, '/manager/dashboard')}/>
             <Route exact path = "/manager/vacancyboard" element={wrapManagerPrivateRoute(<CompanyVacancies/>, isManagerLoggedIn, '/manager/vacancyboard')}/>

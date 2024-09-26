@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './companyDeets.css'
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -145,8 +145,13 @@ const CompanyDeets = () => {
             <section className='companyDetailsContainer' style={{display: modalOpen ? "none" : "block",}}>
                 <div style={{}}>
                     <p style={{fontFamily: 'Montserrat', fontWeight: "600", textTransform:'uppercase', fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center', lineHeight: '1.6rem'}}>{companyName.split('-').join(' ')}</p>
-                    <p>Information about the company: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.briefInfo}</span></p>
+                    <p>Company's missions, visions, and values: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.briefInfo}</span></p>
                     <p>Location: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.location}</span></p>
+                    {companyData.website && <p>Website: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.website}</span></p>}
+                    {(companyData.facebook || companyData.twitter || companyData.instagram) &&  <p style={{fontWeight: 'bold', marginBottom: '4px'}}>Social media handles<span style={{marginLeft:'4px'}}><FontAwesomeIcon icon={faCaretDown} /></span></p>}
+                    {companyData.facebook &&<p>Facebook: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.facebook}</span></p>}
+                    {companyData.twitter && <p>Twitter: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.twitter}</span></p>}
+                    {companyData.instagram && <p>Instagram: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{companyData.instagram}</span></p>}
                 </div>
                 <div className='form'>
                 <p style={{fontFamily: 'Montserrat', fontWeight: "400", fontSize: "1.2rem", alignContent: 'center', alignSelf: 'center', marginBottom: '0.5rem', marginTop: '2rem', color: '#000'}}>Vacancies</p>
@@ -334,7 +339,7 @@ const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, company
                 (numberReached ? 
                     <p style={{fontSize: '14px', color: '#ff3333', fontFamily: "Montserrat", }}>Number of people needed for this role has been reached</p>
                         : 
-                    (onfile ? <button type='submit' onClick={()=>onSubmitApplication(roleId, company.id, setModalOpen)}>Submit your file for application</button> : <button type='submit' onClick={()=> setOnFile(true)}>Click to Submit your file for application</button>)
+                    (onfile ? <button type='submit' onClick={()=>onSubmitApplication(roleId, company.id, setModalOpen)}>Submit your file for application</button> : <button type='submit' onClick={()=> setOnFile(true)}>Apply</button>)
                 )
                 : 
                 <p style={{fontSize: '14px', color: '#ff3333', fontFamily: "Montserrat", }}>You have already applied for this vacancy role</p>

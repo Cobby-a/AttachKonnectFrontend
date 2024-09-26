@@ -212,7 +212,7 @@ const SupervisorDashboard = () => {
                 <div className='welcome'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {supervisorData.last_name}!</h3>
+                        <h3>Welcome, {supervisorData.last_name}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
@@ -241,7 +241,7 @@ const SupervisorDashboard = () => {
                 <div className='welcome1'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {supervisorData.last_name}!</h3>
+                        <h3>Welcome, {supervisorData.last_name}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />

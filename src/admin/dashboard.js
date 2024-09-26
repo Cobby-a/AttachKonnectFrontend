@@ -149,15 +149,15 @@ const AdminDashboard = () => {
                     <div className='mainContainer2'>
                         <div className='mainContainer3'>
                             <div>
-                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Students on <br/>system</p>
-                                <Link to="/admin/applicantsboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Register a student</p>
+                                <Link to="/admin/manage-users" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"95px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Register</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
                         <div className='mainContainer3' id='mainContainer3'>
                             <div>
-                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>Companies on system</p>
-                                <Link to ="/admin/companyboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.5rem'}}>Register a company</p>
+                                <Link to ="/admin/manage-companies" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"95px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>Register</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>
@@ -187,15 +187,15 @@ const AdminDashboard = () => {
                     <div className='MainContainer2'>
                         <div className='MainContainer3'>
                             <div>
-                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Students on <br/>system</p>
-                                <Link to ="/admin/applicantsboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>View</div></Link>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Register a student</p>
+                                <Link to="/admin/manage-users" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Register</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
                         <div className='MainContainer3' id='MainContainer3'>
                             <div>
-                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>Companies on system</p>
-                                <Link to="/admin/companyboard"><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>View</div></Link>
+                                <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>Register a company</p>
+                                <Link to ="/admin/manage-companies" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>Register</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>

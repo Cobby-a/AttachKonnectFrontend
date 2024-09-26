@@ -508,7 +508,9 @@ const ManagerInternAssessment = () => {
                             <textarea rows="10" name='suggestionsForImprovement' onChange={handleChange} value={studentAssessData.suggestionsForImprovement} required></textarea>
                         </div>
                     </div>
-                    <button type='submit' onClick={onSubmitApplication}>Submit Assessment</button>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <button type='submit' onClick={onSubmitApplication}>Submit Assessment</button>
+                    </div>
                 </div>
                 {/* <Modal
                     open={modalOpen}

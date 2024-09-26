@@ -167,7 +167,7 @@ const ManagerCreateVacancy = () => {
                     </div>
                     <div className='formContainer2'>
                         <div style={{flex: 1}}>
-                            <label>Number of Interns needed for the role</label>
+                            <label>Number of Interns needed</label>
                             <div className='input'><input type='number' required name='numberOfInterns' value={vacancyData.numberOfInterns} onChange={handleChange}/></div>
                             {numOfInternError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{numOfInternError}</p>}
                         </div>
@@ -185,7 +185,9 @@ const ManagerCreateVacancy = () => {
                             <textarea rows="10" name='moreInfo' onChange={handleChange} value={vacancyData.moreInfo} required></textarea>
                         </div>
                     </div>
-                    <button type='submit' onClick={onSubmitApplication}>Create new role</button>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <button type='submit' onClick={onSubmitApplication}>Create new role</button>
+                    </div>
                 </div>
                 <Modal
                     open={modalOpen}

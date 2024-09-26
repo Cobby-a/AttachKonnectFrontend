@@ -211,7 +211,7 @@ const ManagerDashboard = () => {
                 <div className='welcome'>
                     <div>
                         <p style={{marginTop: '8px'}}>{month} {day}, {year}</p>
-                        <h3 style={{marginTop: '-2px'}}>Welcome back, {managerData.companyName}!</h3>
+                        <h3 style={{marginTop: '-2px'}}>Welcome, {managerData.companyName}!</h3>
                         <p style={{paddingTop: '10px'}}>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />
@@ -240,7 +240,7 @@ const ManagerDashboard = () => {
                 <div className='welcome1'>
                     <div>
                         <p>{month} {day}, {year}</p>
-                        <h3>Welcome back, {managerData.companyName}!</h3>
+                        <h3>Welcome, {managerData.companyName}!</h3>
                         <p>Always stay updated in your system’s portal</p>
                     </div>
                     <img src={welcome} alt="welcome" />

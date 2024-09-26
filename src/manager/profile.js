@@ -181,6 +181,10 @@ const ManagerDeets = ({setModalOpen}) => {
         'location':"",
         'durationOfExistence':"",
         'briefInfo':"",
+        'website':"",
+        'facebook':"",
+        'twitter':"",
+        'instagram':"",
         'companyLogo':"",
         'company_logo':"",
     })
@@ -197,6 +201,10 @@ const ManagerDeets = ({setModalOpen}) => {
                     'location' : response.data.location,
                     'durationOfExistence': response.data.durationOfExistence,
                     'briefInfo':response.data.briefInfo,
+                    'website':response.data.website,
+                    'facebook':response.data.facebook,
+                    'twitter':response.data.twitter,
+                    'instagram':response.data.instagram,
                     'companyLogo': response.data.companyLogo,
                     'company_logo' : '',
                 })
@@ -255,6 +263,10 @@ const ManagerDeets = ({setModalOpen}) => {
         managerD.append("location", managerData.location)
         managerD.append("durationOfExistence", managerData.durationOfExistence)
         managerD.append("briefInfo", managerData.briefInfo)
+        managerD.append("website", managerData.website)
+        managerD.append("facebook", managerData.facebook)
+        managerD.append("twitter", managerData.twitter)
+        managerD.append("instagram", managerData.instagram)
         if(managerData.company_logo !==''){
             managerD.append('companyLogo', managerData.company_logo, managerData.company_logo.name)
         }
@@ -363,8 +375,24 @@ const ManagerDeets = ({setModalOpen}) => {
                 {onEdit ? <div style={{ marginTop: '-1rem'}}><input style={{padding: "4px 5px 4px 5px", width: '250px',}} value={managerData.durationOfExistence} onChange={handleChange} name='durationOfExistence'/></div>:<p className='pBody'>{managerData.durationOfExistence}</p>}
             </div>
             <div>
-                <p className='pTitle'>Brief Info about the company</p>
+                <p className='pTitle'>Company's missions, visions, and values</p>
                 {onEdit ? <div style={{ marginTop: '-1rem'}}><input style={{padding: "4px 5px 4px 5px", width: '250px',}} value={managerData.briefInfo} onChange={handleChange} name='briefInfo'/></div>:<p className='pBody'>{managerData.briefInfo}</p>}
+            </div>
+            <div>
+                <p className='pTitle'>Company's website</p>
+                {onEdit ? <div style={{ marginTop: '-1rem'}}><input style={{padding: "4px 5px 4px 5px", width: '250px',}} value={managerData.website} onChange={handleChange} name='website'/></div>:<p className='pBody'>{managerData.website ? managerData.website : "N/A"}</p>}
+            </div>
+            <div>
+                <p className='pTitle'>Facebook handle</p>
+                {onEdit ? <div style={{ marginTop: '-1rem'}}><input style={{padding: "4px 5px 4px 5px", width: '250px',}} value={managerData.facebook} onChange={handleChange} name='facebook'/></div>:<p className='pBody'>{managerData.facebook ? managerData.facebook : "N/A"}</p>}
+            </div>
+            <div>
+                <p className='pTitle'>Twitter handle</p>
+                {onEdit ? <div style={{ marginTop: '-1rem'}}><input style={{padding: "4px 5px 4px 5px", width: '250px',}} value={managerData.twitter} onChange={handleChange} name='twitter'/></div>:<p className='pBody'>{managerData.twitter ? managerData.twitter : "N/A"}</p>}
+            </div>
+            <div>
+                <p className='pTitle'>Instagram handle</p>
+                {onEdit ? <div style={{ marginTop: '-1rem'}}><input style={{padding: "4px 5px 4px 5px", width: '250px',}} value={managerData.instagram} onChange={handleChange} name='instagram'/></div>:<p className='pBody'>{managerData.instagram ? managerData.instagram : "N/A"}</p>}
             </div>
             {onEdit && <div>
                 <p className='pTitle'>Change company logo?</p>
