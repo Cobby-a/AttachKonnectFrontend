@@ -200,7 +200,7 @@ const ManagerSignIn = () => {
                     <img src={logo} alt="logo" />
                 </section>
                 <section className="logo1">
-                    <img src={compssalogo} alt="logo" style={{width: "120px"}} />
+                    <img src={compssalogo} alt="logo" style={{width: "100%", height: "100%"}} />
                 </section>
             </section>
             <section className='maincontainer'>

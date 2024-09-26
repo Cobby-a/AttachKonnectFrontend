@@ -34,7 +34,7 @@
 .authContainer .logo img, .authContainer .logo1 img {
     width: 75px;
     height: 75px;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 .authContainer {
     min-height: 100vh;

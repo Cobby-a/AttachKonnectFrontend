@@ -502,7 +502,7 @@ const Vacancy1 = ({role, numberOfInterns, deadline, moreInfo, company, total_acc
                 <>
                 <td style={{borderTop: 'none'}} colSpan='4'>
                 {applicationError && <p style={{ marginLeft: '8px', fontSize: '12.5px', color: "#ff3333", marginBottom: '0', marginTop: '-10px'}}>{applicationError}</p>}
-                    <span style={{marginLeft: '8px', fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Submit file for application: </span><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' onChange={handleFileChange}/>
+                    <span style={{marginLeft: '8px', fontWeight: 'bold', fontFamily: 'Montserrat', color: '#4C4C4C'}}>Submit CV: </span><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' onChange={handleFileChange}/>
                     <button style={{fontSize: '13px', backgroundColor: "#1A7AE0", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginLeft: "10px"}} onClick={()=>onSubmitApplication(roleId, company.id, setModalOpen)}>Apply</button>
                     <button style={{fontSize: '13px', backgroundColor: "#ff3333", padding: '4px', borderRadius: '4px', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'Montserrat', marginRight: '0.5rem', marginLeft: "10px"}} onClick={()=>onCancel()}>Cancel</button>
                 </td>

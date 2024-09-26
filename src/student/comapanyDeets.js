@@ -331,7 +331,7 @@ const CompanyDeet = ({roleId, role, numberOfInterns, deadline, moreInfo, company
                 <p>More Information about the role: <span style={{fontSize: '14px', color: '#000000', fontFamily: "Montserrat", }}>{moreInfo}</span></p>
             </div>
             {onfile && <div style={{flex: 1, width:"100%", marginTop: '8px'}}>
-                <label>Submit your file</label>
+                <label>Submit your CV</label>
                 <div className='input'><input type='file' accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf" required name='applicationFile' onChange={handleFileChange}/></div>
                 {applicationError && <p style={{ fontSize: '12.5px', color: "#ff3333", }}>{applicationError}</p>}
             </div>}
