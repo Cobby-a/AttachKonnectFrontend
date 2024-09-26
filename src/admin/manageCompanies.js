@@ -100,11 +100,6 @@ const AdminManagerCompanies = () => {
                     try{
                         axios.post(baseUrl+'manager/registered-companies/', registerData)
                         .then((response)=>{
-                            setRegisterCompanyData({
-                                companyId: '',
-                                companyName: '',
-                                email: '',
-                            });
                             const companyTempPass = new FormData();
                             companyTempPass.append("reportStatus", "Verified")
                             companyTempPass.append("contractStatus", "Verified")
@@ -117,6 +112,11 @@ const AdminManagerCompanies = () => {
                                     }
                                 })
                                 .then((response)=>{
+                                    setRegisterCompanyData({
+                                        companyId: '',
+                                        companyName: '',
+                                        email: '',
+                                    });
                                     window.location.reload()
                                 })
                                 .catch((error)=>{
