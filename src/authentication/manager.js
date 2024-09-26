@@ -1,5 +1,5 @@
 import logo from '../assets/logo.svg'
-import compssalogo from '../assets/compssaLogo.png'
+import compssalogo from '../assets/departmentLogo.jpg'
 import logo1 from '../assets/logoname.svg'
 
 import { Checkbox,  } from '@mui/material'
@@ -200,7 +200,7 @@ const ManagerSignIn = () => {
                     <img src={logo} alt="logo" />
                 </section>
                 <section className="logo1">
-                    <img src={compssalogo} alt="logo" />
+                    <img src={compssalogo} alt="logo" style={{width: "120px"}} />
                 </section>
             </section>
             <section className='maincontainer'>
