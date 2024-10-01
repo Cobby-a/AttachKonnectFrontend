@@ -188,14 +188,14 @@ const AdminDashboard = () => {
                         <div className='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins'}}>Register a student</p>
-                                <Link to="/admin/manage-users" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"72px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Register</div></Link>
+                                <Link to="/admin/manage-users" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff",  width:"95px", padding: "4px 16px", borderRadius: "16px", fontFamily: 'Poppins',  textAlign: 'center'}}>Register</div></Link>
                             </div>
                             <img src={comp} alt="Computer" />
                         </div>
                         <div className='MainContainer3' id='MainContainer3'>
                             <div>
                                 <p style={{color: "#925EF2", fontWeight: 'bold', fontFamily: 'Poppins', paddingRight: '0.6rem'}}>Register a company</p>
-                                <Link to ="/admin/manage-companies" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"72px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>Register</div></Link>
+                                <Link to ="/admin/manage-companies" target='_blank'><div style={{backgroundColor: '#925FE2', color: "#ffffff", width:"95px", padding: "4px 16px", borderRadius: "16px", textAlign: 'center', fontFamily: 'Poppins'}}>Register</div></Link>
                             </div>
                             <img src={stats} alt="Statistics" />
                         </div>
