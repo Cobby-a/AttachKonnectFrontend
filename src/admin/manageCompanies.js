@@ -118,6 +118,10 @@ const AdminManagerCompanies = () => {
                                         email: '',
                                     });
                                     window.location.reload()
+                                    // axios.get(baseUrl+'manager/manager-company/')
+                                    //     .then((response)=>{
+                                    //         setCompanyData(response.data)
+                                    //     })
                                 })
                                 .catch((error)=>{
                                     if (error.response) {
@@ -161,7 +165,6 @@ const AdminManagerCompanies = () => {
                             }catch(error){
                                 console.log(error)
                             }
-                            window.location.reload()
                         })
                         .catch((error)=>{
                             if (error.response) {
@@ -277,19 +280,19 @@ const AdminManagerCompanies = () => {
     )
 }
 
-const Companies = ({id, companyName, email, setRegisterCompanyData, registerCompanyData, setCid,}) => {
-    const registCompanyForm = (company_id, company_name, company_email) => {
-        setRegisterCompanyData({
-            'company' : company_id,
-            "companyName" : company_name,
-            'email': company_email, 
-        })
-        // setCid(company_id)
-    }
-    return(
-        <option onClick={()=>registCompanyForm(id, companyName, email)}>{companyName} - {email}</option>
-        // <option onClick={()=>setRegisterCompanyData({'companyId': id, "companyName" : companyName, 'email': email })}>{companyName} - {email} -{id} </option>
-        // <option value={registerCompanyData.company} onClick={()=> registCompanyForm(companyName, email)}>{companyName} - {email} </option>
-    )
-}
+// const Companies = ({id, companyName, email, setRegisterCompanyData, registerCompanyData, setCid,}) => {
+//     const registCompanyForm = (company_id, company_name, company_email) => {
+//         setRegisterCompanyData({
+//             'company' : company_id,
+//             "companyName" : company_name,
+//             'email': company_email, 
+//         })
+//         // setCid(company_id)
+//     }
+//     return(
+//         <option onClick={()=>registCompanyForm(id, companyName, email)}>{companyName} - {email}</option>
+//         // <option onClick={()=>setRegisterCompanyData({'companyId': id, "companyName" : companyName, 'email': email })}>{companyName} - {email} -{id} </option>
+//         // <option value={registerCompanyData.company} onClick={()=> registCompanyForm(companyName, email)}>{companyName} - {email} </option>
+//     )
+// }
 export default AdminManagerCompanies;
